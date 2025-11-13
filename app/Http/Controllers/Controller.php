@@ -10,3 +10,78 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 }
+
+class HomeController extends Controller{
+
+    public function index()
+    {
+        return view('home');
+    }
+
+
+
+     public function about ()
+    {
+        return view('about');
+    }
+
+
+
+     public function cartpage()
+    {
+        return view('cart-page');
+    }
+
+
+
+     public function checkout()
+    {
+        return view('checkout');
+    }
+
+
+
+     public function colllectioncategory()
+    {
+        return view('collection-category');
+    }
+
+
+
+     public function order()
+    {
+        return view('order');
+    }
+
+
+
+     public function payment()
+    {
+        return view('payment');
+    }
+
+
+
+     public function product()
+    {
+        return view('product');
+    }
+
+
+
+     public function whistlist()
+    {
+        return view('whistlist');
+    }
+
+     public function addproduct()
+    {
+        return view('addproduct');
+    }
+
+}
+
+
+
+
+
