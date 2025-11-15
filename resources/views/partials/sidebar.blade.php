@@ -193,6 +193,9 @@
         .text{
             color: orangered;
         }
+        .bi-list{
+            color: orangered;
+        }
 </style>
 <body>
 
@@ -216,7 +219,7 @@
 
        <div class=" d-flex ms-3 align-items-center">
     <img src="http://127.0.0.1:8000/assets/image/index/logo.png" class="logo" height="32px" width="130px">
-      <i class="bi bi-list  fs-2 ms-auto mx-4" id="menubtn" style="cursor: pointer;"></i>
+      <i class="bi bi-list fs-2 ms-auto mx-4" id="menubtn" style="cursor: pointer;"></i>
 
   </div>
 
@@ -248,13 +251,12 @@
     </li>
      <li class="nav-item">
       <a class="nav-link collapsed" data-bs-toggle="collapse" href="#appSubmenu" role="button" aria-expanded="false" aria-controls="appSubmenu"><span class="text">
-        <i class="bi bi-layout-text-window-reverse me-2 text-secondary"></i>Application</span><i class="bi bi-chevron-down float-end"></i>
+        <i class="bi bi-layout-text-window-reverse me-2 text-secondary"></i>Products</span><i class="bi bi-chevron-down float-end"></i>
       </a>
       <div class="collapse" id="appSubmenu">
         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-          <li><a href="form.html" class="nav-link ps-4">Forms</a></li>
-          <li><a href="table.html" class="nav-link ps-4">Tables</a></li>
-          <li><a href="#" class="nav-link ps-4">Charts</a></li>
+          <li><a href="{{route('product.create')}}" class="nav-link ps-4">Add product</a></li>
+          <li><a href="table.html" class="nav-link ps-4">Product list</a></li>
         </ul>
       </div>
     </li>
@@ -265,7 +267,7 @@
       <div class="collapse" id="appSubmenu1">
         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
           <li><a href="{{ route('product.category') }}" class="nav-link ps-4">Add category</a></li>
-          <li><a href="table.html" class="nav-link ps-4">....</a></li>
+          <li><a href="{{route('category.list') }}" class="nav-link ps-4">Category list</a></li>
           <li><a href="#" class="nav-link ps-4">....</a></li>
         </ul>
       </div>
@@ -274,7 +276,7 @@
     <hr>
 
      <li class="nav-item">
-      <a class="nav-link" href="#"><i class="bi bi-file-earmark-text me-2"></i>more</a>
+      <a class="nav-link" href="#"><i class="bi bi-file-earmark-text me-2"></i>Customer contact list</a>
     </li>
 
 

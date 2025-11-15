@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ImageController;
+use App\Http\Controllers\ColorController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SizeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,20 +79,40 @@ Route::get('admin/dashboard', function () {
 
 
 
-
-// Route::get('/addproduct', function () {
-//     return view('admin.addproduct');
-// })->name('addproduct');
-
-
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
+
+// product routes
 Route::get('/admin/add-product', [ProductController::class, 'create'])->name('product.create');
 Route::post('/admin/add-product', [ProductController::class, 'store'])->name('product.store');
 
 
-Route::get('/admin/add-category', [ProductController::class, 'createcategory'])->name('product.category');
+
+
+
+// category routes
+Route::get('/admin/add-category', [CategoryController::class, 'create'])->name('product.category');
+ Route::post('/admin/categories', [CategoryController::class, 'store'])->name('category.store');
+ Route::get('/admin/categories', [CategoryController::class, 'categorylist'])->name('category.list');
+
+
+//  image routes
+
+Route::get('images', [ImageController::class, 'index']);
+Route::post('images', [ImageController::class, 'store']);
+
+// color routes
+
+Route::get('product-colors', [ColorController::class, 'index']);
+Route::post('product-colors', [ColorController::class, 'store']);
+
+// size routes
+
+Route::get('sizes', [SizeController::class, 'index']);
+Route::post('sizes', [SizeController::class, 'store']);
+
+
 
 
 

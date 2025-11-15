@@ -152,51 +152,51 @@ button:hover{
          <h1 class=" text-center">ADD PRODUCT DETAILS</h1>
 
         <label for="productName" class="p-1 mt-3">Product Name</label>
-        <input type="text" id="productName" name="productName" placeholder="Enter your product name" required>
+        <input type="text" id="productName" name="p_name" placeholder="Enter your product name" required>
 
 
         <label for="category"  class="p-1 mt-3">Category</label>
-        <select id="category" name="category" class="text-secondary" required>
-            <option value="">Select Category</option>
-            <option value="electronics">Electronics</option>
-            <option value="clothing">Clothing</option>
-            <option value="books">Books</option>
-            <option value="accessories">Accessories</option>
+        <select id="category" name="p_category_id" class="text-secondary" required>
+              <option value="">Select Category</option>
+    <option value="1">Electronics</option>
+    <option value="2">Clothing</option>
+    <option value="3">Books</option>
+    <option value="4">Accessories</option>
         </select>
 
                 <label for="price" class="p-1 mt-3">Price</label>
-        <input type="number" id="price" name="price" placeholder="Enter your product price" required>
+        <input type="number" id="price" name="p_price" placeholder="Enter your product price" required>
 
 
 
 
         <div class="form-container">
     <div class="row mb-3 mt-4">
-      <div class="col-md-4">
-        <label>Base Price</label>
-        <input type="text" class="form-control textarea" placeholder="">
-      </div>
+      {{-- <div class="col-md-4">
+        <label>Base Price/old price</label>
+        <input type="text" name="p_price" class="form-control textarea" placeholder="">
+      </div> --}}
       <div class="col-md-4">
         <label>Old Price (Optional)</label>
-        <input type="text" class="form-control textarea" placeholder="">
+        <input type="text" name="p_old_price" class="form-control textarea" placeholder="">
       </div>
       <div class="col-md-4">
         <label>Stock Quantity</label>
-        <input type="number" class="form-control textarea" value="0">
+        <input type="number" name="p_stock" class="form-control textarea" value="0">
       </div>
     </div>
 
     <div class="row">
       <div class="col-md-6">
         <label>Visibility Status</label>
-       <select class="form-control textarea ">
-          <option value="visible" selected>Visible</option>
-          <option value="invisible">Invisible</option>
+       <select class="form-control textarea" name="p_visibility_status">
+          <option value="1" selected>Visible</option>
+          <option value="0">Invisible</option>
         </select>
       </div>
       <div class="col-md-6">
         <label>Product Type</label>
-        <input type="text" class="form-control textarea" placeholder="e.g. regular, featured">
+        <input type="text" class="form-control textarea" name="p_type" placeholder="e.g. regular, featured">
       </div>
     </div>
   </div>
@@ -209,28 +209,7 @@ button:hover{
   <div class="color-card">
 
     <div class=" mb-3 border border-warning rounded-0 " id="colorcontainer">
-         {{-- <h5><strong>Color 1</strong></h5>
-    <div class="row mt-3">
-      <div class="col-md-4">
-        <input type="text" class="form-control" placeholder="Color Name">
-      </div>
-      <div class="col-md-4">
-        <input type="text" class="form-control" placeholder="Color Code (e.g. #FF0000)">
-      </div>
-      <div class="col-md-4">
-        <input type="text" class="form-control" placeholder="Color Price Adjustment">
-      </div>
-    </div>
 
-     <div class="mt-3">
-      <label class="form-label">Images (for this color)</label>
-      <input type="file" class="form-control" multiple>
-    </div> --}}
-{{--
-    <div class="mt-3">
-      <label class="form-label">Sizes</label><br>
-      <button class="add-size-btn p-2 w-100">+ Add Size</button>
-    </div> --}}
 
     </div>
 
@@ -238,13 +217,13 @@ button:hover{
   </div>
 
        <label class="form-label mt-4 ms-2">Short Description</label>
-       <textarea class="form-control textarea" rows="3" placeholder="Enter short description" name="shortDescription" required></textarea>
+       <textarea class="form-control textarea" rows="3" placeholder="Enter short description" name="p_short_description" required></textarea>
 
 
          <div class="container p-3">
     <div class="mb-1 mt-4">
       <label for="productDescription" class="form-label">Product Long Description</label>
-      <textarea id="productDescription" name="productDescription"></textarea>
+      <textarea id="productDescription" name="p_long_description"></textarea>
     </div>
   </div>
 
@@ -310,43 +289,44 @@ button:hover{
 
 <script>
 $(document).ready(function() {
-    let count = 1;
+    let colorCount = 0;
 
     // Add Color button click
     $('#addcolorbtn').click(function(e) {
+             let colorIndex = colorCount++;
         e.preventDefault();
 
         let newColorBox = $(`
-            <div class="addcolor p-3 mb-3 rounded-0 border-top border-2 border-warning">
+            <div class="addcolor p-3 mb-3 rounded-0 border-top border-2 border-warning " data-color-index="${colorIndex}">
                 <div class="d-flex align-item-center">
-                <h5><strong>Color ${count}</strong></h5>
+                <h5><strong>Color ${colorIndex+1}</strong></h5>
                   <button class="btn btn-sm btn-danger removeBtn mt-0 ms-auto d-block">Remove Color</button>
                  </div>
 
                 <div class="row mt-3">
                     <div class="col-md-4 mb-2 ">
                         <label>Color Name</label>
-                        <input type="text" class="form-control" placeholder="Color Name">
+                        <input type="text" class="form-control" name="colorname[]" placeholder="Color Name">
                     </div>
                     <div class="col-md-4 mb-2">
                         <label>Color code</label>
-                        <input type="text" class="form-control" placeholder="Color Code (e.g. #FF0000)">
+                        <input type="text" class="form-control" name="colorcode[]" placeholder="Color Code (e.g. #FF0000)">
                     </div>
                     <div class="col-md-4 mb-2">
                      <label>Price Adjustment</label>
-                        <input type="text" class="form-control" placeholder="Price Adjustment">
+                        <input type="text" class="form-control" name="priceadjustment[]" placeholder="Price Adjustment">
                     </div>
                 </div>
 
                 <div class="mt-3 mb-2">
                     <label class="form-label">Images (for this color)</label>
-                    <input type="file" class="form-control" multiple>
-                </div>
+                    <input type="file" name="color_images[]" multiple>
+                   </div>
 
                   <div class="mt-3 size-section">
                     <label class="form-label">Sizes</label>
                     <div class="sizeContainer"></div>
-                    <button class=" p-2 add-size-btn w-100 mt-2">+ Add Size</button>
+                    <button class=" p-2 add-size-btn w-100 mt-2" type="button">+ Add Size</button>
                 </div>
 
 
@@ -371,17 +351,18 @@ $(document).ready(function() {
     // Add Size inside the respective color
 $('#colorcontainer').on('click', '.add-size-btn', function(e) {
         e.preventDefault();
-        let sizeContainer = $(this).siblings('.sizeContainer');
+let sizeContainer = $(this).closest('.size-section').find('.sizeContainer');
+let colorIndex = $(this).closest('.addcolor').data('color-index');
 
         let newSizeBox = $(`
             <div class="size-box row d-flex align-items-center bg-light p-2 mb-2">
                 <div class="col-md-6 mb-2">
                     <label>Size Name</label>
-                    <input type="text" class="form-control" placeholder="Size Name">
+                    <input type="text" class="form-control" name="sizename[${colorIndex}][]" placeholder="Size Name">
                 </div>
                 <div class="col-md-6 mb-2">
                     <label>Price Adjustment</label>
-                    <input type="number" class="form-control" placeholder="Price Adjustment">
+                    <input type="number" class="form-control" name="sizepriceadjustment[${colorIndex}][]" placeholder="Price Adjustment">
                 </div>
             </div>
         `);
