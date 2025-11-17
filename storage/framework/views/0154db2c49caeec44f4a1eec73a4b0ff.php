@@ -144,94 +144,59 @@ button:hover{
     </div>
 <?php endif; ?>
 
-
-
-   <div class="container w-75 p-3">
+      <div class="container w-75 p-3">
     <div class="row">
 
-     <form action="<?php echo e(route('product.store')); ?>" method="POST" enctype="multipart/form-data" class="p-5">
-        <?php echo csrf_field(); ?>
-         <h1 class=" text-center">ADD PRODUCT DETAILS</h1>
+   <form action="<?php echo e(route('product.update', $product->p_id)); ?>" method="POST" enctype="multipart/form-data">
+    <?php echo csrf_field(); ?>
+    <?php echo method_field('PUT'); ?>
 
-        <label for="productName" class="p-1 mt-3">Product Name</label>
-        <input type="text" id="productName" name="p_name" placeholder="Enter your product name" required>
+    <label>Product Name</label>
+    <input type="text" name="p_name" value="<?php echo e(old('p_name', $product->p_name)); ?>">
 
+    <label>Category</label>
+    <select name="p_category_id">
+        <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <option value="<?php echo e($cat->c_id); ?>" <?php echo e($product->p_category_id == $cat->c_id ? 'selected' : ''); ?>>
+                <?php echo e($cat->c_name); ?>
 
-        <label for="category"  class="p-1 mt-3">Category</label>
-        <select id="category" name="p_category_id" class="text-secondary" required>
-              <option value="">Select Category</option>
-    <option value="1">Electronics</option>
-    <option value="2">Clothing</option>
-    <option value="3">Books</option>
-    <option value="4">Accessories</option>
-        </select>
+            </option>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    </select>
 
-                <label for="price" class="p-1 mt-3">Price</label>
-        <input type="number" id="price" name="p_price" placeholder="Enter your product price" required>
+    <label>Price</label>
+    <input type="number" name="p_price" value="<?php echo e(old('p_price', $product->p_price)); ?>">
 
+    <!-- Colors -->
+    <div id="colorcontainer">
+        <?php $__currentLoopData = $product->colors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $color): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <div class="color-box" data-index="<?php echo e($index); ?>">
+            <label>Color Name</label>
+            <input type="text" name="colorname[<?php echo e($index); ?>]" value="<?php echo e($color->color_name); ?>">
 
+            <label>Color Code</label>
+            <input type="text" name="colorcode[<?php echo e($index); ?>]" value="<?php echo e($color->color_code); ?>">
 
+            <label>Price Adjustment</label>
+            <input type="number" name="priceadjustment[<?php echo e($index); ?>]" value="<?php echo e($color->color_price_adjustment); ?>">
 
-        <div class="form-container">
-    <div class="row mb-3 mt-4">
-      
-      <div class="col-md-4">
-        <label>Old Price (Optional)</label>
-        <input type="text" name="p_old_price" class="form-control textarea" placeholder="">
-      </div>
-      <div class="col-md-4">
-        <label>Stock Quantity</label>
-        <input type="number" name="p_stock" class="form-control textarea" value="0">
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <label>Visibility Status</label>
-       <select class="form-control textarea" name="p_visibility_status">
-          <option value="1" selected>Visible</option>
-          <option value="0">Invisible</option>
-        </select>
-      </div>
-      <div class="col-md-6">
-        <label>Product Type</label>
-        <input type="text" class="form-control textarea" name="p_type" placeholder="e.g. regular, featured">
-      </div>
-    </div>
-  </div>
-
-
-
-
-
-   <label class="form-label mt-4 ms-2">Select Product Colors</label>
-  <div class="color-card">
-
-    <div class=" mb-3 border border-warning rounded-0 " id="colorcontainer">
-
-
-    </div>
-
-    <button class="btn btn-warning  w-25 p-2" id="addcolorbtn">+ Add Color</button>
-  </div>
-
-       <label class="form-label mt-4 ms-2">Short Description</label>
-       <textarea class="form-control textarea" rows="3" placeholder="Enter short description" name="p_short_description" required></textarea>
-
-
-         <div class="container p-3">
-    <div class="mb-1 mt-4">
-      <label for="productDescription" class="form-label">Product Long Description</label>
-      <textarea id="productDescription" name="p_long_description"></textarea>
-    </div>
-  </div>
-
-        <div class="p-2 text-center rounded-2 ">
-        <button class=" p-3 text-center text-white rounded-2 w-50" type="submit">Add Product in your web <i class="bi bi-arrow-right" class="g-3"></i></button>
+            <!-- Sizes for this color -->
+            <div class="sizeContainer">
+                <?php $__currentLoopData = $color->sizes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sIndex => $size): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <div class="size-box">
+                    <input type="text" name="sizename[<?php echo e($index); ?>][<?php echo e($sIndex); ?>]" value="<?php echo e($size->size_name); ?>">
+                    <input type="number" name="sizepriceadjustment[<?php echo e($index); ?>][<?php echo e($sIndex); ?>]" value="<?php echo e($size->size_price_adjustment); ?>">
+                </div>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </div>
         </div>
-     </form>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
-  </div>
+
+    <button type="submit">Update Product</button>
+</form>
+</div>
+</div>
 
 
 
@@ -319,7 +284,7 @@ $(document).ready(function() {
 
                 <div class="mt-3 mb-2">
                     <label class="form-label">Images (for this color)</label>
-                  <input type="file" name="color_images[${colorIndex}][]" multiple>
+                    <input type="file" name="color_images[]" multiple>
                    </div>
 
                   <div class="mt-3 size-section">
@@ -377,4 +342,4 @@ let colorIndex = $(this).closest('.addcolor').data('color-index');
 
 </body>
 </html>
-<?php /**PATH C:\laravel_git\ecommerce-web\resources\views/admin/addproduct.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\laravel_git\ecommerce-web\resources\views/admin/editproduct.blade.php ENDPATH**/ ?>

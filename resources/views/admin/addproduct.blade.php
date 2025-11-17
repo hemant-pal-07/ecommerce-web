@@ -16,10 +16,11 @@
     *{
         padding: 0;
         margin: 0;
+
     }
      body{
-        background: #f8f9fa;
           font-family: 'Poppins',sans-serif;
+          background:rgb(245, 243, 241);
     }
            select, textarea {
             padding: 10px;
@@ -320,7 +321,7 @@ $(document).ready(function() {
 
                 <div class="mt-3 mb-2">
                     <label class="form-label">Images (for this color)</label>
-                    <input type="file" name="color_images[]" multiple>
+                  <input type="file" name="color_images[${colorIndex}][]" multiple>
                    </div>
 
                   <div class="mt-3 size-section">

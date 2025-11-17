@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Color;
 use App\Models\Size;
+use App\Models\category;
 
 class ProductController extends Controller
 {
@@ -73,32 +74,73 @@ class ProductController extends Controller
                 ]);
             }
         }
-           if ($request->hasFile('color_images')) {
 
-    foreach ($request->file('color_images') as $file) {
+           if ($request->hasFile("color_images.$index")) {
 
-        $filename = time().'_'.$file->getClientOriginalName();
-        $file->storeAs('public/colors', $filename);
+                foreach ($request->file("color_images.$index") as $file) {
 
-        \App\Models\Image::create([
-            'img_color_id' => $color->color_id,
-            'img_path' => $filename,
-            'img_alt_text' => $color->color_name,
-        ]);
-    }
-}
+                    $filename = time().'_'.$file->getClientOriginalName();
+                    $file->storeAs('public/colors', $filename);
+
+                    \App\Models\Image::create([
+                        'img_color_id' => $color->color_id,
+                        'img_path' => $filename,
+                        'img_alt_text' => $color->color_name,
+                    ]);
+                }
+            }
 
 
 
      return redirect()->route('product.create')->with('success', 'Product added successfully!');
 
-        return redirect()->route('product.create')
-                     ->with('success', 'Product with Colors & Sizes added successfully!');
+
 
 }
 }
 
 }
+
+public function productlist(){
+   // Sab products fetch karo
+    $products = Product::all();
+         $products = Product::with('colors.images')->get();
+    // Pass kar do view me
+    return view('admin.productlist', compact('products'));
+
+
+            // Products with category, colors, images, and sizes
+        $products = Product::with(['category', 'colors.images', 'colors.sizes'])->get();
+
+
+
+}
+
+
+
+    public function edit($id)
+{
+    $product = Product::with(['colors.sizes', 'colors.images'])->findOrFail($id);
+      $categories = \App\Models\Category::all();
+    return view('admin.editproduct', compact('product','categories'));
+}
+
+
+
+public function destroy($id)
+{
+    $product = Product::findOrFail($id);
+    $product->delete();
+
+    return redirect()->route('product.list')->with('success', 'Product deleted successfully!');
+}
+
+
+
+
+
+
+
 }
 
 

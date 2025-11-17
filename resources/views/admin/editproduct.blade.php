@@ -131,107 +131,70 @@ button:hover{
 <body>
 
 
-   <?php echo $__env->make('partials.sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+   @include('partials.sidebar')
 
 
-   <?php echo $__env->make('partials.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+   @include('partials.header')
 
 
-   <?php if(session('success')): ?>
+   @if(session('success'))
     <div class="alert alert-success text-center">
-        <?php echo e(session('success')); ?>
-
+        {{ session('success') }}
     </div>
-<?php endif; ?>
+@endif
 
-
-
-   <div class="container w-75 p-3">
+      <div class="container w-75 p-3">
     <div class="row">
 
-     <form action="<?php echo e(route('product.store')); ?>" method="POST" enctype="multipart/form-data" class="p-5">
-        <?php echo csrf_field(); ?>
-         <h1 class=" text-center">ADD PRODUCT DETAILS</h1>
+   <form action="{{ route('product.update', $product->p_id) }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    @method('PUT')
 
-        <label for="productName" class="p-1 mt-3">Product Name</label>
-        <input type="text" id="productName" name="p_name" placeholder="Enter your product name" required>
+    <label>Product Name</label>
+    <input type="text" name="p_name" value="{{ old('p_name', $product->p_name) }}">
 
+    <label>Category</label>
+    <select name="p_category_id">
+        @foreach($categories as $cat)
+            <option value="{{ $cat->c_id }}" {{ $product->p_category_id == $cat->c_id ? 'selected' : '' }}>
+                {{ $cat->c_name }}
+            </option>
+        @endforeach
+    </select>
 
-        <label for="category"  class="p-1 mt-3">Category</label>
-        <select id="category" name="p_category_id" class="text-secondary" required>
-              <option value="">Select Category</option>
-    <option value="1">Electronics</option>
-    <option value="2">Clothing</option>
-    <option value="3">Books</option>
-    <option value="4">Accessories</option>
-        </select>
+    <label>Price</label>
+    <input type="number" name="p_price" value="{{ old('p_price', $product->p_price) }}">
 
-                <label for="price" class="p-1 mt-3">Price</label>
-        <input type="number" id="price" name="p_price" placeholder="Enter your product price" required>
+    <!-- Colors -->
+    <div id="colorcontainer">
+        @foreach($product->colors as $index => $color)
+        <div class="color-box" data-index="{{ $index }}">
+            <label>Color Name</label>
+            <input type="text" name="colorname[{{ $index }}]" value="{{ $color->color_name }}">
 
+            <label>Color Code</label>
+            <input type="text" name="colorcode[{{ $index }}]" value="{{ $color->color_code }}">
 
+            <label>Price Adjustment</label>
+            <input type="number" name="priceadjustment[{{ $index }}]" value="{{ $color->color_price_adjustment }}">
 
-
-        <div class="form-container">
-    <div class="row mb-3 mt-4">
-      
-      <div class="col-md-4">
-        <label>Old Price (Optional)</label>
-        <input type="text" name="p_old_price" class="form-control textarea" placeholder="">
-      </div>
-      <div class="col-md-4">
-        <label>Stock Quantity</label>
-        <input type="number" name="p_stock" class="form-control textarea" value="0">
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <label>Visibility Status</label>
-       <select class="form-control textarea" name="p_visibility_status">
-          <option value="1" selected>Visible</option>
-          <option value="0">Invisible</option>
-        </select>
-      </div>
-      <div class="col-md-6">
-        <label>Product Type</label>
-        <input type="text" class="form-control textarea" name="p_type" placeholder="e.g. regular, featured">
-      </div>
-    </div>
-  </div>
-
-
-
-
-
-   <label class="form-label mt-4 ms-2">Select Product Colors</label>
-  <div class="color-card">
-
-    <div class=" mb-3 border border-warning rounded-0 " id="colorcontainer">
-
-
-    </div>
-
-    <button class="btn btn-warning  w-25 p-2" id="addcolorbtn">+ Add Color</button>
-  </div>
-
-       <label class="form-label mt-4 ms-2">Short Description</label>
-       <textarea class="form-control textarea" rows="3" placeholder="Enter short description" name="p_short_description" required></textarea>
-
-
-         <div class="container p-3">
-    <div class="mb-1 mt-4">
-      <label for="productDescription" class="form-label">Product Long Description</label>
-      <textarea id="productDescription" name="p_long_description"></textarea>
-    </div>
-  </div>
-
-        <div class="p-2 text-center rounded-2 ">
-        <button class=" p-3 text-center text-white rounded-2 w-50" type="submit">Add Product in your web <i class="bi bi-arrow-right" class="g-3"></i></button>
+            <!-- Sizes for this color -->
+            <div class="sizeContainer">
+                @foreach($color->sizes as $sIndex => $size)
+                <div class="size-box">
+                    <input type="text" name="sizename[{{ $index }}][{{ $sIndex }}]" value="{{ $size->size_name }}">
+                    <input type="number" name="sizepriceadjustment[{{ $index }}][{{ $sIndex }}]" value="{{ $size->size_price_adjustment }}">
+                </div>
+                @endforeach
+            </div>
         </div>
-     </form>
+        @endforeach
     </div>
-  </div>
+
+    <button type="submit">Update Product</button>
+</form>
+</div>
+</div>
 
 
 
@@ -284,7 +247,7 @@ button:hover{
 
 
 
-                                    
+                                    {{-- jquery off add color --}}
 
 <script>
 $(document).ready(function() {
@@ -319,7 +282,7 @@ $(document).ready(function() {
 
                 <div class="mt-3 mb-2">
                     <label class="form-label">Images (for this color)</label>
-                  <input type="file" name="color_images[${colorIndex}][]" multiple>
+                    <input type="file" name="color_images[]" multiple>
                    </div>
 
                   <div class="mt-3 size-section">
@@ -377,4 +340,3 @@ let colorIndex = $(this).closest('.addcolor').data('color-index');
 
 </body>
 </html>
-<?php /**PATH C:\laravel_git\ecommerce-web\resources\views/admin/addproduct.blade.php ENDPATH**/ ?>

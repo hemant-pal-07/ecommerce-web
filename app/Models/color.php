@@ -21,4 +21,9 @@ class Color extends Model
     {
         return $this->hasMany(Size::class, 'size_color_id', 'color_id');
     }
+    // Color.php
+   public function images() {
+    return $this->hasMany(Image::class, 'img_color_id', 'color_id');
+}
+
 }

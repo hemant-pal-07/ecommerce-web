@@ -223,9 +223,9 @@
 
   </div>
 
-         <div class="box border p-2 m-2 rounded-2">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJacA5ExSfFhHk5uG-ZyNiJ5Bm5xB5rbylJg&s" class="rounded-circle" height="40px" width="40px" alt="">
-     <small class="p-1">Global International</small>
+         <div class=" border p-2 m-2 rounded-2">
+   <img src="{{ asset('assets/image/dashboardimg/erona image.jfif') }}" alt="photo" class="rounded-circle p-2 " height="60px" width="70px" alt="">
+     <small class="p-1 ms-2">Unique Fashion</small>
      </div>
      <hr>
       <ul class="nav flex-column">
@@ -256,7 +256,7 @@
       <div class="collapse" id="appSubmenu">
         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
           <li><a href="{{route('product.create')}}" class="nav-link ps-4">Add product</a></li>
-          <li><a href="table.html" class="nav-link ps-4">Product list</a></li>
+          <li><a href="{{ route('product.list') }}" class="nav-link ps-4">Product list</a></li>
         </ul>
       </div>
     </li>

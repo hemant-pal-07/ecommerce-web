@@ -197,15 +197,19 @@
             position: absolute;
             height: 100px;
             width: 130px;
-            box-shadow:0px 5px 10px grey;
-            border: 1px solid #e5e7eb;
+            box-shadow:0px 0px 5px orange;
+
             right: 10px;
+
+
+
 
             }
             .logoutbtn{
                 border: none;
-                color: orange;
-                background: transparent;
+                color: orangered;
+
+                 background: none;
 
             }
 </style>
@@ -247,12 +251,14 @@
 </div>
 
       </div>
-       <div class="showbox bg-light rounded-3 p-3 mt-3"style="display:none">
+       <div class="showbox bg-light rounded-3 p-1 mt-3"style="display:none">
             <form method="POST" action="<?php echo e(route('logout')); ?>">
         <?php echo csrf_field(); ?>
-        <ul class=" text-secondary list-unstyled mx-3">
+        <ul class=" text-secondary list-unstyled">
 
-            <li><a class="text-decoration-none text-secondary"> <button type="submit" class="logoutbtn"> Logout</button></a></li>
+            <li><a class="text-decoration-none text-secondary "> <i class="bi bi-person-check ms-3 fw-bold fs-4 mt-3"></i> <button type="submit" class="logoutbtn">  Profile</button></a></li>
+            <li><a class="text-decoration-none text-secondary"><i class="bi bi-box-arrow-right ms-3 fw-bold fs-5 mt-3"></i>  <button type="submit" class="logoutbtn">Logout</button></a></li>
+
         </ul>
         </form>
 

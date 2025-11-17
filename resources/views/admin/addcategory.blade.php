@@ -12,7 +12,7 @@
 
 <style>
     body {
-        background-color: #fff5f0;
+    background:#f8f9fa;
 
     }
 
@@ -42,6 +42,7 @@
     }
     .card{
         max-width: 750px;
+
     }
 </style>
 </head>
@@ -53,7 +54,7 @@
      @include('partials.header')
 
 
-       <div class="card w-100 mx-auto mt-4 ">
+       <div class="card w-100 mx-auto mt-4">
         <div class="card-header text-center bg-warning text-white">
             <h4>Add Category</h4>
         </div>
