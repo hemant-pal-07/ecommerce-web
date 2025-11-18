@@ -54,8 +54,10 @@
                 <th>Images</th>
                 <th>Sizes</th>
                 <th>Colors</th>
-                <th>Visibility</th>
-                <th>Type</th>
+                <th>Short description</th>
+                <th>Long description</th>
+                  <th>Visibility</th>
+                 <th>Type</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -101,6 +103,13 @@
                         <span class="badge-color" style="background: {{ $color->color_code ?? '#ccc' }}" title="{{ $color->color_name }}"></span>
                     @endforeach
                 </td>
+
+                     <!-- Short Description -->
+        <td>{{ Str::limit($p->p_short_description, 50) }}</td>
+
+        <!-- Long Description -->
+        <td>{{ Str::limit(strip_tags($p->p_long_description), 80) }}</td>
+
 
                 <td>
                     @if($p->p_visibility_status)

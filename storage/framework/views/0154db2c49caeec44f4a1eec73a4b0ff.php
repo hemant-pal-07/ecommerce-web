@@ -80,13 +80,7 @@ input[type="checkbox"]:checked + .color-box{
   display: inline-block;
   margin: 4px;
 } */
-input[type="checkbox"] { display: none; }
 
-input[type="checkbox"]:checked + .size-box {
-  background: #000;
-  color: #fff;
-  border-color: #000;
-}
 button{
     background-color: orange;
     border: 0;
@@ -151,6 +145,8 @@ button:hover{
     <?php echo csrf_field(); ?>
     <?php echo method_field('PUT'); ?>
 
+          <h1 class=" text-center mt-4">UPDATE PRODUCT DETAILS</h1>
+
     <label>Product Name</label>
     <input type="text" name="p_name" value="<?php echo e(old('p_name', $product->p_name)); ?>">
 
@@ -168,33 +164,63 @@ button:hover{
     <input type="number" name="p_price" value="<?php echo e(old('p_price', $product->p_price)); ?>">
 
     <!-- Colors -->
-    <div id="colorcontainer">
-        <?php $__currentLoopData = $product->colors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $color): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <div class="color-box" data-index="<?php echo e($index); ?>">
-            <label>Color Name</label>
-            <input type="text" name="colorname[<?php echo e($index); ?>]" value="<?php echo e($color->color_name); ?>">
+        <div class="form-container">
+    <div class="row mb-3 mt-4">
 
-            <label>Color Code</label>
-            <input type="text" name="colorcode[<?php echo e($index); ?>]" value="<?php echo e($color->color_code); ?>">
-
-            <label>Price Adjustment</label>
-            <input type="number" name="priceadjustment[<?php echo e($index); ?>]" value="<?php echo e($color->color_price_adjustment); ?>">
-
-            <!-- Sizes for this color -->
-            <div class="sizeContainer">
-                <?php $__currentLoopData = $color->sizes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sIndex => $size): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <div class="size-box">
-                    <input type="text" name="sizename[<?php echo e($index); ?>][<?php echo e($sIndex); ?>]" value="<?php echo e($size->size_name); ?>">
-                    <input type="number" name="sizepriceadjustment[<?php echo e($index); ?>][<?php echo e($sIndex); ?>]" value="<?php echo e($size->size_price_adjustment); ?>">
-                </div>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-            </div>
-        </div>
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+      <div class="col-md-4">
+        <label>Old Price (Optional)</label>
+           <input type="text" name="p_old_price" id="p_old_price" class="form-control"
+                   value="<?php echo e(old('p_old_price', $product->p_old_price)); ?>">
+      </div>
+      <div class="col-md-4">
+        <label>Stock Quantity</label>
+   <input type="number" name="p_stock" id="p_stock" class="form-control"
+                   value="<?php echo e(old('p_stock', $product->p_stock)); ?>">      </div>
     </div>
 
-    <button type="submit">Update Product</button>
-</form>
+    <div class="row">
+      <div class="col-md-6">
+        <label>Visibility Status</label>
+       <select class="form-control textarea" name="p_visibility_status">
+            <option value="1" <?php echo e(old('p_visibility_status', $product->p_visibility_status) == 1 ? 'selected' : ''); ?>>Visible</option>
+                    <option value="0" <?php echo e(old('p_visibility_status', $product->p_visibility_status) == 0 ? 'selected' : ''); ?>>Invisible</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label>Product Type</label>
+ <input type="text" class="form-control" name="p_type"
+                       value="<?php echo e(old('p_type', $product->p_type)); ?>" placeholder="e.g. regular, featured">      </div>
+    </div>
+  </div>
+
+    <label class="form-label mt-4 ms-2">Select Product Colors</label>
+  <div class="color-card">
+
+    <div class=" mb-3 border border-warning rounded-0 " id="colorcontainer">
+
+
+    </div>
+
+    <button class="btn btn-warning  w-25 p-2" id="addcolorbtn">+ Add Color</button>
+  </div>
+
+
+     <label class="form-label mt-4 ms-2">Short Description</label>
+     <textarea class="form-control" name="p_short_description" rows="3" required><?php echo e(old('p_short_description', $product->p_short_description)); ?></textarea>
+
+
+         <div class="container p-3">
+    <div class="mb-1 mt-4">
+      <label for="productDescription" class="form-label">Product Long Description</label>
+                <textarea id="productDescription" name="p_long_description" class="form-control" rows="6"><?php echo e(old('p_long_description', $product->p_long_description)); ?></textarea>
+
+    </div>
+  </div>
+
+ <div class="p-2 text-center rounded-2 ">
+        <button class=" p-3 text-center text-white rounded-2 w-50" type="submit">Product update<i class="bi bi-arrow-right" class="g-3"></i></button>
+        </div>
+    </form>
 </div>
 </div>
 
@@ -261,37 +287,47 @@ $(document).ready(function() {
         e.preventDefault();
 
         let newColorBox = $(`
+         <?php $__currentLoopData = $product->colors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $color): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <div class="addcolor p-3 mb-3 rounded-0 border-top border-2 border-warning " data-color-index="${colorIndex}">
                 <div class="d-flex align-item-center">
                 <h5><strong>Color ${colorIndex+1}</strong></h5>
                   <button class="btn btn-sm btn-danger removeBtn mt-0 ms-auto d-block">Remove Color</button>
                  </div>
 
+
                 <div class="row mt-3">
                     <div class="col-md-4 mb-2 ">
                         <label>Color Name</label>
-                        <input type="text" class="form-control" name="colorname[]" placeholder="Color Name">
+                        <input type="text" class="form-control" name="colorname[]" value="<?php echo e($color->color_name); ?>">
                     </div>
                     <div class="col-md-4 mb-2">
                         <label>Color code</label>
-                        <input type="text" class="form-control" name="colorcode[]" placeholder="Color Code (e.g. #FF0000)">
+                    <input type="text" class="form-control" name="colorcode[]" value="<?php echo e($color->color_code); ?>">
                     </div>
                     <div class="col-md-4 mb-2">
                      <label>Price Adjustment</label>
-                        <input type="text" class="form-control" name="priceadjustment[]" placeholder="Price Adjustment">
-                    </div>
-                </div>
+                    <input type="text" class="form-control" name="priceadjustment[]" value="<?php echo e($color->color_price_adjustment); ?>">
 
-                <div class="mt-3 mb-2">
-                    <label class="form-label">Images (for this color)</label>
-                    <input type="file" name="color_images[]" multiple>
-                   </div>
+
+                    <label class="form-label mt-2">Existing Images</label>
+    <div class="d-flex flex-wrap">
+        <?php $__currentLoopData = $color->images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $img): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <img src="<?php echo e(asset('storage/colors/' . $img->img_path)); ?>"width="80" height="80" class="me-2 mb-2">
+
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    </div>
+
+                    </div>
+                      <label class="form-label mt-2">Upload New Images (for this color)</label>
+                     <input type="file" name="color_images[${colorIndex}][]" multiple>
+                </div>
 
                   <div class="mt-3 size-section">
                     <label class="form-label">Sizes</label>
                     <div class="sizeContainer"></div>
                     <button class=" p-2 add-size-btn w-100 mt-2" type="button">+ Add Size</button>
                 </div>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
 
             </div>

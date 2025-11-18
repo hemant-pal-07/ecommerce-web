@@ -35,6 +35,10 @@ class Product extends Model
         return $this->belongsTo(Category::class, 'p_category_id','c_id');
     }
 
+
+
+
+
 }
 
 

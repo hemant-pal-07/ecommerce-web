@@ -118,12 +118,15 @@ public function productlist(){
 
 
 
-    public function edit($id)
+public function edit($id)
 {
-    $product = Product::with(['colors.sizes', 'colors.images'])->findOrFail($id);
-      $categories = \App\Models\Category::all();
-    return view('admin.editproduct', compact('product','categories'));
+    $product = Product::with('colors.sizes', 'colors.images')->findOrFail($id);
+    $categories = Category::all();
+    return view('admin.editproduct', compact('product', 'categories'));
 }
+
+
+
 
 
 
@@ -135,13 +138,101 @@ public function destroy($id)
     return redirect()->route('product.list')->with('success', 'Product deleted successfully!');
 }
 
+// update the controller---->
+public function update(Request $request, $id)
+{
+    // 1️⃣ Find the product
+    $product = Product::findOrFail($id);
 
 
 
+    // 2️⃣ Update main product fields
+    $product->update([
+        'p_name' => $request->p_name,
+        'p_category_id' => $request->p_category_id,
+        'p_price' => $request->p_price,
+        'p_old_price' => $request->p_old_price,
+        'p_stock' => $request->p_stock,
+        'p_visibility_status' => $request->p_visibility_status,
+        'p_type' => $request->p_type ?? 'simple',
+        'p_short_description' => $request->p_short_description,
+        'p_long_description' => $request->p_long_description,
+    ]);
 
+    // 3️⃣ Delete old colors (if needed)
+    // $product->colors()->delete()
+if ($request->has('colorname')) {
+    foreach ($request->colorname as $index => $colorName) {
 
+        // Check if this is existing color or new one
+        $colorId = $request->color_id[$index] ?? null;
+
+        if ($colorId) {
+            $color = $product->colors()->find($colorId);
+            if ($color) {
+                // Update existing color
+                $color->update([
+                    'color_name' => $colorName,
+                    'color_code' => $request->colorcode[$index] ?? null,
+                    'color_price_adjustment' => $request->priceadjustment[$index] ?? 0,
+                ]);
+            }
+        } else {
+            // Create new color
+            $color = $product->colors()->create([
+                'color_name' => $colorName,
+                'color_code' => $request->colorcode[$index] ?? null,
+                'color_price_adjustment' => $request->priceadjustment[$index] ?? 0,
+            ]);
+        }
+
+        // 3️⃣ Sizes
+        if(isset($request->sizename[$index]) && is_array($request->sizename[$index])) {
+            foreach($request->sizename[$index] as $sIndex => $sizeName) {
+                $sizeId = $request->size_id[$index][$sIndex] ?? null;
+
+                if ($sizeId) {
+                    $size = $color->sizes()->find($sizeId);
+                    if ($size) {
+                        $size->update([
+                            'size_name' => $sizeName,
+                            'size_price_adjustment' => $request->sizepriceadjustment[$index][$sIndex] ?? 0,
+                        ]);
+                    }
+                } else {
+                    $color->sizes()->create([
+                        'size_name' => $sizeName,
+                        'size_price_adjustment' => $request->sizepriceadjustment[$index][$sIndex] ?? 0,
+                    ]);
+                }
+            }
+        }
+
+        // 4️⃣ Images
+        if($request->hasFile("color_images.$index")) {
+            foreach($request->file("color_images.$index") as $file) {
+                $filename = uniqid() . '_' . $file->getClientOriginalName(); // safer unique filename
+                $file->storeAs('public/product_colors', $filename);
+
+                $color->images()->create([
+                    'img_path' => $filename,
+                ]);
+            }
+        }
+    }
+}
+    return redirect()->back()->with('success', 'Product updated successfully!');
+}
 
 }
+
+
+
+
+
+
+
+
 
 
 

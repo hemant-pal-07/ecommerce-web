@@ -54,8 +54,10 @@
                 <th>Images</th>
                 <th>Sizes</th>
                 <th>Colors</th>
-                <th>Visibility</th>
-                <th>Type</th>
+                <th>Short description</th>
+                <th>Long description</th>
+                  <th>Visibility</th>
+                 <th>Type</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -102,6 +104,13 @@
                         <span class="badge-color" style="background: <?php echo e($color->color_code ?? '#ccc'); ?>" title="<?php echo e($color->color_name); ?>"></span>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </td>
+
+                     <!-- Short Description -->
+        <td><?php echo e(Str::limit($p->p_short_description, 50)); ?></td>
+
+        <!-- Long Description -->
+        <td><?php echo e(Str::limit(strip_tags($p->p_long_description), 80)); ?></td>
+
 
                 <td>
                     <?php if($p->p_visibility_status): ?>

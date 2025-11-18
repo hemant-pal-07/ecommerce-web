@@ -88,7 +88,7 @@ Route::get('/admin/add-product', [ProductController::class, 'create'])->name('pr
 Route::post('/admin/add-product', [ProductController::class, 'store'])->name('product.store');
 Route::get('/admin/product-list', [ProductController::class, 'productlist'])->name('product.list');
 Route::get('/admin/edit-product/{id}', [ProductController::class, 'edit'])->name('product.edit');
-Route::post('/admin/update-product/{id}',[ProductController::class, 'update'])->name('product.update');
+Route::put('/admin/update-product/{id}',[ProductController::class, 'update'])->name('product.update');
 Route::delete('/admin/delete-product/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 
 

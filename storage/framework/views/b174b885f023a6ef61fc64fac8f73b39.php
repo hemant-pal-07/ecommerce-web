@@ -63,30 +63,8 @@
   display: inline-block;
 }
 
-input[type="checkbox"] {
-  display: none;
-}
 
-input[type="checkbox"]:checked + .color-box{
-  border: 11px solid orange;
-}
-.size-box {
-  padding: 6px 14px;
-  border: 1px solid #444;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: 0.2s;
-  display: inline-block;
-  margin: 4px;
-} */
-input[type="checkbox"] { display: none; }
 
-input[type="checkbox"]:checked + .size-box {
-  background: #000;
-  color: #fff;
-  border-color: #000;
-}
 button{
     background-color: orange;
     border: 0;
@@ -174,7 +152,7 @@ button:hover{
 
         <div class="form-container">
     <div class="row mb-3 mt-4">
-      
+
       <div class="col-md-4">
         <label>Old Price (Optional)</label>
         <input type="text" name="p_old_price" class="form-control textarea" placeholder="">
@@ -208,8 +186,6 @@ button:hover{
   <div class="color-card">
 
     <div class=" mb-3 border border-warning rounded-0 " id="colorcontainer">
-
-
     </div>
 
     <button class="btn btn-warning  w-25 p-2" id="addcolorbtn">+ Add Color</button>
