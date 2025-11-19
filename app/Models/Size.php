@@ -23,4 +23,7 @@ class Size extends Model
     {
         return $this->belongsTo(Color::class, 'size_color_id', 'color_id');
     }
+
+
+
 }

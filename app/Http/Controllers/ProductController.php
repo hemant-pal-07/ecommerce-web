@@ -164,8 +164,10 @@ public function update(Request $request, $id)
 if ($request->has('colorname')) {
     foreach ($request->colorname as $index => $colorName) {
 
+                    if (empty($colorName)) continue;
         // Check if this is existing color or new one
         $colorId = $request->color_id[$index] ?? null;
+
 
         if ($colorId) {
             $color = $product->colors()->find($colorId);
@@ -191,6 +193,8 @@ if ($request->has('colorname')) {
             foreach($request->sizename[$index] as $sIndex => $sizeName) {
                 $sizeId = $request->size_id[$index][$sIndex] ?? null;
 
+                    if (empty($sizeName)) continue; // Skip empty sizes
+
                 if ($sizeId) {
                     $size = $color->sizes()->find($sizeId);
                     if ($size) {
@@ -207,23 +211,38 @@ if ($request->has('colorname')) {
                 }
             }
         }
+          foreach ($request->colorname as $index => $colorName) {
 
-        // 4️⃣ Images
-        if($request->hasFile("color_images.$index")) {
-            foreach($request->file("color_images.$index") as $file) {
-                $filename = uniqid() . '_' . $file->getClientOriginalName(); // safer unique filename
-                $file->storeAs('public/product_colors', $filename);
+        $color = $product->colors[$index];  // SAME INDEX
 
+        // Update color data
+        $color->update([
+            'color_name' => $colorName,
+            'color_code' => $request->colorcode[$index],
+            'color_price_adjustment' => $request->priceadjustment[$index]
+        ]);
+
+           // If new images uploaded
+        if ($request->hasFile("color_images.$index")) {
+
+            foreach ($request->file("color_images.$index") as $imgFile) {
+
+                // Save file in storage/app/public/colors
+                $path = $imgFile->store('public/colors');
+                $fileName = basename($path);
+
+                // Insert into DB
                 $color->images()->create([
-                    'img_path' => $filename,
+                    'img_path' => $fileName
                 ]);
             }
         }
     }
-}
     return redirect()->back()->with('success', 'Product updated successfully!');
 }
 
+}
+}
 }
 
 

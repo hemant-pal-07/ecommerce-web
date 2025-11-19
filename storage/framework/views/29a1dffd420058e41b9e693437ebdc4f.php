@@ -32,6 +32,11 @@
         padding:3px;
     }
     .badge-color { display:inline-block; width:20px; height:20px; border-radius:50%; margin:2px; border:1px solid #ccc; }
+
+        thead{
+            height: 20px;
+            width: 100px;
+        }
 </style>
 </head>
 <body>
@@ -39,7 +44,7 @@
 <?php echo $__env->make('partials.sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php echo $__env->make('partials.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-<div class="container w-100 p-4">
+<div class="container p-2">
     <h1>Product List</h1>
 
     <table id="productTable" class="display table table-bordered text-center">
@@ -77,10 +82,10 @@
                     <?php endif; ?>
                 </td>
                 
-                 <td>
+                 <td class="d-flex w-100">
         <?php $__currentLoopData = $p->colors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $color): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <?php $__currentLoopData = $color->images ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $img): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-    <img src="<?php echo e(asset('storage/colors/' . $img->img_path)); ?>" alt="<?php echo e($img->img_alt_text); ?>" width="40px">
+    <img src="<?php echo e(asset('storage/colors/' . $img->img_path)); ?>" alt="<?php echo e($img->img_alt_text); ?>" width="40px" class="d-flex">
 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -127,7 +132,7 @@
                     <form action="<?php echo e(route('product.destroy', $p->p_id)); ?>" method="POST" class="d-inline">
                         <?php echo csrf_field(); ?>
                         <?php echo method_field('DELETE'); ?>
-                        <button class="btn btn-sm btn-orange" onclick="return confirm('Are you sure?')">Delete</button>
+                        <button class="btn btn-sm btn-orange mt-3" onclick="return confirm('Are you sure?')">Delete</button>
                     </form>
                 </td>
             </tr>

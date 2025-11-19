@@ -83,10 +83,8 @@
                 <!-- Category Image -->
                 <div class="mb-3">
                     <label class="form-label">Category Image</label>
-                    <input type="file" name="c_image" class="form-control" accept="image/*" onchange="previewImage(event)">
-                    @error('c_image') <small class="text-danger">{{ $message }}</small> @enderror
+                    <input type="file" name="c_image" class="form-control" >
 
-                    <img id="imagePreview" src="#" style="display:none; height: 120px; margin-top:10px;" />
                 </div>
 
                 <!-- Description -->

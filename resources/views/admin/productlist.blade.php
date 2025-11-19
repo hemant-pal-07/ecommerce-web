@@ -32,6 +32,11 @@
         padding:3px;
     }
     .badge-color { display:inline-block; width:20px; height:20px; border-radius:50%; margin:2px; border:1px solid #ccc; }
+
+        thead{
+            height: 20px;
+            width: 100px;
+        }
 </style>
 </head>
 <body>
@@ -39,7 +44,7 @@
 @include('partials.sidebar')
 @include('partials.header')
 
-<div class="container w-100 p-4">
+<div class="container p-2">
     <h1>Product List</h1>
 
     <table id="productTable" class="display table table-bordered text-center">
@@ -77,10 +82,10 @@
                     @endif
                 </td>
                 {{-- image column --}}
-                 <td>
+                 <td class="d-flex w-100">
         @foreach($p->colors as $color)
         @foreach($color->images ?? [] as $img)
-    <img src="{{ asset('storage/colors/' . $img->img_path) }}" alt="{{ $img->img_alt_text }}" width="40px">
+    <img src="{{ asset('storage/colors/' . $img->img_path) }}" alt="{{ $img->img_alt_text }}" width="40px" class="d-flex">
 @endforeach
 
         @endforeach
@@ -126,7 +131,7 @@
                     <form action="{{ route('product.destroy', $p->p_id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
-                        <button class="btn btn-sm btn-orange" onclick="return confirm('Are you sure?')">Delete</button>
+                        <button class="btn btn-sm btn-orange mt-3" onclick="return confirm('Are you sure?')">Delete</button>
                     </form>
                 </td>
             </tr>

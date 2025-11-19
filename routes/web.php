@@ -97,9 +97,15 @@ Route::delete('/admin/delete-product/{id}', [ProductController::class, 'destroy'
 
 
 // category routes---->
-Route::get('/admin/add-category', [CategoryController::class, 'create'])->name('product.category');
+ Route::get('/admin/add-category', [CategoryController::class, 'create'])->name('product.category');
  Route::post('/admin/categories', [CategoryController::class, 'store'])->name('category.store');
- Route::get('/admin/categories', [CategoryController::class, 'categorylist'])->name('category.list');
+ Route::get('/admin/categories-list', [CategoryController::class, 'categorylist'])->name('category.list');
+ Route::get('/admin/categories-edit/{id}', [CategoryController::class, 'edit'])  ->name('category.edit');
+ Route::delete('/admin/categories-delete/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
+ Route::put('/admin/category-update/{id}',[CategoryController::class, 'update'])->name('category.update');
+
+
+
 
 
 //  image routes

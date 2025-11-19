@@ -3,376 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>new product</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Update Product</title>
+
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
       <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 
 
+    <style>
+        body { font-family: 'Poppins', sans-serif; background: rgb(245,243,241); }
+
+        input, select, textarea {
+            width: 100%; padding: 10px; margin: 7px 0;
+            border: 1px solid orangered; border-radius: 7px;
+        }
+        form {
+            background: white; padding: 25px;
+            border-radius: 7px; border: 1px solid orangered;
+        }
+        button { background: orange; border: none; }
+        button:hover { background: orangered; color: white; }
+
+        .addcolor { background: #fff; border: 1px solid orange; }
+    </style>
 </head>
-<style>
-    *{
-        padding: 0;
-        margin: 0;
 
-    }
-     body{
-          font-family: 'Poppins',sans-serif;
-          background:rgb(245, 243, 241);
-    }
-           select, textarea {
-            padding: 10px;
-            margin: 7px 0;
-            border-radius: 7px;
-            align-items: center;
-            width: 100%;
-            border: 1px solid orangered;
-        }
-        input{
-            padding: 10px;
-            margin: 7px 0;
-            border-radius: 7px;
-            align-items: center;
-             width: 100%;
-             border:1px solid orangered;
-        }
-        form{
-            border: 1px solid orangered;
-            background: white;
-            border-radius: 7px;
-        }
-        h1{
-            color: orange;
-            margin-top:-20px;
-        }
-        .color-option {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  margin: 6px;
-}
-
-.color-box {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border:1px solid grey;
-  display: inline-block;
-}
-
-input[type="checkbox"] {
-  display: none;
-}
-
-input[type="checkbox"]:checked + .color-box{
-  border: 11px solid orange;
-}
-.size-box {
-  padding: 6px 14px;
-  border: 1px solid #444;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: 0.2s;
-  display: inline-block;
-  margin: 4px;
-} */
-
-button{
-    background-color: orange;
-    border: 0;
-      transition: all 0.3s;
-
-}
-button:hover{
-    background-color: orangered;
-    cursor: pointer;
-    color: white;
-
-}
-  .form-section {
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-     border: 1px solid orangered;
-      max-width: 650px;
-      margin:20px auto;
-    }
-    .color-input {
-      width: 70px;
-      height: 38px;
-      border: 1px solid #ced4da;
-      border-radius: 4px;
-    }
-    .add-btn {
-      background-color:orangered;
-      color: white;
-      width: 100%;
-    }
-    .form-control{
-        border:1px solid orangered;
-    }
-
-
-
-
-
-
-</style>
 <body>
 
+@include('partials.sidebar')
+@include('partials.header')
 
-   @include('partials.sidebar')
-
-
-   @include('partials.header')
-
-
-   @if(session('success'))
-    <div class="alert alert-success text-center">
-        {{ session('success') }}
-    </div>
+@if(session('success'))
+<div class="alert alert-success text-center">{{ session('success') }}</div>
 @endif
 
-      <div class="container w-75 p-3">
-    <div class="row">
+<div class="container w-75 p-3">
+    <form action="{{ route('product.update', $product->p_id) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
 
-   <form action="{{ route('product.update', $product->p_id) }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    @method('PUT')
+        <h1 class="text-center text-warning">UPDATE PRODUCT</h1>
 
-          <h1 class=" text-center mt-4">UPDATE PRODUCT DETAILS</h1>
+        <label>Product Name</label>
+        <input type="text" name="p_name" value="{{ $product->p_name }}">
 
-    <label>Product Name</label>
-    <input type="text" name="p_name" value="{{ old('p_name', $product->p_name) }}">
-
-    <label>Category</label>
-    <select name="p_category_id">
-        @foreach($categories as $cat)
-            <option value="{{ $cat->c_id }}" {{ $product->p_category_id == $cat->c_id ? 'selected' : '' }}>
-                {{ $cat->c_name }}
-            </option>
-        @endforeach
-    </select>
-
-    <label>Price</label>
-    <input type="number" name="p_price" value="{{ old('p_price', $product->p_price) }}">
-
-    <!-- Colors -->
-        <div class="form-container">
-    <div class="row mb-3 mt-4">
-
-      <div class="col-md-4">
-        <label>Old Price (Optional)</label>
-           <input type="text" name="p_old_price" id="p_old_price" class="form-control"
-                   value="{{ old('p_old_price', $product->p_old_price) }}">
-      </div>
-      <div class="col-md-4">
-        <label>Stock Quantity</label>
-   <input type="number" name="p_stock" id="p_stock" class="form-control"
-                   value="{{ old('p_stock', $product->p_stock) }}">      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <label>Visibility Status</label>
-       <select class="form-control textarea" name="p_visibility_status">
-            <option value="1" {{ old('p_visibility_status', $product->p_visibility_status) == 1 ? 'selected' : '' }}>Visible</option>
-                    <option value="0" {{ old('p_visibility_status', $product->p_visibility_status) == 0 ? 'selected' : '' }}>Invisible</option>
+        <label>Category</label>
+        <select name="p_category_id">
+            @foreach($categories as $cat)
+                <option value="{{ $cat->c_id }}" @selected($cat->c_id == $product->p_category_id)>
+                    {{ $cat->c_name }}
+                </option>
+            @endforeach
         </select>
-      </div>
-      <div class="col-md-6">
-        <label>Product Type</label>
- <input type="text" class="form-control" name="p_type"
-                       value="{{ old('p_type', $product->p_type) }}" placeholder="e.g. regular, featured">      </div>
-    </div>
-  </div>
 
-    <label class="form-label mt-4 ms-2">Select Product Colors</label>
-  <div class="color-card">
+        <label>Price</label>
+        <input type="number" name="p_price" value="{{ $product->p_price }}">
 
-    <div class=" mb-3 border border-warning rounded-0 " id="colorcontainer">
+        <div class="row">
+            <div class="col-md-4">
+                <label>Old Price</label>
+                <input type="text" name="p_old_price" value="{{ $product->p_old_price }}">
+            </div>
 
-
-    </div>
-
-    <button class="btn btn-warning  w-25 p-2" id="addcolorbtn">+ Add Color</button>
-  </div>
-
-
-     <label class="form-label mt-4 ms-2">Short Description</label>
-     <textarea class="form-control" name="p_short_description" rows="3" required>{{ old('p_short_description', $product->p_short_description) }}</textarea>
-
-
-         <div class="container p-3">
-    <div class="mb-1 mt-4">
-      <label for="productDescription" class="form-label">Product Long Description</label>
-                <textarea id="productDescription" name="p_long_description" class="form-control" rows="6">{{ old('p_long_description', $product->p_long_description) }}</textarea>
-
-    </div>
-  </div>
-
- <div class="p-2 text-center rounded-2 ">
-        <button class=" p-3 text-center text-white rounded-2 w-50" type="submit">Product update<i class="bi bi-arrow-right" class="g-3"></i></button>
+            <div class="col-md-4">
+                <label>Stock</label>
+                <input type="number" name="p_stock" value="{{ $product->p_stock }}">
+            </div>
         </div>
+
+        <label>Visibility</label>
+        <select name="p_visibility_status">
+            <option value="1" @selected($product->p_visibility_status == 1)>Visible</option>
+            <option value="0" @selected($product->p_visibility_status == 0)>Invisible</option>
+        </select>
+
+        <label>Product Type</label>
+        <input type="text" name="p_type" value="{{ $product->p_type }}">
+
+        <hr>
+
+        <h4 class="text-warning">Product Colors</h4>
+
+        <div id="colorcontainer">
+
+            {{-- ========================== EXISTING COLORS ========================== --}}
+            @foreach($product->colors as $i => $color)
+            <div class="addcolor p-3 mb-3" data-color-index="{{ $i }}">
+
+                <div class="d-flex">
+                    <h5>Color {{ $i+1 }}</h5>
+                    <button class="btn btn-danger btn-sm removeBtn ms-auto">Remove</button>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Color Name</label>
+                        <input type="text" name="colorname[]" value="{{ $color->color_name }}">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>Color Code</label>
+                        <input type="text" name="colorcode[]" value="{{ $color->color_code }}">
+                    </div>
+
+                    <div class="col-md-4">
+                        <label>Price Adjustment</label>
+                        <input type="text" name="priceadjustment[]" value="{{ $color->color_price_adjustment }}">
+
+                        <label class="mt-2">Existing Images</label>
+                        <div class="d-flex flex-wrap">
+                            @foreach($color->images as $img)
+                                <img src="{{ asset('storage/colors/'.$img->img_path) }}" width="70" height="70" class="me-2 mb-2">
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <label class="mt-2">Upload New Images</label>
+                    <input type="file" name="color_images[{{ $i }}][]" multiple>
+                </div>
+
+                <div class="size-section mt-3">
+                    <label>Sizes</label>
+                    <div class="sizeContainer"></div>
+                    <button type="button" class="btn btn-warning mt-2 add-size-btn">+ Add Size</button>
+                </div>
+            </div>
+            @endforeach
+        </div>
+
+        <button class="btn btn-warning w-25 mt-3" id="addcolorbtn">+ Add Color</button>
+
+        <label class="mt-4">Short Description</label>
+        <textarea name="p_short_description" rows="3">{{ $product->p_short_description }}</textarea>
+
+        <label class="mt-4">Long Description</label>
+        <textarea id="productDescription" name="p_long_description">{{ $product->p_long_description }}</textarea>
+
+        <div class="text-center mt-4 ">
+            <button type="submit" class="btn text-warning w-50 p-3 border bg-danger">Update Product</button>
+        </div>
+
     </form>
 </div>
-</div>
 
-
-
-
-   <!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script>
-      $(document).ready(function() {
-        $("#menubtn").click(function(){
-
-          const sidebar = $("#sidebar");
-          const mainContent = $(".main-content");
-
-
-          if (sidebar.css("margin-left") === "0px") {
-            sidebar.animate({ marginLeft: "-190px" }, );
-            mainContent.animate({ marginLeft: "60px" }, );
-
-          } else {
-            sidebar.animate({ marginLeft: "0px" } );
-            mainContent.animate({ marginLeft: "250px" } );
-
-          }
-        });
-      });
-    </script>
-
-
+{{-- JS FILES --}}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
 <script>
-  $(document).ready(function() {
-    $("#hamburger").click(function() {
-      $("#sidebar1").toggleClass("active");
-    });
-  });
+$("#productDescription").summernote({ height: 200 });
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
- <script>
-    $('#productDescription').summernote({
-      placeholder: 'Type product description...',
-      tabsize: 2,
-      height: 200
-    });
-  </script>
-
-
-
-
-                                    {{-- jquery off add color --}}
-
 <script>
-$(document).ready(function() {
-    let colorCount = 0;
+let colorIndex = {{ count($product->colors) }};
 
-    // Add Color button click
-    $('#addcolorbtn').click(function(e) {
-             let colorIndex = colorCount++;
-        e.preventDefault();
+// ADD NEW COLOR
+$('#addcolorbtn').click(function(e){
+    e.preventDefault();
 
-        let newColorBox = $(`
-         @foreach($product->colors as $index => $color)
-            <div class="addcolor p-3 mb-3 rounded-0 border-top border-2 border-warning " data-color-index="${colorIndex}">
-                <div class="d-flex align-item-center">
-                <h5><strong>Color ${colorIndex+1}</strong></h5>
-                  <button class="btn btn-sm btn-danger removeBtn mt-0 ms-auto d-block">Remove Color</button>
-                 </div>
-
-
-                <div class="row mt-3">
-                    <div class="col-md-4 mb-2 ">
-                        <label>Color Name</label>
-                        <input type="text" class="form-control" name="colorname[]" value="{{ $color->color_name }}">
-                    </div>
-                    <div class="col-md-4 mb-2">
-                        <label>Color code</label>
-                    <input type="text" class="form-control" name="colorcode[]" value="{{ $color->color_code }}">
-                    </div>
-                    <div class="col-md-4 mb-2">
-                     <label>Price Adjustment</label>
-                    <input type="text" class="form-control" name="priceadjustment[]" value="{{ $color->color_price_adjustment }}">
-
-
-                    <label class="form-label mt-2">Existing Images</label>
-    <div class="d-flex flex-wrap">
-        @foreach($color->images as $img)
-        <img src="{{ asset('storage/colors/' . $img->img_path) }}"width="80" height="80" class="me-2 mb-2">
-
-        @endforeach
-    </div>
-
-                    </div>
-                      <label class="form-label mt-2">Upload New Images (for this color)</label>
-                     <input type="file" name="color_images[${colorIndex}][]" multiple>
-                </div>
-
-                  <div class="mt-3 size-section">
-                    <label class="form-label">Sizes</label>
-                    <div class="sizeContainer"></div>
-                    <button class=" p-2 add-size-btn w-100 mt-2" type="button">+ Add Size</button>
-                </div>
-                @endforeach
-
-
+    let html = `
+        <div class="addcolor p-3 mb-3" data-color-index="${colorIndex}">
+            <div class="d-flex">
+                <h5>Color ${colorIndex+1}</h5>
+                <button class="btn btn-danger btn-sm removeBtn ms-auto">Remove</button>
             </div>
-        `);
 
+            <div class="row">
+                <div class="col-md-4">
+                    <label>Color Name</label>
+                    <input type="text" name="colorname[]" required>
+                </div>
 
-        $('#colorcontainer').append(newColorBox);
-        count++;
-    });
+                <div class="col-md-4">
+                    <label>Color Code</label>
+                    <input type="text" name="colorcode[]" required>
+                </div>
 
-    // Remove Color button using event delegation
-    $('#colorcontainer').on('click', '.removeBtn', function(e) {
-        e.preventDefault();
-        $(this).closest('.addcolor').fadeOut(300, function() {
-            $(this).remove();
-        });
-    });
+                <div class="col-md-4">
+                    <label>Price Adjustment</label>
+                    <input type="text" name="priceadjustment[]">
+                </div>
+
+                <label class="mt-2">Upload Images</label>
+                <input type="file" name="color_images[${colorIndex}][]" multiple>
+            </div>
+
+            <div class="size-section mt-3">
+                <label>Sizes</label>
+                <div class="sizeContainer"></div>
+                <button type="button" class="btn btn-warning mt-2 add-size-btn">+ Add Size</button>
+            </div>
+        </div>
+    `;
+
+    $('#colorcontainer').append(html);
+    colorIndex++;
 });
 
-// size add button----->
-    // Add Size inside the respective color
-$('#colorcontainer').on('click', '.add-size-btn', function(e) {
-        e.preventDefault();
-let sizeContainer = $(this).closest('.size-section').find('.sizeContainer');
-let colorIndex = $(this).closest('.addcolor').data('color-index');
+// REMOVE COLOR
+$('#colorcontainer').on('click', '.removeBtn', function(){
+    $(this).closest('.addcolor').remove();
+});
 
-        let newSizeBox = $(`
-            <div class="size-box row d-flex align-items-center bg-light p-2 mb-2">
-                <div class="col-md-6 mb-2">
-                    <label>Size Name</label>
-                    <input type="text" class="form-control" name="sizename[${colorIndex}][]" placeholder="Size Name">
-                </div>
-                <div class="col-md-6 mb-2">
-                    <label>Price Adjustment</label>
-                    <input type="number" class="form-control" name="sizepriceadjustment[${colorIndex}][]" placeholder="Price Adjustment">
-                </div>
+// ADD SIZE
+$('#colorcontainer').on('click', '.add-size-btn', function(){
+    let parentColor = $(this).closest('.addcolor');
+    let idx = parentColor.data('color-index');
+
+    parentColor.find('.sizeContainer').append(`
+        <div class="row bg-light p-2 mb-2">
+            <div class="col-md-6">
+                <label>Size Name</label>
+                <input type="text" name="sizename[${idx}][]">
             </div>
-        `);
 
-        sizeContainer.append(newSizeBox);
-    });
-
-
-
-
-
+            <div class="col-md-6">
+                <label>Price Adjustment</label>
+                <input type="number" name="sizepriceadjustment[${idx}][]">
+            </div>
+        </div>
+    `);
+});
 </script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

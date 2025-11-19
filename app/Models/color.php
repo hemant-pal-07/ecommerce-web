@@ -17,10 +17,11 @@ class Color extends Model
         'color_code',
     ];
 
-    public function sizes()
-    {
-        return $this->hasMany(Size::class, 'size_color_id', 'color_id');
-    }
+   public function sizes()
+{
+    return $this->hasMany(Size::class, 'size_color_id', 'color_id');
+}
+
     // Color.php
    public function images() {
     return $this->hasMany(Image::class, 'img_color_id', 'color_id');
