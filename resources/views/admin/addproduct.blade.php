@@ -114,15 +114,6 @@ button:hover{
 
    @include('partials.header')
 
-
-   @if(session('success'))
-    <div class="alert alert-success text-center">
-        {{ session('success') }}
-    </div>
-@endif
-
-
-
    <div class="container w-75 p-3">
     <div class="row">
 
@@ -137,8 +128,8 @@ button:hover{
         <label for="category"  class="p-1 mt-3">Category</label>
         <select id="category" name="p_category_id" class="text-secondary" required>
               <option value="">Select Category</option>
-    <option value="1">Electronics</option>
-    <option value="2">Clothing</option>
+    <option value="1">shirts</option>
+    <option value="2">cap</option>
     <option value="3">Books</option>
     <option value="4">Accessories</option>
         </select>
@@ -265,90 +256,95 @@ button:hover{
 $(document).ready(function() {
     let colorCount = 0;
 
-    // Add Color button click
+    // Add Color
     $('#addcolorbtn').click(function(e) {
-             let colorIndex = colorCount++;
         e.preventDefault();
+        let colorIndex = colorCount++;
 
         let newColorBox = $(`
-            <div class="addcolor p-3 mb-3 rounded-0 border-top border-2 border-warning " data-color-index="${colorIndex}">
-                <div class="d-flex align-item-center">
-                <h5><strong>Color ${colorIndex+1}</strong></h5>
-                  <button class="btn btn-sm btn-danger removeBtn mt-0 ms-auto d-block">Remove Color</button>
-                 </div>
-
-                <div class="row mt-3">
-                    <div class="col-md-4 mb-2 ">
+            <div class="addcolor p-3 mb-3 border border-warning" data-color-index="${colorIndex}">
+                <div class="d-flex align-items-center mb-2">
+                    <h5>Color ${colorIndex+1}</h5>
+                    <button type="button" class="btn btn-sm btn-danger ms-auto removeBtn">Remove Color</button>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 mb-2">
                         <label>Color Name</label>
-                        <input type="text" class="form-control" name="colorname[]" placeholder="Color Name">
+                        <input type="text" name="colorname[]" class="form-control" placeholder="Color Name" required>
                     </div>
                     <div class="col-md-4 mb-2">
-                        <label>Color code</label>
-                        <input type="text" class="form-control" name="colorcode[]" placeholder="Color Code (e.g. #FF0000)">
+                        <input type="hidden" name="color_id[]">
+                        <label>Color Code</label>
+                        <input type="text" name="colorcode[]" class="form-control" placeholder="#FF0000" required>
                     </div>
                     <div class="col-md-4 mb-2">
-                     <label>Price Adjustment</label>
-                        <input type="text" class="form-control" name="priceadjustment[]" placeholder="Price Adjustment">
+                        <label>Price Adjustment</label>
+                        <input type="text" name="priceadjustment[]" class="form-control" placeholder="Price Adjustment">
                     </div>
                 </div>
-
-                <div class="mt-3 mb-2">
-                    <label class="form-label">Images (for this color)</label>
-                  <input type="file" name="color_images[${colorIndex}][]" multiple>
-                   </div>
-
-                  <div class="mt-3 size-section">
-                    <label class="form-label">Sizes</label>
+                <div class="mb-3">
+                    <label>Images for this color</label>
+                    <input type="file" name="color_images[${colorIndex}][]" multiple>
+                </div>
+                <div class="size-section">
+                    <label>Sizes</label>
                     <div class="sizeContainer"></div>
-                    <button class=" p-2 add-size-btn w-100 mt-2" type="button">+ Add Size</button>
+                    <button type="button" class="btn btn-warning add-size-btn mt-2 w-100">+ Add Size</button>
                 </div>
-
-
             </div>
         `);
 
-
         $('#colorcontainer').append(newColorBox);
-        count++;
+
     });
 
-    // Remove Color button using event delegation
-    $('#colorcontainer').on('click', '.removeBtn', function(e) {
-        e.preventDefault();
-        $(this).closest('.addcolor').fadeOut(300, function() {
-            $(this).remove();
-        });
+    // Remove Color
+    $('#colorcontainer').on('click', '.removeBtn', function() {
+        $(this).closest('.addcolor').remove();
     });
-});
 
-// size add button----->
-    // Add Size inside the respective color
-$('#colorcontainer').on('click', '.add-size-btn', function(e) {
-        e.preventDefault();
-let sizeContainer = $(this).closest('.size-section').find('.sizeContainer');
-let colorIndex = $(this).closest('.addcolor').data('color-index');
+    // Add Size inside respective color
+    $('#colorcontainer').on('click', '.add-size-btn', function() {
+        let colorIndex = $(this).closest('.addcolor').data('color-index');
+        let sizeContainer = $(this).closest('.size-section').find('.sizeContainer');
 
         let newSizeBox = $(`
-            <div class="size-box row d-flex align-items-center bg-light p-2 mb-2">
+            <div class="row bg-light p-2 mb-2">
                 <div class="col-md-6 mb-2">
                     <label>Size Name</label>
-                    <input type="text" class="form-control" name="sizename[${colorIndex}][]" placeholder="Size Name">
+                    <input type="text" name="sizename[${colorIndex}][]" class="form-control" placeholder="Size Name">
                 </div>
                 <div class="col-md-6 mb-2">
                     <label>Price Adjustment</label>
-                    <input type="number" class="form-control" name="sizepriceadjustment[${colorIndex}][]" placeholder="Price Adjustment">
+                    <input type="number" name="sizepriceadjustment[${colorIndex}][]" class="form-control" placeholder="Price Adjustment">
                 </div>
             </div>
         `);
 
         sizeContainer.append(newSizeBox);
     });
-
-
-
-
-
+});
 </script>
+
+
+<!-- Add SweetAlert2 CSS & JS in your head or before closing body -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+$(document).ready(function() {
+    @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Product Added!',
+            text: '{{ session("success") }}',
+            showConfirmButton: false,
+            timer: 2000
+        });
+    @endif
+});
+</script>
+
+
 
 </body>
 </html>

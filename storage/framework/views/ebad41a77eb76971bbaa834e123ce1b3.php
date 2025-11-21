@@ -196,6 +196,9 @@
         .bi-list{
             color: orangered;
         }
+        .logodiv{
+            height: 70px;
+        }
 </style>
 <body>
 
@@ -217,14 +220,14 @@
 
     <div  class="sidebar d-none d-md-block" id="sidebar">
 
-       <div class=" d-flex ms-3 align-items-center">
-    <img src="http://127.0.0.1:8000/assets/image/index/logo.png" class="logo" height="32px" width="130px">
+       <div class=" d-flex ms-3 align-items-center logodiv">
+    <img src="http://127.0.0.1:8000/assets/image/dashboardimg/Red and Black Modern Creative Agency Logo.png" class="logo fs-1" height="100px" width="130px">
       <i class="bi bi-list fs-2 ms-auto mx-4" id="menubtn" style="cursor: pointer;"></i>
 
   </div>
 
          <div class=" border p-2 m-2 rounded-2">
-   <img src="<?php echo e(asset('assets/image/dashboardimg/erona image.jfif')); ?>" alt="photo" class="rounded-circle p-2 " height="60px" width="70px" alt="">
+   <img src="<?php echo e(asset('assets/image/dashboardimg/erona image.jfif')); ?>" alt="photo" class="rounded-circle p-2 " height="50px" width="50px" alt="">
      <small class="p-1 ms-2">Unique Fashion</small>
      </div>
      <hr>

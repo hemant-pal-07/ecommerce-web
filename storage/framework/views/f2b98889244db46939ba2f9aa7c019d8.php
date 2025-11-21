@@ -219,31 +219,11 @@
       <div class="topbar d-flex justify-content-between align-items-center flex-wrap sticky-top">
          <button class="toggle-btn d-flex  d-md-block d-sm-block d-lg-none" id="hamburger"><i class="bi bi-list"></i></button>
 
-      <div class="search-box d-flex align-items-center p-3 ms-3 rounded-2 fs-3  ">
-            <i class="bi bi-search text-secondary me-2 fs-5"></i>
-             <input type="text" placeholder="Search" class="border-0 outline-0 w-100 fs-6" >
-            <span class="kbd ms-2 fs-6 text-secondary">⌘</span>
-
-        </div>
-
-      <div class="year-badge p-2 d-flex text-center justify-content-center gap-2 d-md-block d-none ms-auto rounded-2 border">
-    <i class="bi bi-calendar-event text-secondary"></i>
-    <span class=" kbd ms-2 text-secondary">
-        Academic Year: 2024 / 2025
-    </span>
-</div>
 
 
-        <div class="d-none d-md-flex align-items-center gap-2">
-    <div class="icon-btn d-flex align-items-center justify-content-center border p-2 ms-3"><i class="bi bi-flag"></i></div>
-    <div class="icon-btn d-flex align-items-center justify-content-center border p-2 ms-1"><i class="bi bi-camera"></i></div>
-    <div class="icon-btn d-flex align-items-center justify-content-center border p-2  ms-1"><i class="bi bi-moon"></i></div>
-    <div class="icon-btn d-flex align-items-center justify-content-center position-relative border p-2  ms-1">
-        <i class="bi bi-bell"></i>
-        <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
-    </div>
-    <div class="icon-btn d-flex align-items-center justify-content-center border p-2  ms-1"><i class="bi bi-bar-chart"></i></div>
-    <div class="icon-btn d-flex align-items-center justify-content-center border p-2 ms-1"><i class="bi bi-arrows-fullscreen"></i></div>
+
+        <div class="d-none d-md-flex align-items-center gap-2 ms-auto">
+
     <div class="avatar">
          <img src="https://t3.ftcdn.net/jpg/06/99/46/60/360_F_699466075_DaPTBNlNQTOwwjkOiFEoOvzDV0ByXR9E.jpg" alt="Profile">
     </div>

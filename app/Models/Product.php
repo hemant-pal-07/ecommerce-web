@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Category;
+
 
 class Product extends Model
 {
     protected $primaryKey = 'p_id';
-      public $timestamps = false;
+      public $timestamps = true;
 
     use HasFactory;
       protected $fillable = ['p_name',
@@ -20,8 +22,8 @@ class Product extends Model
         'p_visibility_status',
         'p_stock',
         'p_type',
-        'p_created_at',
-        'p_updated_at',];
+        ];
+
 
 
 
@@ -29,11 +31,39 @@ class Product extends Model
      public function colors()
     {
         return $this->hasMany(Color::class, 'color_product_id', 'p_id');
+
     }
 
     public function category() {
         return $this->belongsTo(Category::class, 'p_category_id','c_id');
     }
+
+
+
+    public function sizes()
+{
+    return $this->hasMany(Size::class, 'size_product_id', 'p_id');
+}
+public function images()
+{
+    return $this->hasMany(Image::class, 'img_product_id', 'p_id');
+}
+
+
+protected static function boot()
+{
+    parent::boot();
+
+    static::deleting(function ($product) {
+        foreach ($product->colors as $color) {
+            $color->images()->delete();
+            $color->sizes()->delete();
+        }
+        $product->colors()->delete();
+    });
+}
+
+
 
 
 

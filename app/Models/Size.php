@@ -17,6 +17,7 @@ class Size extends Model
         'size_price_adjustment',
 
     ];
+       
 
     // Each size belongs to a product color
     public function color()

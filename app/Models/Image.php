@@ -9,7 +9,7 @@ class Image extends Model
 {
     protected $table = 'images';
     protected $primaryKey = 'image_id';
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'img_color_id',
@@ -19,11 +19,17 @@ class Image extends Model
         'image_updated_at',
     ];
 
+       const CREATED_AT = 'p_created_at';
+    const UPDATED_AT = 'p_updated_at';
+
     //  one color has many images---->
-    public function images()
-    {
-        return $this->hasMany(Image::class, 'img_color_id', 'color_id');
-    }
+ public function images()
+{
+    return $this->hasMany(Image::class, 'img_product_id', 'p_id');
+}
+    // Product.php
+
+
 
     //  one color has many sizes---->
     public function sizes()

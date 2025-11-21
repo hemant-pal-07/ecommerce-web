@@ -90,7 +90,7 @@ Route::get('/admin/product-list', [ProductController::class, 'productlist'])->na
 Route::get('/admin/edit-product/{id}', [ProductController::class, 'edit'])->name('product.edit');
 Route::put('/admin/update-product/{id}',[ProductController::class, 'update'])->name('product.update');
 Route::delete('/admin/delete-product/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
-
+ Route::get('/admin/product-view/{id}', [ProductController::class, 'view'])->name('product.view');
 
 
 
@@ -103,6 +103,7 @@ Route::delete('/admin/delete-product/{id}', [ProductController::class, 'destroy'
  Route::get('/admin/categories-edit/{id}', [CategoryController::class, 'edit'])  ->name('category.edit');
  Route::delete('/admin/categories-delete/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
  Route::put('/admin/category-update/{id}',[CategoryController::class, 'update'])->name('category.update');
+
 
 
 
