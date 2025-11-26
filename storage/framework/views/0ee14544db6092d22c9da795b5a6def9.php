@@ -25,7 +25,7 @@
         <!-- preloader start -->
         <div class="preloader position-fixed top-0 start-0 w-100 h-100 body-bg z-index-5">
             <div class="loader-img position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
-                <img src="assets/image/index/logo.png" class="width-88 width-xl-112 img-fluid" alt="logo">
+<img src="<?php echo e(asset('assetsofdash/images/Red and Black Modern Creative Agency Logo.png')); ?>" class="rounded-1" width="150px" height="60px"  >                                    </a>
             </div>
         </div>
         <!-- preloader end -->
@@ -100,8 +100,7 @@
                             <div class="col-6 col-xl-2 header-element header-logo">
                                 <div class="header-theme-logo">
                                     <a href="index.html" class="d-inline-block theme-logo">
-                                        <img src="assets/image/index/logo.png" class="width-88 width-xl-112 img-fluid" alt="logo">
-                                    </a>
+<img src="<?php echo e(asset('assetsofdash/images/Red and Black Modern Creative Agency Logo.png')); ?>" class="rounded-1" width="150px" height="60px"  >                                    </a>
                                 </div>
                             </div>
                             <!-- header-logo end -->
@@ -1864,6 +1863,14 @@
         <!-- theme js -->
         <script src="assets/js/theme.js"></script>
 
+
+<!-- SweetAlert2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 <?php if(session('success')): ?>
 <script>
     Swal.fire({
@@ -1890,6 +1897,5 @@
 
     </body>
 
-<!-- Mirrored from spacingtech.com/html/erona/template/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 29 Oct 2025 07:45:19 GMT -->
 </html>
 <?php /**PATH C:\laravel_git\ecommerce-web\resources\views/signin.blade.php ENDPATH**/ ?>

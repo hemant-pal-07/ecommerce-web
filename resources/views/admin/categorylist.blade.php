@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Category List</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+@extends('layouts.admin-layout')
 
+@section('title', 'category-list')
+
+@push('styles')
 <style>
-    body { background:#f8f9fa; }
+    body { background:#f8f9fa;font-family: 'Poppins',sans-serif;  }
     h1 { color:#ff6600; text-align:center; margin:20px 0; }
     .btn-orange { background-color: #ff6600; color:white; }
     .btn-orange:hover { background-color: #e65c00; }
@@ -17,16 +12,16 @@
 
 
 </style>
+@endpush
 
-</head>
-<body>
 
-@include('partials.sidebar')
-@include('partials.header')
+
+@section('content')
+
 <div class="container-fluid w-100 p-4 d-flex flex-wrap justify-content-center align-items-center">
     <h1 class="text-center w-100 mb-4">Category List</h1>
 
-    <div class="table-responsive w-100">
+    <div class="table-responsive  w-100" >
         <table class="table table-bordered table-striped text-center">
             <thead class="text-white bg-warning">
             <tr>
@@ -53,7 +48,7 @@
                 </td>
                 <td>
                     @if($category->c_image)
-    <img src="{{ asset($category->c_image) }}" alt="{{ $category->c_name }}" class="preview-img" onclick="openPreview(this)">                    @else
+                      <img src="{{ asset($category->c_image) }}" alt="{{ $category->c_name }}" class="preview-img" onclick="openPreview(this)">                    @else
                         -
                     @endif
                 </td>
@@ -81,7 +76,13 @@
     <img id="previewImg" src="" style="max-width:90%; max-height:90%; border-radius:10px; box-shadow:0 0 15px white;">
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@endsection
+
+
+
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
 function confirmDelete(form) {
     event.preventDefault();
@@ -99,43 +100,6 @@ function confirmDelete(form) {
         }
     });
 }
-</script>
-
-{{-- menubtn script --}}
-   <!-- Scripts -->
-
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script>
-      $(document).ready(function() {
-        $("#menubtn").click(function(){
-
-          const sidebar = $("#sidebar");
-          const mainContent = $(".main-content");
-
-
-          if (sidebar.css("margin-left") === "0px") {
-            sidebar.animate({ marginLeft: "-190px" }, );
-            mainContent.animate({ marginLeft: "60px" }, );
-
-          } else {
-            sidebar.animate({ marginLeft: "0px" } );
-            mainContent.animate({ marginLeft: "250px" } );
-
-          }
-        });
-      });
-    </script>
-
-
-
-<script>
-  $(document).ready(function() {
-    $("#hamburger").click(function() {
-      $("#sidebar1").toggleClass("active");
-    });
-  });
 </script>
 
 <script>
@@ -158,9 +122,3 @@ document.getElementById('imgPreviewModal').addEventListener('click', function(e)
 });
 </script>
 
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-</body>
-</html>

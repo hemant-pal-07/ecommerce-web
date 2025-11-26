@@ -15,12 +15,10 @@ class Image extends Model
         'img_color_id',
         'img_path',
         'img_alt_text',
-        'image_created_at',
-        'image_updated_at',
+
     ];
 
-       const CREATED_AT = 'p_created_at';
-    const UPDATED_AT = 'p_updated_at';
+
 
     //  one color has many images---->
  public function images()

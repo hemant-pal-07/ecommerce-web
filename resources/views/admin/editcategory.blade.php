@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Edit Category Form</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+@extends('layouts.admin-layout')
 
+@section('title', 'Edit-category')
+
+@push('styles')
 <style>
-    body { background:#f8f9fa; }
+    body { background:#f8f9fa;font-family:'Poppins',sans-serif; }
     h1 { color: #ff6600; margin-bottom: 25px; text-align: center; }
     .form-label { color: #ff6600; font-weight: 600; }
     .btn-orange { background-color: #ff6600; color: white; }
@@ -18,11 +12,10 @@
     button{ background: #ff6600; border:none; padding: 10px; color: white; border-radius: 5px; }
     .card{ max-width: 750px; }
 </style>
-</head>
-<body>
+@endpush
 
-@include('partials.sidebar')
-@include('partials.header')
+
+@section('content')
 
 <div class="card w-100 mx-auto mt-4">
     <div class="card-header text-center bg-warning text-white">
@@ -34,6 +27,9 @@
         <form action="{{ route('category.update', $category->c_id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT') <!-- Important for updating -->
+
+
+     >
 
             <!-- Category Name -->
             <div class="mb-3">
@@ -80,7 +76,10 @@
 
     </div>
 </div>
+@endsection
 
+
+@push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     @if(session('success'))
@@ -98,10 +97,7 @@
         output.style.display = 'block';
     }
 </script>
+@endpush
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-</body>
-</html>
 

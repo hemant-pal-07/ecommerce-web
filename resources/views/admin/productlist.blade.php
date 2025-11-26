@@ -1,22 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Product List</title>
 
-<!-- Bootstrap CSS CDN -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<!-- DataTables CSS -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-<!-- Bootstrap Icons -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+@extends('layouts.admin-layout')
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+@section('title', 'Product-list')
 
+@push('styles')
 <style>
-    body { background-color: #f8f9fa; }
+    body { background-color: #f8f9fa;font-family: 'Poppins',sans-serif }
     h1 { color: #ff6600; margin-bottom: 25px; text-align: center; }
     .btn-orange { background-color: #ff6600; color: white; }
     .btn-orange:hover { background-color: #e65c00; }
@@ -35,7 +24,7 @@
     color: white !important;
      text-align: center;
      align-items: center;
-     padding: 10px;
+     padding: 20px;
 
 }
 
@@ -44,6 +33,7 @@
 #productTable tbody tr td {
     vertical-align: middle;
     font-size: 14px;
+    padding: 20px;
 
 }
 
@@ -54,12 +44,12 @@
 
 /*********** SEARCH BOX ************/
 .dataTables_wrapper .dataTables_filter {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .dataTables_wrapper .dataTables_filter label {
     font-weight: 500;
-    color: #ff6600;
+
 }
 
 .dataTables_wrapper .dataTables_filter input {
@@ -78,14 +68,14 @@
 
 /*********** LENGTH DROPDOWN ************/
 .dataTables_wrapper .dataTables_length label {
-    color: #ff6600;
+
     font-weight: 500;
 }
 
 .dataTables_wrapper .dataTables_length select {
     border: 1px solid #ff6600;
     border-radius: 6px;
-    padding: 5px 8px;
+    padding: 5px 30px;
 
 }
 
@@ -96,21 +86,17 @@
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button {
-    background: white !important;
-    border: 1px solid #ff6600 !important;
-    color: #ff6600 !important;
-    padding: 6px 14px !important;
-    margin: 2px;
-    border-radius: 8px;
+    padding: 5px 10px !important;
+    margin: px;
     cursor: pointer;
     font-size: 14px;
     transition: 0.3s ease;
 }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+/* .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
     background: #ff6600 !important;
     color: white !important;
-}
+} */
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.current {
     background: #ff6600 !important;
@@ -119,11 +105,11 @@
     font-weight: bold;
 }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
-    background: #f1f1f1 !important;
+/* .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
+    /* background: #f1f1f1 !important;
     color: #aaa !important;
     border: 1px solid #ddd !important;
-}
+} */ */
 
 /*********** TABLE INFO TEXT ************/
 .dataTables_wrapper .dataTables_info {
@@ -135,143 +121,146 @@
 
 /*********** TABLE BORDER + SHADOW ************/
 #productTable {
-    border-radius: 10px;
+    border-radius: 5px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0,0,0,0.08);
 
 }
-
-#productTable th, #productTable td {
-    border: 1px solid #f1f1f1 !important;
-
-}
-
-/*********** MOBILE RESPONSIVE ************/
-
-
-
+/* .badge{
+    padding:10px;
+     background: purple;
+} */
 
 
 
 
 </style>
-</head>
-<body>
+@endpush
 
-@include('partials.sidebar')
-@include('partials.header')
 
+@section('content')
 <div class="container p-4">
-    <h1 class="p-2">Product List</h1>
+    <h3 class="mb-3 fw-bold">Product List</h3>
 
-    <table id="productTable" class="display table table-bordered text-center">
-        <thead>
-            <tr class="text-white bg-warning">
-                <th>ID</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Price</th>
-                <th>Old Price</th>
-                <th>Stock</th>
-                <th>Images</th>
-                <th>Sizes</th>
-                <th>Colors</th>
-                <th>Type</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach($products as $p)
-            <tr>
-                <td>{{ $p->p_id }}</td>
-                <td>{{ $p->p_name }}</td>
-                <td>{{ $p->category->c_name ?? $p->p_category_id }}</td>
-                <td>₹{{ $p->p_price }}</td>
-                <td>₹{{ $p->p_old_price ?? '-' }}</td>
-                <td>
-                    @if($p->p_stock > 0)
-                        <span class="badge bg-success">{{ $p->p_stock }}</span>
-                    @else
-                        <span class="badge bg-danger">Out of Stock</span>
-                    @endif
-                </td>
+    <div class="table-responsive shadow-sm rounded bg-white p-3">
+        <table id="productTable" class="table align-middle text-center table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>SR. NO</th>
+                    <th>ACTION</th>
+                    <th>NAME</th>
+                    <th>CATEGORY</th>
+                    <th>PRICE</th>
+                    <th>OLD PRICE</th>
+                    <th>STOCK</th>
+                    <th>TYPE</th>
 
-                <!-- Product Images (scrollable) -->
-                <td>
-                    <div class="d-flex gap-1 overflow-auto" style="white-space: nowrap; max-width:150px; margin:auto;">
-                        @foreach($p->colors as $color)
-                            @foreach($color->images ?? [] as $img)
-                                <img src="{{ asset('storage/colors/' . $img->img_path) }}"
-                                     alt="{{ $img->img_alt_text }}" width="40px" class="rounded border preview-img">
-                            @endforeach
-                        @endforeach
-                    </div>
-                </td>
+                </tr>
+            </thead>
 
-                <!-- Sizes -->
-                <td>
-                    @php
-                        $sizes = [];
-                        foreach($p->colors as $color){
-                            $sizes = array_merge($sizes, $color->sizes->pluck('size_name')->toArray());
-                        }
-                    @endphp
-                    {{ implode(', ', $sizes) ?: '-' }}
-                </td>
+            <tbody>
+                @foreach($products as $index => $p)
+                <tr>
 
-                <!-- Colors -->
-                <td>
-                    @foreach($p->colors as $color)
-                        <span class="badge-color" style="background: {{ $color->color_code ?? '#ccc' }}" title="{{ $color->color_name }}"></span>
-                    @endforeach
-                </td>
+                    <!-- Sr No -->
+                    <td>{{ $index + 1 }}</td>
+
+                    <!-- Action -->
+                    <td>
+                        <a href="{{ route('product.edit', $p->p_id) }}" class="btn btn-sm btn-edit bg-primary text-white">Edit</a>
+                        <a href="{{ route('product.view', $p->p_id) }}" class="btn btn-sm btn-view bg-warning text-white">View</a>
+                 <form action="{{ route('product.destroy', $p->p_id) }}" method="POST" style="display:inline;">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="btn btn-sm btn-view deleteBtn bg-danger text-white">
+        Delete
+    </button>
+</form>
 
 
-                <td>{{ ucfirst($p->p_type) }}</td>
 
-                <!-- Actions -->
-                <td>
-                    <a href="{{ route('product.view', $p->p_id) }}" class="btn btn-sm btn-orange mb-1">View</a>
-                    <a href="{{ route('product.edit', $p->p_id) }}" class="btn btn-sm btn-orange mb-1">Edit</a>
+                    </td>
 
-                    <form action="{{ route('product.destroy', $p->p_id) }}" method="POST" class="d-inline">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-sm btn-orange deleteBtn">Delete</button>
-                    </form>
-                </td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
+                    <!-- Name -->
+                    <td class="fw-semibold">{{ $p->p_name }}</td>
+
+                    <!-- Category -->
+                    {{-- <td>{{ $p->category->c_name ?? $p->p_category_id }}</td> --}}
+                    <td>
+    @if($p->category)
+        {{ $p->category->c_name }}
+    @else
+        <span style="color:red;">No Category Found</span>
+    @endif
+</td>
+
+
+
+
+                    <!-- Price -->
+                    <td>₹{{($p->p_price ) }}</td>
+
+                    <!-- Old Price -->
+                    <td>
+                        @if($p->p_old_price)
+                            ₹{{($p->p_old_price) }}
+                        @else
+                            -
+                        @endif
+                    </td>
+
+
+
+
+                    <!-- Stock -->
+                   <td class="stock-cell">
+    @if($p->p_stock > 0)
+        <span class="badge badge-stock bg-info p-2">{{ $p->p_stock }}</span>
+    @else
+        <span class="badge badge-out">0</span>
+    @endif
+</td>
+
+
+
+
+                    <!-- Type -->
+                    <td>{{ ucfirst($p->p_type) }}</td>
+
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>
+
+@endsection
+
 
 <!-- Scripts -->
 
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+@push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
 $(document).ready(function () {
-    // Initialize DataTable
+
     $('#productTable').DataTable({
-        "pageLength": 5,
-        "lengthMenu": [5, 10, 25, 50, 100, "All"],
-        "order": [[0, "desc"]],
-        "language": {
-            "search": "Search Product:",
-            "lengthMenu": "Show _MENU_ entries"
+        pageLength: 5,
+        lengthMenu: [5, 10, 25, 50, 100, "All"],
+        order: [[0, "asc"]],
+        language: {
+            search: "Search Product:",
+            lengthMenu: "Show _MENU_ entries"
         }
     });
 
-    // Row hover effect
     $('#productTable tbody tr').hover(
         function () { $(this).css('background-color', '#ffe6cc'); },
         function () { $(this).css('background-color', ''); }
     );
 
-    // SweetAlert delete
-    $('.deleteBtn').click(function(e){
+    $('.deleteBtn').on('click', function(e){
         e.preventDefault();
         let form = $(this).closest('form');
 
@@ -289,48 +278,9 @@ $(document).ready(function () {
             }
         });
     });
+
 });
 </script>
-
-{{-- sidebar css/js srcipt --}}
-
-    <script>
-      $(document).ready(function() {
-        $("#menubtn").click(function(){
-
-          const sidebar = $("#sidebar");
-          const mainContent = $(".main-content");
+@endpush
 
 
-          if (sidebar.css("margin-left") === "0px") {
-            sidebar.animate({ marginLeft: "-190px" }, );
-            mainContent.animate({ marginLeft: "60px" }, );
-
-          } else {
-            sidebar.animate({ marginLeft: "0px" } );
-            mainContent.animate({ marginLeft: "250px" } );
-
-          }
-        });
-      });
-    </script>
-
-
-
-<script>
-  $(document).ready(function() {
-    $("#hamburger").click(function() {
-      $("#sidebar1").toggleClass("active");
-    });
-  });
-</script>
-
-
-
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-</body>
-</html>

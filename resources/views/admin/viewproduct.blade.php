@@ -1,106 +1,108 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>view product</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-      <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+ @extends('layouts.admin-layout')
 
+ @section('title', 'View-product')
 
-</head>
+@push('styles')
 <style>
-    *{
-        padding: 0;
-        margin: 0;
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: #f5f3f1;
+    }
+    .card-1{
+        height:auto;
+        border: 1px solid rgb(201, 200, 200);
+        background:white;
 
     }
-     body{
-          font-family: 'Poppins',sans-serif;
-          background:rgb(245, 243, 241);
+
+      .product-banner {
+        position: relative;
+        overflow: hidden;
+        border-radius: 20px;
+        /* box-shadow: 0 8px 20px rgba(0,0,0,0.15); */
+        width: 100%;
+
     }
-           select, textarea {
-            padding: 10px;
-            margin: 7px 0;
-            border-radius: 7px;
-            align-items: center;
-            width: 100%;
-            border: 1px solid orangered;
-        }
-        input{
-            padding: 10px;
-            margin: 7px 0;
-            border-radius: 7px;
-            align-items: center;
-             width: 100%;
-             border:1px solid orangered;
-        }
-        form{
-            border: 1px solid orangered;
-            background: white;
-            border-radius: 7px;
-        }
-        h1{
-            color: orange;
-            margin-top:-20px;
-        }
-        .color-option {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  margin: 6px;
-}
 
-.color-box {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border:1px solid grey;
-  display: inline-block;
-}
-
-
-
-button{
-    background-color: orange;
-    border: 0;
-      transition: all 0.3s;
-
-}
-button:hover{
-    background-color: orangered;
-    cursor: pointer;
-    color: white;
-
-}
-  .form-section {
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-     border: 1px solid orangered;
-      max-width: 650px;
-      margin:20px auto;
+    .product-banner img {
+        width: 100%;
+        height: 330px;
+        object-fit: cover;
+        transition: all 0.5s;
+        border-radius: 20px;
     }
-    .color-input {
-      width: 70px;
-      height: 38px;
-      border: 1px solid #ced4da;
-      border-radius: 4px;
+
+    .product-banner:hover img {
+        transform: scale(1.05);
     }
-    .add-btn {
-      background-color:orangered;
-      color: white;
-      width: 100%;
+
+    .banner-title {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background:rgb(252, 95, 39);
+        padding: 8px 25px;
+        border-radius: 20px;
+        font-size: 22px;
+        font-weight: 600;
+        color: white;
+        backdrop-filter: blur(5px);
+
     }
-    .form-control{
-        border:1px solid orangered;
+    .product-modern-card-2 {
+        border-radius: 15px;
+        background: orangered;
+        padding: 35px 40px;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        justify-content: space-between;
+        align-items: center;
+        gap: 40px;
+        flex-wrap: wrap;
+        border: 1px solid #eee;
     }
 
 
+       .product-modern-card {
+        border-radius: 15px;
+        background: orangered;
+        padding: 35px 40px;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 40px;
+        flex-wrap: wrap;
+        border: 1px solid #eee;
+    }
+
+    .detail-box {
+        background: #fff;
+        padding: 18px 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        flex: 1;
+        min-width: 220px;
+        border: 1px solid #f0f0f0;
+        transition: 0.3s ease;
+    }
+
+    .detail-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    .detail-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: #777;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .csi{
+        background: orangered;
+    }
 
 
 
@@ -108,170 +110,162 @@ button:hover{
 
 
 </style>
-<body>
-
-
-   @include('partials.sidebar')
-
-
-   @include('partials.header')
+@endpush
 
 
 
-       <div class="container mt-3 ">
+@section('content')
 
-        <h1 class="text-center p-3">Product Details</h1>
-<div class="row g-4">
-        <div class="col-md-4">
-            <div class="card p-3 shadow-sm gap-3">
-                <div class="mb-3">
-                    <strong class="text-warning">Product Name:</strong>
-                    <td class="ms-2 d-flex">{{ $product->p_name }}</td>
-                </div>
+  <h1 class="mb-3 fw-bold">Product Details</h1>
 
-                <div class="mb-3">
-                    <strong class="text-warning">Price:</strong>
-                    <td>₹{{ $product->p_price }}</td>
-                </div>
+<div class="container-fluid card-1 rounded-3 w-100 p-4">
+    <div class="row">
+ <div class="product-banner">
+    <span class="banner-title">Product Banner</span>
 
-                <div class="mb-3">
-                    <strong class="text-warning">Category:</strong>
-                    <td>{{ $product->category->c_name ?? $product->p_category_id }}</td>
-                </div>
-                   <div class="mb-3">
-                    <strong class="text-warning">Visibility_status</strong><br>
+  @if($product->category && $product->category->c_banner_img)
+        <img src="{{ asset($product->category->c_banner_img) }}">
+    @endif
 
-                <td>
-                    @if($product->p_visibility_status)
-                        <span class="badge bg-success">Visible</span>
-                    @else
-                        <span class="badge bg-secondary">Hidden</span>
-                    @endif
-                </td>
-                </div>
-            </div>
+
+</div>
+
+
+
+
+   <div class="container mt-4">
+    <div class="product-modern-card">
+
+        <div class="detail-box">
+            <div class="detail-title">Product Name</div>
+             <h2 class="fw-bold text-info">{{ $product->p_name }}</h2>
         </div>
 
-          <div class="col-md-8">
-            <div class="card p-4 shadow-sm text-center">
-                <h4 class="text-warning mb-3">Product banner</h4>
-{{--
-             @if($product->category && $product->category->c_banner_img)
-            <img src="{{ asset($category->c_banner_img) }}"
-         alt="{{ $product->category->c_name }}"
-         class="preview-img"
-         onclick="openPreview(this)">
-             @else
-              No banner available of this product!
-             @endif --}}
+        <div class="detail-box">
+            <div class="detail-title">Category</div>
+             <h2 class="fw-semibold text-primary">
+          {{ $product->category->c_name ?? $product->p_category_id }}
+             </h2>
+        </div>
+
+        <div class="detail-box">
+            <div class="detail-title">Price</div>
+            <h4 class="text-danger fw-bold">₹{{ $product->p_price }}</h4>
+        </div>
+
+        <div class="detail-box">
+            <div class="detail-title">Visibility</div>
+             @if($product->p_visibility_status)
+                    <span class="badge fs-6 bg-success">Visible</span>
+                @else
+                    <span class="badge bg-secondary">Hidden</span>
+                @endif
+        </div>
+
+    </div>
+</div>
 
 
+{{-- color, size, image --}}
 
-            </div>
+<div class="text-center  d-flex ms-auto justify-content-center">
+<h5 class=" csi  fw-semibold p-3 text-center w-100 rounded-3  mt-4  text-white">Colors • Sizes • Image Preview</h5>
+</div>
+@foreach($product->colors as $color)
 
-  <div class="mb-3 card p-2 text-center mt-3">
-    <h4 class="text-warning mb-3">Product Images</h4>
-    <div class="d-flex flex-wrap justify-content-start gap-2 overflow-auto">
-        @foreach($product->colors as $color)
-            @foreach($color->images ?? [] as $img)
-                <img src="{{ asset('storage/colors/' . $img->img_path) }}"
-                     alt="{{ $img->img_alt_text }}"
-                     width="80px"
-                     class="rounded-1 border ">
-            @endforeach
+<div class="p-3 mb-3 rounded-4 shadow-sm"
+     style="border:1px solid #fd3713; background:white;">
+
+    <!-- COLOR SECTION -->
+    <div class=" align-items-center gap-3 mb-3">
+        <h4 class=" csi text-white rounded-3 w-25 text-center">Color</h4>
+        <span style="
+            width:35px; height:35px;
+            border-radius:5px;
+            display:inline-block;
+            margin:5px 20px;
+            border:2px solid #fdb93a;
+            background: {{ $color->color_code }};
+        "></span>
+  <div class="d-flex">
+        <h6 class="fw-bold ms-4">{{ $color->color_name }}</h6>
+            <div style="font-size:13px; font-weight:600; border:1px solid rgb(197, 195, 195); margin-left:10px; margin-top:-10px; color:black;" class="rounded-2 p-2">
+                 ₹ {{ $color->color_price_adjustment }}
+                </div>
+    </div>
+    </div>
+
+    <!-- IMAGES OF THIS COLOR -->
+   <h4 class=" csi text-white rounded-3 w-25 text-center">Images</h4>
+
+    <div class="d-flex flex-wrap gap-2 mb-3 ms-1">
+         @foreach($color->images as $img)
+        <img src="{{ asset('storage/colors/' . $img->img_path) }}"
+                 style="width:70px; height:70px; object-fit:cover; border-radius:8px; border:1px solid #ffb243;">
         @endforeach
     </div>
-</div>
+
+    <!-- SIZES OF THIS COLOR -->
+       <h4 class="csi text-white rounded-3 w-25 text-center">Sizes</h4>
+
+    <div class="d-flex flex-wrap gap-2 ms-1">
+
+        @foreach($color->sizes as $size)
+            <div class="px-3 py-1 border rounded fw-semibold d-flex align-items-center gap-2"
+                 style="border-color:#ffb243; background:#fff;">
 
 
-        </div>
+                {{ $size->size_name }}
+
+                {{-- Show image if this size has image --}}
+                @if($size->image)
+                    <img src="{{ asset('uploads/products/'.$size->image) }}"
+                         style="width:60px; height:40px; object-fit:cover; border-radius:6px; border:1px solid #ffb243;">
+                @endif
+
+                <div style="font-size:13px; font-weight:600;  margin-left:5px; margin-top:2px; color:black;">
+                 ₹ {{ $size->size_price_adjustment }}
+                </div>
+
+            </div>
+        @endforeach
     </div>
 
+</div>
+
+@endforeach
 
 
-     <div class="border card mt-3 mb-3 p-3">
-         <div class="mb-3 text-center p-1">
-            <strong class="text-warning fs-5">Short Description</strong><br>
-              <td class="mt-2">{{ Str::limit($product->p_short_description, 50) }}</td>
+{{-- description --}}
+
+
+        <div class="text-center  d-flex ms-auto justify-content-center">
+<h5 class=" csi  fw-semibold p-3 text-center w-100 rounded-3  mt-4  text-white">Product description</h5>
+</div>
+
+<div class="container mt-4">
+    <div class="product-modern-card-2">
+
+           <div class="detail-box">
+            <div class="detail-title">Short description</div>
+             <p>{{ Str::limit($product->p_short_description, 200) }}</p>
         </div>
 
+            <div class="detail-box mt-3">
+            <div class="detail-title">Long description</div>
+             <p>{!! $product->p_long_description !!}</p>
         </div>
 
-         <div class="border card mt-3 mb-3 p-3">
-        <div class="mb-3 text-center p-1">
-            <strong class="text-warning fs-5">Long Description:</strong><br>
-              <td class="mt-2">{{ Str::limit(strip_tags($product->p_long_description), 80) }}</td>
 
-        </div>
-        </div>
 
-    <div class="d-flex">
-         <a href="{{ route('product.edit', $product->p_id) }}" class="btn btn-warning w-15 ms-3 mt-2 text-white">Edit Product list</a>
-      <a href="{{ route('product.list') }}" class="btn btn-warning text-white w-15 ms-auto mt-2">Back to Products list</a>
-      </div>
+    </div>
 </div>
 
 
 
 
+  </div>
+</div>
 
 
-   <!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script>
-      $(document).ready(function() {
-        $("#menubtn").click(function(){
-
-          const sidebar = $("#sidebar");
-          const mainContent = $(".main-content");
-
-
-          if (sidebar.css("margin-left") === "0px") {
-            sidebar.animate({ marginLeft: "-190px" }, );
-            mainContent.animate({ marginLeft: "60px" }, );
-
-          } else {
-            sidebar.animate({ marginLeft: "0px" } );
-            mainContent.animate({ marginLeft: "250px" } );
-
-          }
-        });
-      });
-    </script>
-
-
-
-<script>
-  $(document).ready(function() {
-    $("#hamburger").click(function() {
-      $("#sidebar1").toggleClass("active");
-    });
-  });
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
- <script>
-    $('#productDescription').summernote({
-      placeholder: 'Type product description...',
-      tabsize: 2,
-      height: 200
-    });
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-</body>
-</html>
-
+@endsection

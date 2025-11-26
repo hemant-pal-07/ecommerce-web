@@ -1,19 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Add Category Form</title>
-<!-- Bootstrap CSS CDN -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-      <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+
+@extends('layouts.admin-layout')
+
+@section('title', 'add-category')
+
+@push('styles')
 
 <style>
     body {
     background:#f8f9fa;
-
+    font-family: 'Poppins',sans-serif;
     }
 
     h1 {
@@ -44,15 +39,30 @@
         max-width: 750px;
 
     }
+      select, textarea {
+            padding: 10px;
+            margin: 7px 0;
+            border-radius: 7px;
+            align-items: center;
+            width: 100%;
+            border: 1px solid rgb(235, 234, 234);
+        }
+        input{
+            padding: 10px;
+            margin: 7px 0;
+            border-radius: 7px;
+            align-items: center;
+             width: 100%;
+             border:1px solid orangered;
+        }
+
 </style>
+ @endpush
+
 </head>
 <body>
 
-
-     @include('partials.sidebar')
-
-     @include('partials.header')
-
+       @section('content')
 
        <div class="card w-100 mx-auto mt-4">
         <div class="card-header text-center bg-warning text-white">
@@ -64,12 +74,27 @@
             <form action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
-                <!-- Category Name -->
-                <div class="mb-3">
+
+    <label for="main_category" class="p-1 mt-1 form-label">Main Category</label>
+<select id="main_category" name="main_category" required>
+    <option value="">Select Main Category</option>
+    <option value="men">Men Category</option>
+    <option value="women">Women Category</option>
+    <option value="kids">Kids Category</option>
+</select>
+
+
+<label for="category" class="p-1 mt-1 form-label">Category</label>
+<select id="category" name="category" required>
+    <option value="">Select Category</option>
+</select>
+
+                 {{-- Category Name --> --}}
+                {{-- <div class="mb-3">
                     <label class="form-label text-center">Category Name</label>
                     <input type="text" name="c_name" class="form-control" value="{{ old('c_name') }}" required>
                     @error('c_name') <small class="text-danger">{{ $message }}</small> @enderror
-                </div>
+                </div> --}}
 
                 <!-- Banner Image -->
                 <div class="mb-3">
@@ -103,9 +128,40 @@
 
 </div>
 
+@endsection
 
 
 
+
+@push('scripts')
+
+
+<script>
+    const categories = {
+        men: ["Shirts", "Pants", "Caps", "Shoes"],
+        women: ["Dresses", "Bags", "Heels", "Jewelry"],
+        kids: ["Books", "Toys", "Kids Clothes", "School Bags"]
+    };
+
+    const mainCategory = document.getElementById("main_category");
+    const category = document.getElementById("category");
+
+    mainCategory.addEventListener("change", function () {
+        const selected = this.value;
+
+        // Reset dropdown
+        category.innerHTML = '<option value="">Select Category</option>';
+
+        if (categories[selected]) {
+            categories[selected].forEach(item => {
+                const option = document.createElement("option");
+                option.value = item.toLowerCase();
+                option.textContent = item;
+                category.appendChild(option);
+            });
+        }
+    });
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -120,42 +176,7 @@
     @endif
 </script>
 
-
-       <!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script>
-      $(document).ready(function() {
-        $("#menubtn").click(function(){
-
-          const sidebar = $("#sidebar");
-          const mainContent = $(".main-content");
-
-
-          if (sidebar.css("margin-left") === "0px") {
-            sidebar.animate({ marginLeft: "-190px" }, );
-            mainContent.animate({ marginLeft: "60px" }, );
-
-          } else {
-            sidebar.animate({ marginLeft: "0px" } );
-            mainContent.animate({ marginLeft: "250px" } );
-
-          }
-        });
-      });
-    </script>
-
-
-
-<script>
-  $(document).ready(function() {
-    $("#hamburger").click(function() {
-      $("#sidebar1").toggleClass("active");
-    });
-  });
-</script>
+@endpush
 
 </body>
 </html>

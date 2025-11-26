@@ -1,292 +1,124 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>sidebar of dashboard</title>
-</head>
+ <div class="sidebar px-4 py-4 py-md-4 me-0">
+            <div class="d-flex flex-column h-100">
+                <a href="<?php echo e(route('admin.dashboard')); ?>" class="mb-0 brand-icon">
+                    
+             <img src="<?php echo e(asset('assetsofdash/images/Red and Black Modern Creative Agency Logo.png')); ?>" class="rounded-4" width="200px"  >
+                </a>
+                <!-- Menu: main ul -->
+                <ul class="menu-list flex-grow-1 mt-3">
+                    <li><a class="m-link active" href="<?php echo e(route('admin.dashboard')); ?>"><i class="icofont-home fs-5"></i> <span>Dashboard</span></a></li>
+                    <li class="collapsed">
+                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-product" href="#">
+                            <i class="icofont-truck-loaded fs-5"></i> <span>Products</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
+                            <!-- Menu: Sub menu ul -->
+                            <ul class="sub-menu collapse" id="menu-product">
+                                  <li><a class="ms-link" href="<?php echo e(route('product.create')); ?>">Product Add</a></li>
+                                <li><a class="ms-link" href="<?php echo e(route('product.list')); ?>">Product List</a></li>
+                                <li><a class="ms-link" href="product-edit.html">Product Edit</a></li>
+                                <li><a class="ms-link" href="product-detail.html">Product Details</a></li>
+                                <li><a class="ms-link" href="product-cart.html">Shopping Cart</a></li>
+                                <li><a class="ms-link" href="checkout.html">Checkout</a></li>
+                            </ul>
+                    </li>
+                    <li class="collapsed">
+                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#categories" href="#">
+                            <i class="icofont-chart-flow fs-5"></i> <span>Categories</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
+                            <!-- Menu: Sub menu ul -->
+                            <ul class="sub-menu collapse" id="categories">
+                                  <li><a class="ms-link" href="<?php echo e(route('product.category')); ?>">Categories Add</a></li>
+                                <li><a class="ms-link" href="<?php echo e(route("category.list")); ?>">Categories List</a></li>
 
-<style>
-          *{
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-         font-family: 'Poppins', sans-serif;
-      }
+                            </ul>
+                    </li>
+                    <li class="collapsed">
+                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-order" href="#">
+                        <i class="icofont-notepad fs-5"></i> <span>Orders</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
+                        <!-- Menu: Sub menu ul -->
+                        <ul class="sub-menu collapse" id="menu-order">
+                            <li><a class="ms-link" href="order-list.html">Orders List</a></li>
+                            <li><a class="ms-link" href="order-details.html">Order Details</a></li>
+                            <li><a class="ms-link" href="order-invoices.html">Order Invoices</a></li>
+                        </ul>
+                    </li>
+                    <li class="collapsed">
+                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#customers-info" href="#">
+                        <i class="icofont-funky-man fs-5"></i> <span>Customers</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
+                        <!-- Menu: Sub menu ul -->
+                        <ul class="sub-menu collapse" id="customers-info">
+                            <li><a class="ms-link" href="customers.html">Customers List</a></li>
+                            <li><a class="ms-link" href="customer-detail.html">Customers Details</a></li>
+                        </ul>
+                    </li>
+                    <li class="collapsed">
+                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-sale" href="#">
+                        <i class="icofont-sale-discount fs-5"></i> <span>Sales Promotion</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
+                        <!-- Menu: Sub menu ul -->
+                        <ul class="sub-menu collapse" id="menu-sale">
+                            <li><a class="ms-link" href="coupons-list.html">Coupons List</a></li>
+                            <li><a class="ms-link" href="coupon-add.html">Coupons Add</a></li>
+                            <li><a class="ms-link" href="coupon-edit.html">Coupons Edit</a></li>
+                        </ul>
+                    </li>
+                    <li class="collapsed">
+                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-inventory" href="#">
+                        <i class="icofont-chart-histogram fs-5"></i> <span>Inventory</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
+                        <!-- Menu: Sub menu ul -->
+                        <ul class="sub-menu collapse" id="menu-inventory">
+                            <li><a class="ms-link" href="inventory-info.html">Stock List</a></li>
+                            <li><a class="ms-link" href="purchase.html">Purchase</a></li>
+                            <li><a class="ms-link" href="supplier.html">Supplier</a></li>
+                            <li><a class="ms-link" href="returns.html">Returns</a></li>
+                            <li><a class="ms-link" href="department.html">Department</a></li>
+                        </ul>
+                    </li>
+                    <li class="collapsed">
+                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-Componentsone" href="#"><i
+                                class="icofont-ui-calculator"></i> <span>Accounts</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
+                        <!-- Menu: Sub menu ul -->
+                        <ul class="sub-menu collapse" id="menu-Componentsone">
+                            <li><a class="ms-link" href="invoices.html">Invoices </a></li>
+                            <li><a class="ms-link" href="expenses.html">Expenses </a></li>
+                            <li><a class="ms-link" href="salaryslip.html">Salary Slip </a></li>
+                            <li><a class="ms-link" href="create-invoice.html">Create Invoice </a></li>
+                        </ul>
+                    </li>
+                    <li class="collapsed">
+                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#app" href="#">
+                        <i class="icofont-code-alt fs-5"></i> <span>App</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
+                        <!-- Menu: Sub menu ul -->
+                        <ul class="sub-menu collapse" id="app">
+                            <li><a class="ms-link" href="calendar.html">Calandar</a></li>
+                            <li><a class="ms-link" href="chat.html"> Chat App</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="m-link" href="store-locator.html"><i class="icofont-focus fs-5"></i> <span>Store Locator</span></a></li>
+                    <li><a class="m-link" href="ui-elements/ui-alerts.html"><i class="icofont-paint fs-5"></i> <span>UI Components</span></a></li>
+                    <li class="collapsed">
+                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#page" href="#">
+                        <i class="icofont-page fs-5"></i> <span>Other Pages</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
+                        <!-- Menu: Sub menu ul -->
+                        <ul class="sub-menu collapse" id="page">
+                            <li><a class="ms-link" href="admin-profile.html">Profile Page</a></li>
+                            <li><a class="ms-link" href="purchase-plan.html">Price Plan Example</a></li>
+                            <li><a class="ms-link" href="charts.html">Charts Example</a></li>
+                            <li><a class="ms-link" href="table.html">Table Example</a></li>
+                            <li><a class="ms-link" href="forms.html">Forms Example</a></li>
+                            <li><a class="ms-link" href="icon.html">Icons</a></li>
+                            <li><a class="ms-link" href="contact.html">Contact Us</a></li>
+                            <li><a class="ms-link" href="todo-list.html">Todo List</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- Menu: menu collepce btn -->
+                <button type="button" class="btn btn-link sidebar-mini-btn text-light">
+                    <span class="ms-2"><i class="icofont-bubble-right"></i></span>
+                </button>
+            </div>
+        </div>
 
-      .sidebar {
-        width: 250px;
-        height: 100vh;
-        background: #fff;
-        border-right: 1px solid #eaeaea;
-        position: fixed;
-        top: 0;
-        left: 0;
-        padding-top: 1rem;
-        transition: all 0.3s ease;
-        z-index: 1000;
-      }
-
-
-      .main-content {
-        margin-left: 240px;
-        transition: all 0.3s ease;
-      }
-      .topbar {
-        background-color: #fff;
-        padding: 10px;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      }
-      .dashboard-card {
-        border: none;
-        border-radius: 12px;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-      }
-
-      .percent-badge {
-        font-size: 0.75rem;
-        padding: 3px 8px;
-        border-radius: 6px;
-        font-weight: 600;
-      }
-      .sidebar-logo {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 20px;
-        margin-bottom: 1rem;
-      }
-      .sidebar-logo img {
-        width: 35px;
-        height: 35px;
-      }
-      .sidebar-logo span {
-        font-weight: 600;
-        flex-grow: 1;
-        margin-left: 10px;
-      }
-      .toggle-btn {
-        border: none;
-        background: transparent;
-        font-size: 1.5rem;
-      }
-
-      /* Responsive fix for sidebar */
-      @media (max-width: 992px) {
-        .sidebar {
-          margin-left: -220px;
-        }
-        .main-content {
-          margin-left: 0;
-        }
-      }
-      #sidebar1 {
-  position: fixed;
-  top: 0;
-  left: -1000px;
-  width: 300px;
-  height: 100vh;
-  margin-top: 60px;
-  transition: all 1s ease;
-  z-index: 2000;
-}
-#sidebar1.active {
-  left: 0;
-}
- .search-box {
-            border: 1px solid #e5e7eb;
-            height: 45px;
-            color: #e5e7eb;
-            width: 280px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-
-        }
-
-        .search-box input {
-            color: #555;
-        }
-           .badge {
-            height: 24px;
-            margin-top: -30px;
-
-        }
-         .card {
-            transition: all 0.4s;
-            box-shadow: 0px 10px 10px #b3b8be;
-
-            &:hover {
-                transform: translateY(-7px);
+        <style>
+            .sidebar{
+                background:orangered;
             }
-        }
-         .total {
-            margin-left: -55px;
-            margin-top: 30px;
-        }
-
-
-          .icon-box {
-            width: 60px;
-            height: 60px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .text-small {
-            font-size: 0.9rem;
-
-        }
-        .icon{
-          gap:10px;
-          border-radius: 5px;
-        }
-         .sidebar .nav-link {
-    color: #495057;
-  }
-  .nav-link i.bi-chevron-down {
-  transition: transform 0.5s ease;
-}
-
-.nav-link[aria-expanded="true"] i.bi-chevron-down {
-  transform: rotate(180deg);
-
-}
-.icon-btn:hover{
- background-color: #dbd9d9;
- cursor: pointer;
- transition: all 0.5s;
-
-}
- .avatar {
-            width: 38px;
-            height: 38px;
-            border-radius: 7px;
-            overflow: hidden;
-        }
-
-        .avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-           .icon-btn {
-            width: 40px;
-            height: 40px;
-            border: 1px solid #e5e7eb;
-            border-radius: 7px;
-            background: #fff;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-            cursor: pointer;
-            transition: all 0.3s;
-
-            &:hover {
-                background-color: #cbd1d8;
-
-            }
-
-        }
-        .logo{
-            margin-top: -15px;
-        }
-        .text{
-            color: orangered;
-        }
-        .bi-list{
-            color: orangered;
-        }
-        .logodiv{
-            height: 70px;
-        }
-</style>
-<body>
-
-       <!-- Sidebar -->
- <div id="sidebar1" class="sidebar1 p-5 bg-primary text-white d-lg-none ">
-
-
-       <div class="sidebar-logo">
-        <img src="dashboardimg/preskoollogo.jpg" alt="Logo">
-        <span>Global International</span>
-
-      </div>
-        <hr>
-
-</div>
-     <div class="main-content" id="mainContent">
-
-
-
-    <div  class="sidebar d-none d-md-block" id="sidebar">
-
-       <div class=" d-flex ms-3 align-items-center logodiv">
-    <img src="http://127.0.0.1:8000/assets/image/dashboardimg/Red and Black Modern Creative Agency Logo.png" class="logo fs-1" height="100px" width="130px">
-      <i class="bi bi-list fs-2 ms-auto mx-4" id="menubtn" style="cursor: pointer;"></i>
-
-  </div>
-
-         <div class=" border p-2 m-2 rounded-2">
-   <img src="<?php echo e(asset('assets/image/dashboardimg/erona image.jfif')); ?>" alt="photo" class="rounded-circle p-2 " height="50px" width="50px" alt="">
-     <small class="p-1 ms-2">Unique Fashion</small>
-     </div>
-     <hr>
-      <ul class="nav flex-column">
-   <li class="nav-item">
-        <a class="nav-link d-flex justify-content-between align-items-center"
-       data-bs-toggle="collapse"
-       href="#dashboard"
-       role="button"
-       aria-expanded="false"
-       aria-controls="dashboard">
-      <span class="text"><i class="bi bi-speedometer2 me-2  text-secondary"></i>Dashboard</span>
-      <i class="bi bi-chevron-down"></i>
-    </a>
-
-      <div class="collapse" id="dashboard">
-        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-          <li><a href="<?php echo e(route('admin.dashboard')); ?>" class="nav-link ps-4">Admin Dashboard</a></li>
-          <li><a href="#" class="nav-link ps-4">more...</a></li>
-
-        </ul>
-      </div>
-
-    </li>
-     <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-toggle="collapse" href="#appSubmenu" role="button" aria-expanded="false" aria-controls="appSubmenu"><span class="text">
-        <i class="bi bi-layout-text-window-reverse me-2 text-secondary"></i>Products</span><i class="bi bi-chevron-down float-end"></i>
-      </a>
-      <div class="collapse" id="appSubmenu">
-        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-          <li><a href="<?php echo e(route('product.create')); ?>" class="nav-link ps-4">Add product</a></li>
-          <li><a href="<?php echo e(route('product.list')); ?>" class="nav-link ps-4">Product list</a></li>
-        </ul>
-      </div>
-    </li>
-     <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-toggle="collapse" href="#appSubmenu1" role="button" aria-expanded="false" aria-controls="appSubmenu1"><span class="text">
-        <i class="bi bi-layout-text-window-reverse me-2  text-secondary"></i>All Category</span><i class="bi bi-chevron-down float-end"></i>
-      </a>
-      <div class="collapse" id="appSubmenu1">
-        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-          <li><a href="<?php echo e(route('product.category')); ?>" class="nav-link ps-4">Add category</a></li>
-          <li><a href="<?php echo e(route('category.list')); ?>" class="nav-link ps-4">Category list</a></li>
-          <li><a href="#" class="nav-link ps-4">....</a></li>
-        </ul>
-      </div>
-    </li>
-
-    <hr>
-
-     <li class="nav-item">
-      <a class="nav-link" href="#"><i class="bi bi-file-earmark-text me-2"></i>Customer contact list</a>
-    </li>
-
-
-  </ul>
-
-    </div>
-
-</body>
-</html>
+        </style>
 <?php /**PATH C:\laravel_git\ecommerce-web\resources\views/partials/sidebar.blade.php ENDPATH**/ ?>

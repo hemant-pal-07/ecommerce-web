@@ -90,7 +90,7 @@ class ProductController extends Controller
         }
     }
 
-    return redirect()->back()->with('success','Product updated successfully!');
+    return redirect()->back()->with('success','Product added successfully!');
 }
 
 
@@ -183,14 +183,10 @@ public function destroy($id)
 
 
 // update the controller---->
-public function update(Request $request, $id)
-{
-    // 1️⃣ Find the product
+public function update(Request $request, $id){
     $product = Product::findOrFail($id);
 
-
-
-    // 2️⃣ Update main product fields
+    // Update product
     $product->update([
         'p_name' => $request->p_name,
         'p_category_id' => $request->p_category_id,
@@ -201,118 +197,92 @@ public function update(Request $request, $id)
         'p_type' => $request->p_type ?? 'simple',
         'p_short_description' => $request->p_short_description,
         'p_long_description' => $request->p_long_description,
-
     ]);
 
+    // Colors + Sizes + Images
+    if($request->has('colorname')){
+        foreach($request->colorname as $index => $colorName){
+            $colorName = trim($colorName);
+            if(empty($colorName)) continue;
 
-if ($request->has('colorname')) {
-    foreach ($request->colorname as $index => $colorName) {
-            if (empty($colorName)) continue;
-        $colorId = $request->color_id[$index] ?? null;
+            $colorId = $request->color_id[$index] ?? null;
 
-
-        if ($colorId) {
-            $color = $product->colors()->find($colorId);
-            if ($color) {
-                // Update existing color
-                $color->update([
-                    'color_name' => $colorName,
-                    'color_code' => $request->colorcode[$index] ?? null,
-                    'color_price_adjustment' => $request->priceadjustment[$index] ?? 0,
-                ]);
+            if($colorId){
+                $color = $product->colors()->find($colorId);
+                if($color){
+                    $color->update([
+                        'color_name' => $colorName,
+                        'color_code' => $request->colorcode[$index] ?? null,
+                        'color_price_adjustment' => $request->priceadjustment[$index] ?? 0,
+                    ]);
+                }
             }
-        }
-     else {
-    // NEW COLOR → create only if user manually added a new color
+            //  else {
+            //     $color = $product->colors()->create([
+            //         'color_name' => $colorName,
+            //         'color_code' => $request->colorcode[$index] ?? null,
+            //         'color_price_adjustment' => $request->priceadjustment[$index] ?? 0,
+            //     ]);
+            // }
+            else {
+    // ✅ Only create new color if user actually typed a color name
     // if (!empty($colorName)) {
     //     $color = $product->colors()->create([
     //         'color_name' => $colorName,
     //         'color_code' => $request->colorcode[$index] ?? null,
     //         'color_price_adjustment' => $request->priceadjustment[$index] ?? 0,
     //     ]);
+    // } else {
+    //     $color = null; // nothing created
     // }
-        }
-
-        // 3️⃣ Sizes
-        if(isset($request->sizename[$index]) && is_array($request->sizename[$index])) {
-            foreach($request->sizename[$index] as $sIndex => $sizeName) {
-                $sizeId = $request->size_id[$index][$sIndex] ?? null;
-          if (empty($colorName)) continue;
-
-                if ($sizeId) {
-                    $size = $color->sizes()->find($sizeId);
-                    if ($size) {
-                        $size->update([
-                            'size_name' => $sizeName,
-                            'size_price_adjustment' => $request->sizepriceadjustment[$index][$sIndex] ?? 0,
-                        ]);
-                    }
-                }
-                else {
-                        // New size → only if manually added
-                        // if(!empty($sizeName)){
-                        //     $color->sizes()->create([
-                        //         'size_name' => $sizeName,
-                        //         'size_price_adjustment' => $request->sizepriceadjustment[$index][$sIndex] ?? 0,
-                        //     ]);
-                        // }
-                    }
-                }
-        }
-
-
-
-        foreach ($request->colorname as $index => $colorName) {
-
-    $colorId = $request->color_id[$index] ?? null;
-
-    if (!$colorId) {
-        continue;
-    }
-
-    $color = $product->colors()->find($colorId);
-
-    if ($color) {
-        $color->update([
-            'color_name' => $colorName,
-            'color_code' => $request->colorcode[$index] ?? null,
-            'color_price_adjustment' => $request->priceadjustment[$index] ?? 0,
-        ]);
-    }
 }
 
 
-           // If new images uploaded
-        if ($request->hasFile("color_images.$index")) {
+            // Sizes
+            if(isset($request->sizename[$index]) && is_array($request->sizename[$index])){
+                foreach($request->sizename[$index] as $sIndex => $sizeName){
+                    $sizeName = trim($sizeName ?? '');
+                    if(empty($sizeName)) continue;
 
-            foreach ($request->file("color_images.$index") as $imgFile) {
+                    $sizeId = $request->size_id[$index][$sIndex] ?? null;
 
-                // Save file in storage/app/public/colors
-                $path = $imgFile->store('public/colors');
-                $fileName = basename($path);
+                    if($sizeId){
+                        $size = $color->sizes()->find($sizeId);
+                        if($size){
+                            $size->update([
+                                'size_name' => $sizeName,
+                                'size_price_adjustment' => $request->sizepriceadjustment[$index][$sIndex] ?? 0,
+                            ]);
+                        }
+                    }
+                  else {
+    // ✅ Only create if size name is not empty AND parent color exists
+    // if (!empty($sizeName) && isset($color) && $color) {
+    //     $color->sizes()->create([
+    //         'size_name' => $sizeName,
+    //         'size_price_adjustment' => $request->sizepriceadjustment[$index][$sIndex] ?? 0,
+    //     ]);
+    // }
+}
 
-                // Insert into DB
-                $color->images()->create([
-                    'img_path' => $fileName,
-                ]);
+                }
+            }
+
+            // Images
+            if($request->hasFile("color_images.$index")){
+                foreach($request->file("color_images.$index") as $imgFile){
+                    $fileName = time().'_'.$imgFile->getClientOriginalName();
+                    $imgFile->storeAs('public/colors', $fileName);
+                    $color->images()->create(['img_path' => $fileName]);
+                }
             }
         }
     }
-    return redirect()->back()->with('success', 'Product updated successfully!');
+
+    return redirect()->back()->with('success','Product updated successfully!');
 }
 
-}
 
-
-// public function view($id)
-// {
-//     $product = Product::with('category')->findOrFail($id);
-//     $products = Product::with('category')->get();
-
-
-//   return view('admin.viewproduct', compact('product'));
-
-// }
 
 public function view($id)
 {

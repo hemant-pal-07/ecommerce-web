@@ -1,23 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>new product</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-      <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 
+@extends('layouts.admin-layout')
 
-</head>
+@section('title', 'Add-product')
+
+    @push('styles')
 <style>
-    *{
-        padding: 0;
-        margin: 0;
 
-    }
+
      body{
           font-family: 'Poppins',sans-serif;
           background:rgb(245, 243, 241);
@@ -99,20 +88,12 @@ button:hover{
     .form-control{
         border:1px solid orangered;
     }
-
-
-
-
-
-
 </style>
-<body>
+@endpush
 
 
-   @include('partials.sidebar')
 
-
-   @include('partials.header')
+    @section('content')
 
    <div class="container w-75 p-3">
     <div class="row">
@@ -124,15 +105,43 @@ button:hover{
         <label for="productName" class="p-1 mt-3">Product Name</label>
         <input type="text" id="productName" name="p_name" placeholder="Enter your product name" required>
 
+{{--
+         <label for="category"  class="p-1 mt-3">Main category</label>
+        <select id="category" name="p_category_id"  required>
+              <option value="">Select Category</option>
+    <option value="1">Men category</option>
+    <option value="2">Women category</option>
+    <option value="3">kids category</option>
+
+        </select>
+
 
         <label for="category"  class="p-1 mt-3">Category</label>
-        <select id="category" name="p_category_id" class="text-secondary" required>
+        <select id="category" name="p_category_id" required>
               <option value="">Select Category</option>
     <option value="1">shirts</option>
     <option value="2">cap</option>
     <option value="3">Books</option>
     <option value="4">Accessories</option>
-        </select>
+        </select> --}}
+
+
+        <label for="main_category" class="p-1 mt-3">Main Category</label>
+<select id="main_category" name="main_category" required>
+    <option value="">Select Main Category</option>
+    <option value="men">Men Category</option>
+    <option value="women">Women Category</option>
+    <option value="kids">Kids Category</option>
+</select>
+
+
+<label for="category" class="p-1 mt-3">Category</label>
+<select id="category" name="category" required>
+    <option value="">Select Category</option>
+</select>
+
+
+
 
                 <label for="price" class="p-1 mt-3">Price</label>
         <input type="number" id="price" name="p_price" placeholder="Enter your product price" required>
@@ -199,44 +208,44 @@ button:hover{
     </div>
   </div>
 
+  @endsection
 
 
 
-   <!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script>
-      $(document).ready(function() {
-        $("#menubtn").click(function(){
-
-          const sidebar = $("#sidebar");
-          const mainContent = $(".main-content");
-
-
-          if (sidebar.css("margin-left") === "0px") {
-            sidebar.animate({ marginLeft: "-190px" }, );
-            mainContent.animate({ marginLeft: "60px" }, );
-
-          } else {
-            sidebar.animate({ marginLeft: "0px" } );
-            mainContent.animate({ marginLeft: "250px" } );
-
-          }
-        });
-      });
-    </script>
+  @push('scripts')
 
 
 
 <script>
-  $(document).ready(function() {
-    $("#hamburger").click(function() {
-      $("#sidebar1").toggleClass("active");
+    const categories = {
+        men: ["Shirts", "Pants", "Caps", "Shoes"],
+        women: ["Dresses", "Bags", "Heels", "Jewelry"],
+        kids: ["Books", "Toys", "Kids Clothes", "School Bags"]
+    };
+
+    const mainCategory = document.getElementById("main_category");
+    const category = document.getElementById("category");
+
+    mainCategory.addEventListener("change", function () {
+        const selected = this.value;
+
+        // Reset dropdown
+        category.innerHTML = '<option value="">Select Category</option>';
+
+        if (categories[selected]) {
+            categories[selected].forEach(item => {
+                const option = document.createElement("option");
+                option.value = item.toLowerCase();
+                option.textContent = item;
+                category.appendChild(option);
+            });
+        }
     });
-  });
 </script>
+
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
  <script>
@@ -251,6 +260,7 @@ button:hover{
 
 
                                     {{-- jquery off add color --}}
+
 
 <script>
 $(document).ready(function() {
@@ -344,7 +354,6 @@ $(document).ready(function() {
 });
 </script>
 
+@endpush
 
 
-</body>
-</html>
