@@ -141,6 +141,13 @@
              <h2 class="fw-bold text-info"><?php echo e($product->p_name); ?></h2>
         </div>
 
+         <div class="detail-box">
+            <div class="detail-title">Main Category</div>
+             <h2 class="fw-semibold text-danger">
+ <td><?php echo e($product->mainCategory->cat_name ?? 'No Main Category'); ?></td>
+</h2>
+        </div>
+
         <div class="detail-box">
             <div class="detail-title">Category</div>
              <h2 class="fw-semibold text-primary">
@@ -148,6 +155,8 @@
 
              </h2>
         </div>
+
+
 
         <div class="detail-box">
             <div class="detail-title">Price</div>
@@ -273,5 +282,6 @@
 
 
 <?php $__env->stopSection(); ?>
+
 
 <?php echo $__env->make('layouts.admin-layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laravel_git\ecommerce-web\resources\views/admin/viewproduct.blade.php ENDPATH**/ ?>

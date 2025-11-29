@@ -29,11 +29,24 @@
             @method('PUT') <!-- Important for updating -->
 
 
-     >
+
+
+      <label class="form-label">Main Category:</label>
+<select name="main_category_id" class="form-control" required>
+    <option value="">Select Main Category</option>
+    @foreach($mainCategories as $mainCat)
+        <option value="{{ $mainCat->cat_id }}"
+            {{ $category->main_category_id == $mainCat->cat_id ? 'selected' : '' }}>
+            {{ $mainCat->cat_name }}
+        </option>
+    @endforeach
+</select>
+
+
 
             <!-- Category Name -->
             <div class="mb-3">
-                <label class="form-label text-center">Category Name</label>
+                <label class="form-label text-center mt-3">Category Name</label>
                 <input type="text" name="c_name" class="form-control" value="{{ old('c_name', $category->c_name) }}" required>
                 @error('c_name') <small class="text-danger">{{ $message }}</small> @enderror
             </div>

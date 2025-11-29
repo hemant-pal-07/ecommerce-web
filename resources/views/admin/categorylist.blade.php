@@ -26,6 +26,7 @@
             <thead class="text-white bg-warning">
             <tr>
                 <th class="text-white bg-warning">S:no</th>
+                 <th class="text-white bg-warning"> Main Category </th>
                 <th class="text-white bg-warning">Category name</th>
                 <th class="text-white bg-warning">Banner</th>
                 <th class="text-white bg-warning">Image</th>
@@ -37,7 +38,9 @@
             @forelse($categories as $category)
             <tr>
                 <td>{{ $loop->iteration }}</td>
+              <td>{{ $category->mainCategory->cat_name ?? 'No Main Category' }}</td>
                 <td>{{ $category->c_name }}</td>
+
                 <td>
                     @if($category->c_banner_img)
 
@@ -78,6 +81,11 @@
 
 
 @endsection
+
+
+
+@push('scripts')
+
 
 
 
@@ -122,3 +130,4 @@ document.getElementById('imgPreviewModal').addEventListener('click', function(e)
 });
 </script>
 
+@endpush

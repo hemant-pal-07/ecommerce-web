@@ -1,3 +1,5 @@
+<?php $__env->startSection('title', 'Edit-product'); ?>
+
 <?php $__env->startPush('styles'); ?>
 
 <style>
@@ -108,6 +110,20 @@ button:hover{
         <label>Product Name</label>
         <input type="text" name="p_name" value="<?php echo e($product->p_name); ?>" required>
 
+
+
+        <label>Main Category:</label>
+<select name="main_category_id" id="main_category" required>
+    <option value="">Select Main Category</option>
+    <?php $__currentLoopData = $mainCategories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mainCat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <option value="<?php echo e($mainCat->cat_id); ?>"
+            <?php echo e($product->main_category_id == $mainCat->cat_id ? 'selected' : ''); ?>>
+            <?php echo e($mainCat->cat_name); ?>
+
+        </option>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+</select>
+
         <label>Category</label>
         <select name="p_category_id" required>
             <option value="">Select Category</option>
@@ -145,6 +161,7 @@ button:hover{
         <h4 class="text-warning">Product Colors</h4>
         <div id="colorcontainer">
             <?php $__currentLoopData = $product->colors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $color): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
             <div class="addcolor p-3 mb-3" data-color-index="<?php echo e($i); ?>">
                 <div class="d-flex">
                     <h5>Color <?php echo e($i+1); ?></h5>
@@ -153,7 +170,9 @@ button:hover{
 
                 <div class="row">
                     <div class="col-md-4">
+
                         <label>Color Name</label>
+                         <input type="hidden" name="color_id[]" value="<?php echo e($color->color_id); ?>">
                         <input type="text" name="colorname[<?php echo e($i); ?>]" value="<?php echo e($color->color_name); ?>" required>
                         <input type="hidden" name="color_id[<?php echo e($i); ?>]" value="<?php echo e($color->color_id); ?>">
                     </div>
@@ -181,19 +200,30 @@ button:hover{
                 <div class="size-section mt-3">
                     <label>Sizes</label>
                     <div class="sizeContainer">
-                        <?php $__currentLoopData = $color->sizes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sIndex => $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <div class="row bg-light p-2 mb-2">
-                            <input type="hidden" name="size_id[<?php echo e($i); ?>][]" value="<?php echo e($s->id); ?>">
-                            <div class="col-md-6">
-                                <label>Size Name</label>
-                                <input type="text" name="sizename[<?php echo e($i); ?>][]" value="<?php echo e($s->size_name); ?>">
-                            </div>
-                            <div class="col-md-6">
-                                <label>Price Adjustment</label>
-                                <input type="number" name="sizepriceadjustment[<?php echo e($i); ?>][]" value="<?php echo e($s->size_price_adjustment); ?>">
-                            </div>
-                        </div>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                       <?php $__currentLoopData = $color->sizes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sIndex => $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+<div class="row bg-light p-2 mb-2">
+
+    <!-- Correct hidden ID -->
+    <input type="hidden"
+           name="size_id[<?php echo e($i); ?>][<?php echo e($sIndex); ?>]"
+           value="<?php echo e($s->size_id); ?>">
+
+    <div class="col-md-6">
+        <label>Size Name</label>
+        <input type="text"
+               name="sizename[<?php echo e($i); ?>][<?php echo e($sIndex); ?>]"
+               value="<?php echo e($s->size_name); ?>">
+    </div>
+
+    <div class="col-md-6">
+        <label>Price Adjustment</label>
+        <input type="number"
+               name="sizepriceadjustment[<?php echo e($i); ?>][<?php echo e($sIndex); ?>]"
+               value="<?php echo e($s->size_price_adjustment); ?>">
+    </div>
+</div>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
                     </div>
                     <button type="button" class="btn btn-warning mt-2 add-size-btn">+ Add Size</button>
                 </div>
@@ -218,7 +248,46 @@ button:hover{
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('scripts'); ?>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    <?php if(session('success')): ?>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: '<?php echo e(session('success')); ?>',
+            confirmButtonColor: '#ff6600',
+        });
+    <?php endif; ?>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$('#main_category').change(function() {
+    var mainId = $(this).val();
+
+    if(mainId) {
+        $.ajax({
+            url: '/admin/get-categories/' + mainId,
+            type: 'GET',
+            success: function(data) {
+                var categorySelect = $('#category');
+                categorySelect.empty();
+                categorySelect.append('<option value="">Select Category</option>');
+                $.each(data, function(key, category){
+                    categorySelect.append('<option value="'+ category.c_id +'">'+ category.c_name +'</option>');
+                });
+            },
+            error: function() {
+                alert('Error fetching categories.');
+            }
+        });
+    } else {
+        $('#category').empty().append('<option value="">Select Category</option>');
+    }
+});
+
+</script>
 
 <script>
 let colorIndex = <?php echo e(count($product->colors)); ?>;
@@ -258,12 +327,11 @@ $('#addcolorbtn').click(function(e){
     colorIndex++;
 });
 
-// Remove color
+
 $('#colorcontainer').on('click', '.removeBtn', function(){
     $(this).closest('.addcolor').remove();
 });
 
-// Add new size
 $('#colorcontainer').on('click', '.add-size-btn', function(){
     let parentColor = $(this).closest('.addcolor');
     let idx = parentColor.data('color-index');

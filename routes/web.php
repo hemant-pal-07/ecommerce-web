@@ -7,7 +7,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SizeController;
-
+use App\Http\Controllers\MainCategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -103,6 +103,27 @@ Route::delete('/admin/delete-product/{id}', [ProductController::class, 'destroy'
  Route::get('/admin/categories-edit/{id}', [CategoryController::class, 'edit'])  ->name('category.edit');
  Route::delete('/admin/categories-delete/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
  Route::put('/admin/category-update/{id}',[CategoryController::class, 'update'])->name('category.update');
+
+// Product creation page
+Route::get('/admin/product/create', [CategoryController::class, 'createProduct'])->name('product.create');
+
+// AJAX route → fetch sub-categories based on main category
+Route::get('/get-subcategories/{main_id}', [ProductController::class, 'getByMainCategory']);
+Route::get('/admin/get-categories/{main_id}', [CategoryController::class, 'getByMainCategory']);
+
+
+
+
+Route::get('admin/add-product', function () {
+    $mainCategories = MainCategory::all();
+    $categories = Category::all(); // sub-categories
+
+    return view('add-product', compact('mainCategories', 'categories'));
+});
+
+
+
+Route::get('/main-categories', [MainCategoryController::class, 'index']);
 
 
 

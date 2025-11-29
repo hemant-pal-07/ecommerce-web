@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Category;
+use App\Models\category;
+use App\Models\maincategory;
 
 
 class Product extends Model
@@ -15,6 +16,7 @@ class Product extends Model
     use HasFactory;
       protected $fillable = ['p_name',
         'p_category_id',
+         'main_category_id',
         'p_short_description',
         'p_long_description',
         'p_price',
@@ -40,6 +42,7 @@ class Product extends Model
 
 
 
+
     public function sizes()
 {
     return $this->hasMany(Size::class, 'size_product_id', 'p_id');
@@ -61,6 +64,11 @@ protected static function boot()
         }
         $product->colors()->delete();
     });
+}
+
+public function mainCategory()
+{
+    return $this->belongsTo(MainCategory::class, 'main_category_id', 'cat_id');
 }
 
 

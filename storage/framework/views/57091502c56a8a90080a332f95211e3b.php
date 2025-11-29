@@ -24,6 +24,7 @@
             <thead class="text-white bg-warning">
             <tr>
                 <th class="text-white bg-warning">S:no</th>
+                 <th class="text-white bg-warning"> Main Category </th>
                 <th class="text-white bg-warning">Category name</th>
                 <th class="text-white bg-warning">Banner</th>
                 <th class="text-white bg-warning">Image</th>
@@ -35,7 +36,9 @@
             <?php $__empty_1 = true; $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
             <tr>
                 <td><?php echo e($loop->iteration); ?></td>
+              <td><?php echo e($category->mainCategory->cat_name ?? 'No Main Category'); ?></td>
                 <td><?php echo e($category->c_name); ?></td>
+
                 <td>
                     <?php if($category->c_banner_img): ?>
 
@@ -76,6 +79,11 @@
 
 
 <?php $__env->stopSection(); ?>
+
+
+
+<?php $__env->startPush('scripts'); ?>
+
 
 
 
@@ -120,5 +128,6 @@ document.getElementById('imgPreviewModal').addEventListener('click', function(e)
 });
 </script>
 
+<?php $__env->stopPush(); ?>
 
 <?php echo $__env->make('layouts.admin-layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laravel_git\ecommerce-web\resources\views/admin/categorylist.blade.php ENDPATH**/ ?>

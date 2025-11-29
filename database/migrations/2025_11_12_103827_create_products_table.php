@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('p_id');
             $table->string('p_name');
+         $table->unsignedBigInteger('main_category_id'); // NOT NULL by default
             $table->unsignedBigInteger('p_category_id');
             $table->text('p_short_description')->nullable();
             $table->longText('p_long_description')->nullable();

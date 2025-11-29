@@ -1,9 +1,6 @@
+<?php $__env->startSection('title', 'Add-product'); ?>
 
-@extends('layouts.admin-layout')
-
-@section('title', 'Add-product')
-
-    @push('styles')
+    <?php $__env->startPush('styles'); ?>
 <style>
 
 
@@ -89,58 +86,37 @@ button:hover{
         border:1px solid orangered;
     }
 </style>
-@endpush
+<?php $__env->stopPush(); ?>
 
 
 
-    @section('content')
+    <?php $__env->startSection('content'); ?>
 
    <div class="container w-75 p-3">
     <div class="row">
 
-     <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data" class="p-5">
-        @csrf
+     <form action="<?php echo e(route('product.store')); ?>" method="POST" enctype="multipart/form-data" class="p-5">
+        <?php echo csrf_field(); ?>
          <h1 class=" text-center">ADD PRODUCT DETAILS</h1>
 
         <label for="productName" class="p-1 mt-3">Product Name</label>
         <input type="text" id="productName" name="p_name" placeholder="Enter your product name" required>
 
-{{--
-         <label for="category"  class="p-1 mt-3">Main category</label>
-        <select id="category" name="p_category_id"  required>
-              <option value="">Select Category</option>
-    <option value="1">Men category</option>
-    <option value="2">Women category</option>
-    <option value="3">kids category</option>
 
-        </select>
-
-
-        <label for="category"  class="p-1 mt-3">Category</label>
-        <select id="category" name="p_category_id" required>
-              <option value="">Select Category</option>
-    <option value="1">shirts</option>
-    <option value="2">cap</option>
-    <option value="3">Books</option>
-    <option value="4">Accessories</option>
-        </select> --}}
-
-
-        <label for="main_category" class="p-1 mt-3">Main Category</label>
-<select id="main_category" name="main_category" required>
+     <label for="" class="mt-2">Main category</label>
+   <select name="main_category_id" id="main_category" required>
     <option value="">Select Main Category</option>
-    <option value="men">Men Category</option>
-    <option value="women">Women Category</option>
-    <option value="kids">Kids Category</option>
+    <?php $__currentLoopData = $mainCategories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mainCat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <option value="<?php echo e($mainCat->cat_id); ?>"><?php echo e($mainCat->cat_name); ?></option>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 </select>
 
 
-<label for="category" class="p-1 mt-3">Category</label>
-<select id="category" name="category" required>
+
+<label class="mt-2">Category</label>
+<select name="p_category_id" id="category" required>
     <option value="">Select Category</option>
 </select>
-
-
 
 
                 <label for="price" class="p-1 mt-3">Price</label>
@@ -208,41 +184,46 @@ button:hover{
     </div>
   </div>
 
-  @endsection
+  <?php $__env->stopSection(); ?>
 
 
 
 
-  @push('scripts')
+  <?php $__env->startPush('scripts'); ?>
 
 
 
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    const categories = {
-        men: ["Shirts", "Pants", "Caps", "Shoes"],
-        women: ["Dresses", "Bags", "Heels", "Jewelry"],
-        kids: ["Books", "Toys", "Kids Clothes", "School Bags"]
-    };
+$('#main_category').change(function() {
+    var mainId = $(this).val();
 
-    const mainCategory = document.getElementById("main_category");
-    const category = document.getElementById("category");
+    if(mainId) {
+        $.ajax({
+            url: '/admin/get-categories/' + mainId,
+            type: 'GET',
+            success: function(data) {
+                var categorySelect = $('#category');
+                categorySelect.empty();
+                categorySelect.append('<option value="">Select Category</option>');
+                $.each(data, function(key, category){
+                    categorySelect.append('<option value="'+ category.c_id +'">'+ category.c_name +'</option>');
+                });
+            },
+            error: function() {
+                alert('Error fetching categories.');
+            }
+        });
+    } else {
+        $('#category').empty().append('<option value="">Select Category</option>');
+    }
+});
 
-    mainCategory.addEventListener("change", function () {
-        const selected = this.value;
-
-        // Reset dropdown
-        category.innerHTML = '<option value="">Select Category</option>';
-
-        if (categories[selected]) {
-            categories[selected].forEach(item => {
-                const option = document.createElement("option");
-                option.value = item.toLowerCase();
-                option.textContent = item;
-                category.appendChild(option);
-            });
-        }
-    });
 </script>
+
+
+
 
 
 
@@ -259,7 +240,7 @@ button:hover{
 
 
 
-                                    {{-- jquery off add color --}}
+                                    
 
 
 <script>
@@ -342,18 +323,20 @@ $(document).ready(function() {
 
 <script>
 $(document).ready(function() {
-    @if(session('success'))
+    <?php if(session('success')): ?>
         Swal.fire({
             icon: 'success',
             title: 'Product Added!',
-            text: '{{ session("success") }}',
+            text: '<?php echo e(session("success")); ?>',
             showConfirmButton: false,
             timer: 2000
         });
-    @endif
+    <?php endif; ?>
 });
 </script>
 
-@endpush
+<?php $__env->stopPush(); ?>
 
 
+
+<?php echo $__env->make('layouts.admin-layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laravel_git\ecommerce-web\resources\views/admin/add-product.blade.php ENDPATH**/ ?>

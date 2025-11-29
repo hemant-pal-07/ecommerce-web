@@ -149,6 +149,7 @@
                     <th>SR. NO</th>
                     <th>ACTION</th>
                     <th>NAME</th>
+                    <th>MAIN CATEGORY</th>
                     <th>CATEGORY</th>
                     <th>PRICE</th>
                     <th>OLD PRICE</th>
@@ -184,8 +185,9 @@
                     <!-- Name -->
                     <td class="fw-semibold">{{ $p->p_name }}</td>
 
-                    <!-- Category -->
-                    {{-- <td>{{ $p->category->c_name ?? $p->p_category_id }}</td> --}}
+                    <td>{{ $p->mainCategory->cat_name ?? 'No Main Category' }}</td>
+
+
                     <td>
     @if($p->category)
         {{ $p->category->c_name }}

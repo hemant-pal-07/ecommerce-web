@@ -146,6 +146,7 @@
                     <th>SR. NO</th>
                     <th>ACTION</th>
                     <th>NAME</th>
+                    <th>MAIN CATEGORY</th>
                     <th>CATEGORY</th>
                     <th>PRICE</th>
                     <th>OLD PRICE</th>
@@ -181,8 +182,9 @@
                     <!-- Name -->
                     <td class="fw-semibold"><?php echo e($p->p_name); ?></td>
 
-                    <!-- Category -->
-                    
+                    <td><?php echo e($p->mainCategory->cat_name ?? 'No Main Category'); ?></td>
+
+
                     <td>
     <?php if($p->category): ?>
         <?php echo e($p->category->c_name); ?>

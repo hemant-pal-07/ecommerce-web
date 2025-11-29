@@ -112,6 +112,19 @@ button:hover{
         <label>Product Name</label>
         <input type="text" name="p_name" value="{{ $product->p_name }}" required>
 
+
+
+        <label>Main Category:</label>
+<select name="main_category_id" id="main_category" required>
+    <option value="">Select Main Category</option>
+    @foreach($mainCategories as $mainCat)
+        <option value="{{ $mainCat->cat_id }}"
+            {{ $product->main_category_id == $mainCat->cat_id ? 'selected' : '' }}>
+            {{ $mainCat->cat_name }}
+        </option>
+    @endforeach
+</select>
+
         <label>Category</label>
         <select name="p_category_id" required>
             <option value="">Select Category</option>
@@ -149,6 +162,7 @@ button:hover{
         <h4 class="text-warning">Product Colors</h4>
         <div id="colorcontainer">
             @foreach($product->colors as $i => $color)
+
             <div class="addcolor p-3 mb-3" data-color-index="{{ $i }}">
                 <div class="d-flex">
                     <h5>Color {{ $i+1 }}</h5>
@@ -157,7 +171,9 @@ button:hover{
 
                 <div class="row">
                     <div class="col-md-4">
+
                         <label>Color Name</label>
+                         <input type="hidden" name="color_id[]" value="{{ $color->color_id }}">
                         <input type="text" name="colorname[{{ $i }}]" value="{{ $color->color_name }}" required>
                         <input type="hidden" name="color_id[{{ $i }}]" value="{{ $color->color_id }}">
                     </div>
@@ -185,19 +201,30 @@ button:hover{
                 <div class="size-section mt-3">
                     <label>Sizes</label>
                     <div class="sizeContainer">
-                        @foreach($color->sizes as $sIndex => $s)
-                        <div class="row bg-light p-2 mb-2">
-                            <input type="hidden" name="size_id[{{ $i }}][]" value="{{ $s->id }}">
-                            <div class="col-md-6">
-                                <label>Size Name</label>
-                                <input type="text" name="sizename[{{ $i }}][]" value="{{ $s->size_name }}">
-                            </div>
-                            <div class="col-md-6">
-                                <label>Price Adjustment</label>
-                                <input type="number" name="sizepriceadjustment[{{ $i }}][]" value="{{ $s->size_price_adjustment }}">
-                            </div>
-                        </div>
-                        @endforeach
+                       @foreach($color->sizes as $sIndex => $s)
+<div class="row bg-light p-2 mb-2">
+
+    <!-- Correct hidden ID -->
+    <input type="hidden"
+           name="size_id[{{ $i }}][{{ $sIndex }}]"
+           value="{{ $s->size_id }}">
+
+    <div class="col-md-6">
+        <label>Size Name</label>
+        <input type="text"
+               name="sizename[{{ $i }}][{{ $sIndex }}]"
+               value="{{ $s->size_name }}">
+    </div>
+
+    <div class="col-md-6">
+        <label>Price Adjustment</label>
+        <input type="number"
+               name="sizepriceadjustment[{{ $i }}][{{ $sIndex }}]"
+               value="{{ $s->size_price_adjustment }}">
+    </div>
+</div>
+@endforeach
+
                     </div>
                     <button type="button" class="btn btn-warning mt-2 add-size-btn">+ Add Size</button>
                 </div>
@@ -222,7 +249,46 @@ button:hover{
 @endsection
 
 @push('scripts')
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: '{{ session('success') }}',
+            confirmButtonColor: '#ff6600',
+        });
+    @endif
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$('#main_category').change(function() {
+    var mainId = $(this).val();
+
+    if(mainId) {
+        $.ajax({
+            url: '/admin/get-categories/' + mainId,
+            type: 'GET',
+            success: function(data) {
+                var categorySelect = $('#category');
+                categorySelect.empty();
+                categorySelect.append('<option value="">Select Category</option>');
+                $.each(data, function(key, category){
+                    categorySelect.append('<option value="'+ category.c_id +'">'+ category.c_name +'</option>');
+                });
+            },
+            error: function() {
+                alert('Error fetching categories.');
+            }
+        });
+    } else {
+        $('#category').empty().append('<option value="">Select Category</option>');
+    }
+});
+
+</script>
 
 <script>
 let colorIndex = {{ count($product->colors) }};
@@ -262,12 +328,11 @@ $('#addcolorbtn').click(function(e){
     colorIndex++;
 });
 
-// Remove color
+
 $('#colorcontainer').on('click', '.removeBtn', function(){
     $(this).closest('.addcolor').remove();
 });
 
-// Add new size
 $('#colorcontainer').on('click', '.add-size-btn', function(){
     let parentColor = $(this).closest('.addcolor');
     let idx = parentColor.data('color-index');

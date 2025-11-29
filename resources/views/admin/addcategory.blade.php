@@ -75,26 +75,29 @@
                 @csrf
 
 
-    <label for="main_category" class="p-1 mt-1 form-label">Main Category</label>
-<select id="main_category" name="main_category" required>
-    <option value="">Select Main Category</option>
-    <option value="men">Men Category</option>
-    <option value="women">Women Category</option>
-    <option value="kids">Kids Category</option>
-</select>
+
+                 {{-- Main Category Dropdown --}}
+        <div class="mb-3">
+        <label>Main Category:</label>
+    <select name="main_category_id" required>
+        <option value="">Select Main Category</option>
+        @foreach($mainCategories as $mainCat)
+            <option value="{{ $mainCat->cat_id }}">{{ $mainCat->cat_name }}</option>
+        @endforeach
+    </select><br><br>
+        </div>
 
 
-<label for="category" class="p-1 mt-1 form-label">Category</label>
-<select id="category" name="category" required>
-    <option value="">Select Category</option>
-</select>
+   
 
-                 {{-- Category Name --> --}}
-                {{-- <div class="mb-3">
-                    <label class="form-label text-center">Category Name</label>
-                    <input type="text" name="c_name" class="form-control" value="{{ old('c_name') }}" required>
-                    @error('c_name') <small class="text-danger">{{ $message }}</small> @enderror
-                </div> --}}
+                 <div class="mb-3">
+  <label>Category Name</label>
+        <input type="text" name="c_name" id="category" class="form-control" required>
+
+
+        </div>
+
+
 
                 <!-- Banner Image -->
                 <div class="mb-3">

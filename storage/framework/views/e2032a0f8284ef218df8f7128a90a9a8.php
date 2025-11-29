@@ -72,22 +72,29 @@
                 <?php echo csrf_field(); ?>
 
 
-    <label for="main_category" class="p-1 mt-1 form-label">Main Category</label>
-<select id="main_category" name="main_category" required>
-    <option value="">Select Main Category</option>
-    <option value="men">Men Category</option>
-    <option value="women">Women Category</option>
-    <option value="kids">Kids Category</option>
-</select>
-
-
-<label for="category" class="p-1 mt-1 form-label">Category</label>
-<select id="category" name="category" required>
-    <option value="">Select Category</option>
-</select>
 
                  
-                
+        <div class="mb-3">
+        <label>Main Category:</label>
+    <select name="main_category_id" required>
+        <option value="">Select Main Category</option>
+        <?php $__currentLoopData = $mainCategories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mainCat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <option value="<?php echo e($mainCat->cat_id); ?>"><?php echo e($mainCat->cat_name); ?></option>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    </select><br><br>
+        </div>
+
+
+   
+
+                 <div class="mb-3">
+  <label>Category Name</label>
+        <input type="text" name="c_name" id="category" class="form-control" required>
+
+
+        </div>
+
+
 
                 <!-- Banner Image -->
                 <div class="mb-3">
