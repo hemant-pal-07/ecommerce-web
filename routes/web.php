@@ -8,6 +8,7 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\MainCategoryController;
+use App\Http\Controllers\showController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,6 +23,9 @@ use App\Http\Controllers\MainCategoryController;
 Route::get('/', function () {
     return view('/home');
 });
+
+
+
 
 
 route ::get('/about',function (){
@@ -147,7 +151,10 @@ Route::post('sizes', [SizeController::class, 'store']);
 
 
 
+Route::get('/men-collection', [showController::class, 'addproduct'])->name('collection');
 
+
+//  Route::get('/admin/add-category', [CategoryController::class, 'create'])->name('product.category');
 
 
 

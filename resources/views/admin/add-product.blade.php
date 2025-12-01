@@ -133,7 +133,7 @@ button:hover{
 
       <div class="col-md-4">
         <label>Old Price (Optional)</label>
-        <input type="text" name="p_old_price" class="form-control textarea" placeholder="">
+        <input type="number" name="p_old_price" class="form-control textarea" placeholder="">
       </div>
       <div class="col-md-4">
         <label>Stock Quantity</label>

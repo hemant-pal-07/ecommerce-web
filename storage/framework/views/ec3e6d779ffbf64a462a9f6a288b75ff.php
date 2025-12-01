@@ -12,7 +12,11 @@
         <meta name="keywords" content="fashion eCommerce template, clothing store HTML5, Bootstrap 5 fashion shop, online boutique HTML, apparel shop website, responsive fashion template">
         <meta name="author" content="spacingtech_webify">
         <!-- favicon -->
-        <link rel="shortcut icon" type="image/favicon" href="<?php echo e(asset('assets/image/index/favicon.png')); ?>">
+
+  <link rel="shortcut icon" type="image/favicon" href="<?php echo e(asset('assetsofdash/images/Red and Black Modern Creative Agency Logo-old.png')); ?>">
+
+  
+
         <!-- plugin css -->
         <link rel="stylesheet" type="text/css" href="assets/css/plugin.css">
         <!-- theme css -->
@@ -28,8 +32,7 @@
         <!-- preloader start -->
         <div class="preloader position-fixed top-0 start-0 w-100 h-100 body-bg z-index-5">
             <div class="loader-img position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
-<img src="<?php echo e(asset('assetsofdash/images/Red and Black Modern Creative Agency Logo.png')); ?>" class="rounded-1" width="150px" height="60px"  >
-</div>
+<img src="<?php echo e(asset('assetsofdash/images/Red and Black Modern Creative Agency Logo-old.png')); ?>" class="rounded-1" width="150px" height="60px"></div>
         </div>
         <!-- preloader end -->
         <!-- newsletter-modal start -->
@@ -137,9 +140,7 @@
                             <!-- header-logo start -->
                             <div class="col-6 col-xl-2 header-element header-logo">
                                 <div class="header-theme-logo">
-                                    <a href="home.html" class="d-inline-block theme-logo">
-             <img src="<?php echo e(asset('assetsofdash/images/Red and Black Modern Creative Agency Logo.png')); ?>" class="rounded-1" width="150px" height="60px"  >
-                                    </a>
+                                 <img src="<?php echo e(asset('assetsofdash/images/Red and Black Modern Creative Agency Logo-old.png')); ?>" class="rounded-1" width="150px" height="60px">
                                 </div>
                             </div>
                             <!-- header-logo end -->
@@ -750,7 +751,7 @@
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide h-auto d-flex" data-animate="animate__fadeIn">
                                         <div class="cat-block banner-hover w-100 ptb-15 plr-15 body-bg border-radius">
-                                            <a href="collection.html" class="d-none d-xl-block position-relative banner-img br-hidden">
+                                            <a href="<?php echo e(route('collection')); ?>" class="d-none d-xl-block position-relative banner-img br-hidden">
                                                 <span class="btn-style tertiary-btn banner-btn position-absolute top-50 start-50 translate-middle z-1 text-nowrap">Shop now</span>
                                                 <img src="assets/image/collection/collection-1.jpg" class="w-100 img-fluid" alt="collection-1">
                                             </a>
@@ -770,11 +771,11 @@
                                     </div>
                                     <div class="swiper-slide h-auto d-flex" data-animate="animate__fadeIn">
                                         <div class="cat-block banner-hover w-100 ptb-15 plr-15 body-bg border-radius">
-                                            <a href="collection.html" class="d-none d-xl-block position-relative banner-img br-hidden">
+                                            <a href="<?php echo e(route('collection')); ?>" class="d-none d-xl-block position-relative banner-img br-hidden">
                                                 <span class="btn-style tertiary-btn banner-btn position-absolute top-50 start-50 translate-middle z-1 text-nowrap">Shop now</span>
                                                 <img src="assets/image/collection/collection-2.jpg" class="w-100 img-fluid" alt="collection-2">
                                             </a>
-                                            <a href="collection.html" class="d-block d-xl-none banner-img br-hidden">
+                                            <a href="<?php echo e(route('collection')); ?>" class="d-block d-xl-none banner-img br-hidden">
                                                 <img src="assets/image/collection/collection-2.jpg" class="w-100 img-fluid" alt="collection-2">
                                             </a>
                                             <div class="cat-content pst-15">
@@ -783,7 +784,7 @@
                                                     <span class="primary-color text-uppercase">9+ item</span>
                                                 </div>
                                                 <div class="d-xl-none mst-7">
-                                                    <a href="collection.html" class="link-btn">Shop now</a>
+                                                    <a href="<?php echo e(route('collection')); ?>" class="link-btn">Shop now</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -4430,4 +4431,7 @@
 
 <!-- Mirrored from spacingtech.com/html/erona/template/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 29 Oct 2025 07:43:59 GMT -->
 </html>
+
+
+
 <?php /**PATH C:\laravel_git\ecommerce-web\resources\views//home.blade.php ENDPATH**/ ?>

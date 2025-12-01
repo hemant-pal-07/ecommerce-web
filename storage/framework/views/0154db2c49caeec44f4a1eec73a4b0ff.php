@@ -138,7 +138,7 @@ button:hover{
         <div class="row">
             <div class="col-md-4">
                 <label>Old Price</label>
-                <input type="text" name="p_old_price" value="<?php echo e($product->p_old_price); ?>">
+                <input type="number" name="p_old_price" value="<?php echo e($product->p_old_price); ?>">
             </div>
             <div class="col-md-4">
                 <label>Stock</label>
@@ -182,7 +182,7 @@ button:hover{
                     </div>
                     <div class="col-md-4">
                         <label>Price Adjustment</label>
-                        <input type="text" name="priceadjustment[<?php echo e($i); ?>]" value="<?php echo e($color->color_price_adjustment); ?>">
+                        <input type="number" name="priceadjustment[<?php echo e($i); ?>]" value="<?php echo e($color->color_price_adjustment); ?>">
                     </div>
 
                     <label class="mt-2">Existing Images</label>
@@ -250,6 +250,9 @@ button:hover{
 <?php $__env->startPush('scripts'); ?>
 
 
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     <?php if(session('success')): ?>
@@ -312,7 +315,7 @@ $('#addcolorbtn').click(function(e){
             </div>
             <div class="col-md-4">
                 <label>Price Adjustment</label>
-                <input type="text" name="priceadjustment[${colorIndex}]">
+                <input type="number" name="priceadjustment[${colorIndex}]">
             </div>
             <label class="mt-2">Upload Images</label>
             <input type="file" name="color_images[${colorIndex}][]" multiple>
@@ -365,6 +368,7 @@ $('#colorcontainer').on('click', '.add-size-btn', function(){
       height: 200
     });
   </script>
+
 <?php $__env->stopPush(); ?>
 
 <?php echo $__env->make('layouts.admin-layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laravel_git\ecommerce-web\resources\views/admin/editproduct.blade.php ENDPATH**/ ?>
