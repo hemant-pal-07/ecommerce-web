@@ -12,9 +12,9 @@
                             <i class="icofont-truck-loaded fs-5"></i> <span>Products</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
                             <!-- Menu: Sub menu ul -->
                             <ul class="sub-menu collapse" id="menu-product">
-                                  <li><a class="ms-link" href="<?php echo e(route('product.create')); ?>">Product Add</a></li>
+                                  <li><a class="ms-link" href="<?php echo e(route('product.create')); ?>">Add Product</a></li>
                                 <li><a class="ms-link" href="<?php echo e(route('product.list')); ?>">Product List</a></li>
-                                <li><a class="ms-link" href="product-edit.html">Product Edit</a></li>
+                                <li><a class="ms-link" href="product-edit.html"> Edit Product</a></li>
                                 <li><a class="ms-link" href="product-detail.html">Product Details</a></li>
                                 <li><a class="ms-link" href="product-cart.html">Shopping Cart</a></li>
                                 <li><a class="ms-link" href="checkout.html">Checkout</a></li>
@@ -25,7 +25,7 @@
                             <i class="icofont-chart-flow fs-5"></i> <span>Categories</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
                             <!-- Menu: Sub menu ul -->
                             <ul class="sub-menu collapse" id="categories">
-                                  <li><a class="ms-link" href="<?php echo e(route('product.category')); ?>">Categories Add</a></li>
+                                  <li><a class="ms-link" href="<?php echo e(route('product.category')); ?>">Add Categories</a></li>
                                 <li><a class="ms-link" href="<?php echo e(route("category.list")); ?>">Categories List</a></li>
 
                             </ul>

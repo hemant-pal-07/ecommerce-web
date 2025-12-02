@@ -212,7 +212,7 @@
     <div class="d-flex flex-wrap gap-2 mb-3 ms-1">
          <?php $__currentLoopData = $color->images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $img): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <img src="<?php echo e(asset('storage/colors/' . $img->img_path)); ?>"
-                 style="width:70px; height:70px; object-fit:cover; border-radius:8px; border:1px solid #ffb243;">
+                 style="width:70px; height:70px; object-fit:cover; border-radius:8px; border:1px solid #ffb243;" class="preview-img" onclick="openPreview(this)">
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
 
@@ -232,7 +232,7 @@
                 
                 <?php if($size->image): ?>
                     <img src="<?php echo e(asset('uploads/products/'.$size->image)); ?>"
-                         style="width:60px; height:40px; object-fit:cover; border-radius:6px; border:1px solid #ffb243;">
+                         style="width:60px; height:40px; object-fit:cover; border-radius:6px; border:1px solid #ffb243;" class="preview-img" onclick="openPreview(this)">
                 <?php endif; ?>
 
                 <div style="font-size:13px; font-weight:600;  margin-left:5px; margin-top:2px; color:black;">
@@ -261,7 +261,7 @@
 
            <div class="detail-box">
             <div class="detail-title">Short description</div>
-             <p><?php echo e(Str::limit($product->p_short_description, 200)); ?></p>
+             <p><?php echo e(Str::limit($product->p_short_description,400)); ?></p>
         </div>
 
             <div class="detail-box mt-3">
@@ -281,7 +281,41 @@
 </div>
 
 
+
+
 <?php $__env->stopSection(); ?>
+<div id="imgPreviewModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1000; transition:all 1s;">
+    <span style="position:absolute; top:20px; right:30px; color:white; font-size:30px; cursor:pointer; transition:all 1s;" onclick="closePreview()">&times;</span>
+    <img id="previewImg" src="" style="max-width:90%; max-height:90%; border-radius:10px; box-shadow:0 0 15px white;">
+</div>
+
+
+
+
+<?php $__env->startPush('scripts'); ?>
+
+
+<script>
+function openPreview(img) {
+    const modal = document.getElementById('imgPreviewModal');
+    const preview = document.getElementById('previewImg');
+    preview.src = img.src;  // set clicked image src
+    modal.style.display = 'flex'; // show modal
+}
+
+function closePreview() {
+    document.getElementById('imgPreviewModal').style.display = 'none';
+}
+
+// Optional: close modal if clicked outside image
+document.getElementById('imgPreviewModal').addEventListener('click', function(e) {
+    if(e.target.id === 'imgPreviewModal') {
+        closePreview();
+    }
+});
+</script>
+
+<?php $__env->stopPush(); ?>
 
 
 <?php echo $__env->make('layouts.admin-layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laravel_git\ecommerce-web\resources\views/admin/viewproduct.blade.php ENDPATH**/ ?>

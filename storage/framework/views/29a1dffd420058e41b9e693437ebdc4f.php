@@ -14,6 +14,7 @@
     font-family: 'Poppins', sans-serif;
     padding: 5px;
 
+
 }
 
 #productTable thead th {
@@ -21,15 +22,19 @@
     color: white !important;
      text-align: center;
      align-items: center;
-     padding: 20px;
+     padding:15px;
+
 
 }
+
+
 
 
 /* Table rows */
 #productTable tbody tr td {
     vertical-align: middle;
     font-size: 14px;
+    width: auto;
     padding: 20px;
 
 }
@@ -41,7 +46,7 @@
 
 /*********** SEARCH BOX ************/
 .dataTables_wrapper .dataTables_filter {
-    margin-bottom: 20px;
+    margin-bottom: auto 10px ;
 }
 
 .dataTables_wrapper .dataTables_filter label {
@@ -121,12 +126,19 @@
     border-radius: 5px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      table-layout: auto !important;
+    width: 100%;
+    white-space: nowrap;
 
 }
-/* .badge{
-    padding:10px;
-     background: purple;
-} */
+
+#productTable th,
+#productTable td {
+    width: auto !important; /* हर कॉलम auto width */
+    white-space: nowrap;
+}
+
+
 
 
 
@@ -142,15 +154,15 @@
     <div class="table-responsive shadow-sm rounded bg-white p-3">
         <table id="productTable" class="table align-middle text-center table-hover">
             <thead class="table-light">
-                <tr>
-                    <th>SR. NO</th>
+                <tr class="w-100">
+                    <th>S:NO</th>
                     <th>ACTION</th>
                     <th>NAME</th>
                     <th>MAIN CATEGORY</th>
                     <th>CATEGORY</th>
                     <th>PRICE</th>
                     <th>OLD PRICE</th>
-                    <th>STOCK</th>
+                    <th >STOCK</th>
                     <th>TYPE</th>
 
                 </tr>
@@ -164,16 +176,10 @@
                     <td><?php echo e($index + 1); ?></td>
 
                     <!-- Action -->
-                    <td>
+                    <td class="">
                         <a href="<?php echo e(route('product.edit', $p->p_id)); ?>" class="btn btn-sm btn-edit bg-primary text-white">Edit</a>
                         <a href="<?php echo e(route('product.view', $p->p_id)); ?>" class="btn btn-sm btn-view bg-warning text-white">View</a>
-                 <form action="<?php echo e(route('product.destroy', $p->p_id)); ?>" method="POST" style="display:inline;">
-    <?php echo csrf_field(); ?>
-    <?php echo method_field('DELETE'); ?>
-    <button type="submit" class="btn btn-sm btn-view deleteBtn bg-danger text-white">
-        Delete
-    </button>
-</form>
+                 
 
 
 

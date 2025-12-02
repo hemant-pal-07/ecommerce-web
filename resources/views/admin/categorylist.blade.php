@@ -3,12 +3,132 @@
 @section('title', 'category-list')
 
 @push('styles')
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
 <style>
     body { background:#f8f9fa;font-family: 'Poppins',sans-serif;  }
-    h1 { color:#ff6600; text-align:center; margin:20px 0; }
     .btn-orange { background-color: #ff6600; color:white; }
     .btn-orange:hover { background-color: #e65c00; }
     table img { height:80px; width:auto; border-radius:5px; }
+
+
+         /*********** DATATABLE GLOBAL ************/
+.dataTables_wrapper {
+    font-family: 'Poppins', sans-serif;
+    padding: 5px;
+
+}
+
+#productTable thead th {
+    background-color: #ff6600 !important;
+    color: white !important;
+     text-align: center;
+     align-items: center;
+     padding: 15px;
+
+}
+
+
+
+
+/* Table rows */
+#productTable tbody tr td {
+    vertical-align: middle;
+    font-size: 14px;
+    padding: 20px;
+
+}
+
+/* Hover Effect */
+#productTable tbody tr:hover {
+    background-color: #fff1e6 !important;
+}
+
+/*********** SEARCH BOX ************/
+.dataTables_wrapper .dataTables_filter {
+    margin-bottom: 10px;
+}
+
+.dataTables_wrapper .dataTables_filter label {
+    font-weight: 500;
+
+}
+
+.dataTables_wrapper .dataTables_filter input {
+    border: 1px solid #ff6600;
+    border-radius: 5px;
+    padding: 6px 12px;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.dataTables_wrapper .dataTables_filter input:focus {
+    border-color: #e65c00;
+    box-shadow: 0 0 0 0.1rem rgba(255,102,0,0.25);
+
+}
+
+/*********** LENGTH DROPDOWN ************/
+.dataTables_wrapper .dataTables_length label {
+
+    font-weight: 500;
+}
+
+.dataTables_wrapper .dataTables_length select {
+    border: 1px solid #ff6600;
+    border-radius: 6px;
+    padding: 5px 30px;
+
+}
+
+/*********** PAGINATION ************/
+.dataTables_wrapper .dataTables_paginate {
+    margin-top: 15px;
+    text-align: center !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 5px 10px !important;
+    margin: px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s ease;
+}
+
+/* .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background: #ff6600 !important;
+    color: white !important;
+} */
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background: #ff6600 !important;
+    color: white !important;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+/* .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
+    /* background: #f1f1f1 !important;
+    color: #aaa !important;
+    border: 1px solid #ddd !important;
+} */ */
+
+/*********** TABLE INFO TEXT ************/
+.dataTables_wrapper .dataTables_info {
+    color: #444;
+    font-size: 14px;
+    margin-top: 8px;
+
+}
+
+/*********** TABLE BORDER + SHADOW ************/
+#productTable {
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+
+}
+
 
 
 </style>
@@ -19,19 +139,19 @@
 @section('content')
 
 <div class="container-fluid w-100 p-4 d-flex flex-wrap justify-content-center align-items-center">
-    <h1 class="text-center w-100 mb-4">Category List</h1>
+    <h1 class=" fs-3 fw-bold w-100 py-3 ">Category List</h1>
 
     <div class="table-responsive  w-100" >
         <table class="table table-bordered table-striped text-center">
             <thead class="text-white bg-warning">
             <tr>
-                <th class="text-white bg-warning">S:no</th>
-                 <th class="text-white bg-warning"> Main Category </th>
-                <th class="text-white bg-warning">Category name</th>
-                <th class="text-white bg-warning">Banner</th>
-                <th class="text-white bg-warning">Image</th>
-                <th class="text-white bg-warning">Description</th>
-                <th class="text-white bg-warning">Actions</th>
+                <th class="text-center text-white"style="background:#ff6600;">>S:no</th>
+                 <th class="text-center text-white"style="background:#ff6600;">> Main Category </th>
+                <th class="text-center text-white"style="background:#ff6600;">>Category name</th>
+                <th class="text-center text-white"style="background:#ff6600;">>Banner</th>
+                <th class="text-center text-white"style="background:#ff6600;">>Image</th>
+                <th class="text-center text-white"style="background:#ff6600;">>Description</th>
+                <th class="text-center text-white"style="background:#ff6600;">>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -129,5 +249,21 @@ document.getElementById('imgPreviewModal').addEventListener('click', function(e)
     }
 });
 </script>
+
+
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('.table').DataTable({
+        "pageLength": 5,
+        "lengthMenu": [5, 10, 25, 50, 100],
+        "ordering": true,
+        "searching": true,
+        "responsive": true
+    });
+});
+</script>
+
 
 @endpush
