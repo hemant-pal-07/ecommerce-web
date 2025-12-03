@@ -285,6 +285,47 @@ public function getByMainCategory($main_id)
 }
 
 
+// api part start---->
+// All products with relations
+public function getAllProducts()
+{
+    $products = Product::with([
+        'category',
+        'mainCategory',
+        'colors.images',
+        'colors.sizes'
+    ])->get();
+
+    return response()->json($products);
+}
+
+// Single product detail
+public function getProductById($id)
+{
+    $product = Product::with([
+        'category',
+        'mainCategory',
+        'colors.images',
+        'colors.sizes'
+    ])->findOrFail($id);
+
+    return response()->json($product);
+}
+
+// Products by main category
+public function getProductsByMainCategory($main_id)
+{
+    $products = Product::with([
+        'category',
+        'colors.images',
+        'colors.sizes'
+    ])->where('main_category_id', $main_id)->get();
+
+    return response()->json($products);
+}
+// end part---->
+
+
 
 
 }

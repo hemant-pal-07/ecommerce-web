@@ -140,7 +140,22 @@ public function getByMainCategory($main_id)
 }
 
 
+// All categories
+public function getAllCategories()
+{
+    $categories = Category::with('mainCategory')->get();
+    return response()->json($categories);
+}
 
 
+
+
+// api part ---->
+// Categories by main category
+public function getByMainCategory2($main_id)
+{
+    $categories = Category::where('main_category_id', $main_id)->get();
+    return response()->json($categories);
+}
 
 }
