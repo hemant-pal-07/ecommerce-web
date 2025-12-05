@@ -151,7 +151,7 @@
                                                             </div>
                                                             </div> --}}
                                                             <div class="col-4">
-                                                                <div class="d-block heading-color ptb-5 heading-weight">MEN CATEGORY</div>
+                                                              <a href="{{ route('maincategorycollection') }}"> <div class="d-block heading-color ptb-5 heading-weight">MEN CATEGORY</div></a>
                                                                 <div class="mst-11">
                                                                     <span class="d-block ptb-5"><a href="{{ route('collection') }}" class="d-inline-block body-primary-color"> 01 shirts collections</a></span>
                                                                     <span class="d-block ptb-5"><a href="{{ route('collection2') }}" class="d-inline-block body-primary-color">02 Formal pants & Jeans</a></span>
@@ -160,7 +160,8 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-4">
-                                                                <div class="d-block heading-color ptb-5 heading-weight">WOMEN CATEGORY</div>
+                                                               <a href="{{ route('womenmaincategorycollection') }}">
+                                                     <div class="d-block heading-color ptb-5 heading-weight">WOMEN CATEGORY</div></a>
                                                                 <div class="mst-11">
                                                                     <span class="d-block ptb-5"><a href="{{ route('womencollection1') }}" class="d-inline-block body-primary-color">01 Kurti's collection</a></span>
                                                                     <span class="d-block ptb-5"><a href="{{ route('womencollection2')}}" class="d-inline-block body-primary-color">02 Tops & T-Shirts collection</a></span>
@@ -169,11 +170,11 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-4">
-                                                                <div class="d-block heading-color ptb-5 heading-weight">KIDS CATEGORY</div>
+                                                               <a href="{{ route('kidsmaincategorycollection') }}"> <div class="d-block heading-color ptb-5 heading-weight">KIDS CATEGORY</div></a>
                                                                 <div class="mst-11">
-                                                                    <span class="d-block ptb-5"><a href="product.html" class="d-inline-block body-primary-color">01 Toys & Games</a></span>
-                                                                    <span class="d-block ptb-5"><a href="product.html" class="d-inline-block body-primary-color">02 Kids Clothing</a></span>
-                                                                    <span class="d-block ptb-5"><a href="product.html" class="d-inline-block body-primary-color">03 kids Accessories	</a></span>
+                                                                    <span class="d-block ptb-5"><a href="{{ route('kidscollection1') }}" class="d-inline-block body-primary-color">01 Toys & Games</a></span>
+                                                                    <span class="d-block ptb-5"><a href="{{ route('kidscollection2') }}" class="d-inline-block body-primary-color">02 Kids Clothing</a></span>
+                                                                    <span class="d-block ptb-5"><a href="{{ route('kidscollection3') }}" class="d-inline-block body-primary-color">03 kids Accessories	</a></span>
 
                                                                 </div>
                                                             </div>

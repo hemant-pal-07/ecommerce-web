@@ -3,7 +3,6 @@
 
   <?php $__env->startSection('content'); ?>
 
-   <body>
 
 
         <!-- main start -->
@@ -3612,13 +3611,9 @@
 
 
 
-    </body>
 
-    <?php $__env->startPush('scripts'); ?>
-         <script src="assets/js/plugin.js"></script>
-        <script src="assets/js/theme.js"></script>
 
-    <?php $__env->stopPush(); ?>
+
 
     <?php $__env->stopSection(); ?>
 

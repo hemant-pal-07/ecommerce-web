@@ -55,4 +55,57 @@ class showController extends Controller
         // Home page view ke saath products bheje
         return view('womencollection3', compact('products'));
     }
+
+     public function kidscollection1()
+    {
+        // Sab products database se fetch kare
+        $products = Product::all();
+
+        // Home page view ke saath products bheje
+        return view('kidscollection1', compact('products'));
+    }
+      public function kidscollection2()
+    {
+        // Sab products database se fetch kare
+        $products = Product::all();
+
+        // Home page view ke saath products bheje
+        return view('kidscollection2', compact('products'));
+    }
+     public function kidscollection3()
+    {
+        // Sab products database se fetch kare
+        $products = Product::all();
+
+        // Home page view ke saath products bheje
+        return view('kidscollection3', compact('products'));
+    }
+      public function maincollection()
+    {
+        // Sab products database se fetch kare
+        $products = Product::all();
+
+        // Home page view ke saath products bheje
+        return view('maincategorycollection', compact('products'));
+    }
+     public function womenmaincollection()
+    {
+        // Sab products database se fetch kare
+        $products = Product::all();
+
+        // Home page view ke saath products bheje
+        return view('womenmaincategory', compact('products'));
+    }
+     public function kidsmaincollection()
+    {
+        // Sab products database se fetch kare
+        $products = Product::all();
+
+        // Home page view ke saath products bheje
+        return view('kidsmaincategory', compact('products'));
+    }
+
+
+
+
 }

@@ -150,14 +150,25 @@ Route::get('sizes', [SizeController::class, 'index']);
 Route::post('sizes', [SizeController::class, 'store']);
 
 
-
+// show men collection--->
 Route::get('/men-collection', [showController::class, 'addproduct'])->name('collection');
 Route::get('/men-collection2', [showController::class, 'collection2'])->name('collection2');
 Route::get('/men-collection3', [showController::class, 'collection3'])->name('collection3');
 
+// show women collection--->
 Route::get('/Women-collection', [showController::class, 'womencollection1'])->name('womencollection1');
 Route::get('/Women-collection2', [showController::class, 'womencollection2'])->name('womencollection2');
 Route::get('/Women-collection3', [showController::class, 'womencollection3'])->name('womencollection3');
+
+//kids collection----->
+Route::get('/kids-collection', [showController::class, 'kidscollection1'])->name('kidscollection1');
+Route::get('/kids-collection2', [showController::class, 'kidscollection2'])->name('kidscollection2');
+Route::get('/kids-collection3', [showController::class, 'kidscollection3'])->name('kidscollection3');
+
+Route::get('/maincategroycollection', [showController::class, 'maincollection'])->name('maincategorycollection');
+Route::get('/womenmaincategroy', [showController::class, 'womenmaincollection'])->name('womenmaincategorycollection');
+Route::get('/kidsmaincategroy', [showController::class, 'kidsmaincollection'])->name('kidsmaincategorycollection');
+
 //  Route::get('/admin/add-category', [CategoryController::class, 'create'])->name('product.category');
 
 

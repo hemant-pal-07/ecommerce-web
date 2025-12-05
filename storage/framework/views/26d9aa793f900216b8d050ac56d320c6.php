@@ -1,11 +1,4 @@
-<?php $__env->startSection('title', 'shirt collection'); ?>
-
-
-
-
-    <body>
-
-
+<?php $__env->startSection('title', 'tops collection'); ?>
 
 <?php $__env->startSection('content'); ?>
 
@@ -1119,13 +1112,10 @@
             <div class="bg-shop position-fixed top-0 end-0 bottom-0 start-0 bg-black z-index-4 opacity-0 invisible"></div>
         </div>
         <!-- bg-screen end -->
-        <!-- plugin js -->
-        <script src="assets/js/plugin.js"></script>
-        <!-- theme js -->
-        <script src="assets/js/theme.js"></script>
+
 
  <?php $__env->stopSection(); ?>
-    </body>
+
 
 
 

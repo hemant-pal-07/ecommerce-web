@@ -6,7 +6,6 @@
 
   @section('content')
 
-   <body>
 
 
         <!-- main start -->
@@ -3615,13 +3614,9 @@
 
 
 
-    </body>
 
-    @push('scripts')
-         <script src="assets/js/plugin.js"></script>
-        <script src="assets/js/theme.js"></script>
 
-    @endpush
+
 
     @endsection
 

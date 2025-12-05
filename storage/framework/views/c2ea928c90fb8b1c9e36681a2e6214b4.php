@@ -2,13 +2,7 @@
 
 
 
-
-    <body>
-
-
-
 <?php $__env->startSection('content'); ?>
-
 
         <!-- main start -->
         <main id="main">
@@ -36,7 +30,7 @@
                 <div class="container">
                     <div class="row align-items-xl-start">
 
-                        </div>
+
                         <!-- shop-sidebar end -->
                         <div class="col-12 p-xl-sticky top-0">
                             <!-- collection-info start -->
@@ -1120,13 +1114,14 @@
         </div>
         <!-- bg-screen end -->
         <!-- plugin js -->
-        <script src="assets/js/plugin.js"></script>
-        <!-- theme js -->
-        <script src="assets/js/theme.js"></script>
 
- <?php $__env->stopSection(); ?>
-    </body>
 
+
+
+        </main>
+
+
+     <?php $__env->stopSection(); ?>
 
 
 

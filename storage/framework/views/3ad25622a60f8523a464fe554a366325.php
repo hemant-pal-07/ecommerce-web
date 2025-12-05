@@ -4,7 +4,7 @@
 
 <?php $__env->startSection('content'); ?>
 
-    <body>
+
 
         <!-- main start -->
         <main id="main">
@@ -1100,15 +1100,8 @@
         <!-- bg-screen end -->
         <!-- plugin js -->
 
-
-
-         <script src="assets/js/plugin.js"></script>
-        <script src="assets/js/theme.js"></script>
-
-
-
     <?php $__env->stopSection(); ?>
-      </body>
+
 
 
 

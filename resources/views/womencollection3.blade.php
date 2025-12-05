@@ -1,13 +1,7 @@
 
 @extends('layouts.frontend-layout')
 
-@section('title', 'shirt collection')
-
-
-
-
-    <body>
-
+@section('title', 'jeans&jeggings collection')
 
 
 @section('content')
@@ -1162,11 +1156,8 @@
             <div class="bg-shop position-fixed top-0 end-0 bottom-0 start-0 bg-black z-index-4 opacity-0 invisible"></div>
         </div>
         <!-- bg-screen end -->
-        <!-- plugin js -->
-        <script src="assets/js/plugin.js"></script>
-        <!-- theme js -->
-        <script src="assets/js/theme.js"></script>
+
 
  @endsection
-    </body>
+
 
