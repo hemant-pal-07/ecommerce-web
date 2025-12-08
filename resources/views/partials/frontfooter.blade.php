@@ -8,8 +8,7 @@
                             <div class="footer-info">
                                 <div class="footer-theme-logo">
                                     <a href="index.html" class="d-inline-block theme-logo">
-                                        <img src="assets/image/index/logo.png" class="width-88 width-xl-112 img-fluid" alt="logo">
-                                    </a>
+   <img src="{{ asset('assetsofdash/images/Red and Black Modern Creative Agency Logo-old.png') }}" class="rounded-1" style="margin-top:-70px;" width="180px" height="80px">                                    </a>
                                 </div>
                                 <div class="footer-company-detail mst-23">
                                     <p>The middle of text all the lorem Ipsum generators on the internet tend to repeat predefined chunks embarrassing hidden in the middle of text...</p>

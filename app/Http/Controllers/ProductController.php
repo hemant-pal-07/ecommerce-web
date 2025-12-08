@@ -81,18 +81,18 @@ class ProductController extends Controller
             }
 
             // Save images for this color
-            if ($request->hasFile("color_images.$index")) {
-                foreach ($request->file("color_images.$index") as $file) {
-                    $filename = time() . '_' . $file->getClientOriginalName();
-                    $file->storeAs('public/colors', $filename);
+         if ($request->hasFile("color_images.$index")) {
+    foreach ($request->file("color_images.$index") as $imgIndex => $file) {
+        $filename = $index . '_' . $imgIndex . '_' . $file->getClientOriginalName();
+        $file->storeAs('public/colors', $filename);
 
-                    \App\Models\Image::create([
-                        'img_color_id' => $color->color_id,
-                        'img_path'     => $filename,
-                        'img_alt_text' => $color->color_name,
-                    ]);
-                }
-            }
+        \App\Models\Image::create([
+            'img_color_id' => $color->color_id,
+            'img_path'     => $filename,
+            'img_alt_text' => $color->color_name,
+        ]);
+    }
+}
         }
     }
 

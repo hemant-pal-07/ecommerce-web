@@ -31,6 +31,13 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
 
     @stack('styles')
+
+    <style>
+        .preloader-img{
+            height: 80px;
+            width: 200px;
+        }
+    </style>
 </head>
 
 <body>
@@ -38,8 +45,19 @@
     {{-- Header --}}
     @include('partials.frontheader')
 
-    {{-- Page Content --}}
+
+       {{-- preloader start --}}
+      <div class="preloader position-fixed top-0 start-0 w-100 h-100 body-bg z-index-5">
+            <div class="loader-img position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
+                <img src="{{ asset('assetsofdash/images/Red and Black Modern Creative Agency Logo-old.png') }}" class="width-88 width-xl-112 img-fluid preloader-img" alt="logo">
+            </div>
+        </div>
+        {{-- preloader end --}}
+
+
+          {{-- Page Content --}}
     @yield('content')
+
 
     {{-- Extra Section --}}
     @include('partials.extra')

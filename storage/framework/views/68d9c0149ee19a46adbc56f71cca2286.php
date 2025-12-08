@@ -473,7 +473,7 @@
                                         </li>
                                         <li class="header-icon-wrap wishlist-wrap d-md-block d-none">
                                             <div class="header-icon-wrapper">
-                                                <a href="wishlist.html" class="d-block header-icon-wishlist">
+                                                <a href="<?php echo e(url('wishlist')); ?>" class="d-block header-icon-wishlist">
                                                     <span class="primary-link ul-mt5 flex-nowrap align-items-center">
                                                         <span class="d-block">
                                                             <span class="d-block header-block-icon-wrap position-relative per-8">

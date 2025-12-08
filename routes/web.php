@@ -62,8 +62,8 @@ route ::get('/register',function (){
     return view('register');
 });
 
-route ::get('/whistlist',function (){
-    return view('whistlist');
+route::get('/whistlist',function (){
+    return view('whistlist')->name('whistlist');
 });
 
 
@@ -151,7 +151,7 @@ Route::post('sizes', [SizeController::class, 'store']);
 
 
 // show men collection--->
-Route::get('/men-collection', [showController::class, 'addproduct'])->name('collection');
+Route::get('/men-collection', [showController::class, 'getMenShirtcollection'])->name('collection');
 Route::get('/men-collection2', [showController::class, 'collection2'])->name('collection2');
 Route::get('/men-collection3', [showController::class, 'collection3'])->name('collection3');
 
@@ -170,6 +170,8 @@ Route::get('/womenmaincategroy', [showController::class, 'womenmaincollection'])
 Route::get('/kidsmaincategroy', [showController::class, 'kidsmaincollection'])->name('kidsmaincategorycollection');
 
 //  Route::get('/admin/add-category', [CategoryController::class, 'create'])->name('product.category');
+
+  Route::get('/collection/{category}', [showController::class, 'showByCategory']);
 
 
 
