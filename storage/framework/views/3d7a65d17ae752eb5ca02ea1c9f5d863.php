@@ -18,7 +18,7 @@
         <span class="d-block extra-color">
             <a href="/" class="extra-color">Home</a> / Women-Collection
         </span>
-        <h2 class="extra-color font-24 font-xl-32 mst-5 mst-xl-9">Women-Collection</h2>
+        <h2 class="extra-color font-24 font-xl-32 mst-5 mst-xl-9">Kurtis Collection</h2>
     </div>
 </div>
 
@@ -41,11 +41,7 @@
                                         <div class="collection-title">
                                             <h6 class="font-18">Collection left (12)</h6>
                                         </div>
-                                        <!-- collection-title end -->
-                                        <!-- collection-img start -->
-                                        
-                                        <!-- collection-img end -->
-                                        <!-- shop-top-bar start -->
+
                                         <div class="shop-top-bar">
                                             <div class="row row-mtm15 align-items-md-center">
                                                 <div class="col-12 col-sm-6 col-md-7 col-lg-8">
@@ -106,19 +102,20 @@
                                         
                                         <!-- shop-border end -->
                                         <!-- shop-filter-list start -->
-                                        
+
+                                     
                                         <!-- shop-filter-list end -->
                                     </div>
                                 </div>
-                                <div class="col-12 ">
+                                <div class="col-12">
                                     <div class="shop-product-wrap data-grid">
                                         <!-- shop-grid start -->
                                         <div class="row row-mtm">
 
 
                                                                                       <!-- shop-grid start -->
- <div class="row row-mtm">
-<div class="row">
+      <div class="row row-mtm">
+      <div class="row">
     <?php $__empty_1 = true; $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
         <div class="col-6 col-md-4 shop-col" data-animate="animate__fadeIn">
             <div class="single-product">
@@ -190,17 +187,9 @@
     <?php endif; ?>
 </div>
 
-
                                      </div>
-
-
-
-
-
-
-
-                                                        </div>
-
+                  </div>
+               </div>
                                 </section>
 
 

@@ -66,10 +66,10 @@
                     <div class="container-fluid">
                         <div class="row align-items-center header-area">
                             <!-- header-logo start -->
-                            <div class="col-6 col-xl-2 header-element header-logo">
-                                <div class="header-theme-logo">
+                         <div class="col-6 col-xl-2 header-element header-logo">
+                                <a href="<?php echo e(url('/')); ?>"> <div class="header-theme-logo">
                                  <img src="<?php echo e(asset('assetsofdash/images/Red and Black Modern Creative Agency Logo-old.png')); ?>" class="rounded-1" width="150px" height="60px">
-                                </div>
+                                </div></a>
                             </div>
                             <!-- header-logo end -->
                             <!-- header-menu start -->
@@ -147,30 +147,31 @@
                                                         <div class="row">
                                                             
                                                             <div class="col-4">
-                                                              <a href="<?php echo e(route('maincategorycollection')); ?>"> <div class="d-block heading-color ptb-5 heading-weight">MEN CATEGORY</div></a>
+                                                           <a href="<?php echo e(route('Menmaincategorycollection')); ?>">
+                                                           <div class="d-block heading-color ptb-5 heading-weight">MEN CATEGORY</div></a>
                                                                 <div class="mst-11">
-                                                                    <span class="d-block ptb-5"><a href="<?php echo e(route('collection')); ?>" class="d-inline-block body-primary-color"> 01 shirts collections</a></span>
-                                                                    <span class="d-block ptb-5"><a href="<?php echo e(route('collection2')); ?>" class="d-inline-block body-primary-color">02 Formal pants & Jeans</a></span>
-                                                                    <span class="d-block ptb-5"><a href="<?php echo e(route('collection3')); ?>" class="d-inline-block body-primary-color">03 Shoes collection for men & boys</a></span>
+                                                                    <span class="d-block ptb-5"><a href="<?php echo e(route('menshirtcollection')); ?>" class="d-inline-block body-primary-color"> 01 shirts collections</a></span>
+                                                                    <span class="d-block ptb-5"><a href="<?php echo e(route('menformalpantscollection')); ?>" class="d-inline-block body-primary-color">02 Formal pants & Jeans</a></span>
+                                                                    <span class="d-block ptb-5"><a href="<?php echo e(route('menshoescollection')); ?>" class="d-inline-block body-primary-color">03 Shoes collection for men & boys</a></span>
 
                                                                 </div>
                                                             </div>
                                                             <div class="col-4">
-                                                               <a href="<?php echo e(route('womenmaincategorycollection')); ?>">
+                                                               <a href="<?php echo e(route('Womenmaincategorycollection')); ?>">
                                                      <div class="d-block heading-color ptb-5 heading-weight">WOMEN CATEGORY</div></a>
                                                                 <div class="mst-11">
-                                                                    <span class="d-block ptb-5"><a href="<?php echo e(route('womencollection1')); ?>" class="d-inline-block body-primary-color">01 Kurti's collection</a></span>
-                                                                    <span class="d-block ptb-5"><a href="<?php echo e(route('womencollection2')); ?>" class="d-inline-block body-primary-color">02 Tops & T-Shirts collection</a></span>
-                                                                    <span class="d-block ptb-5"><a href="<?php echo e(route('womencollection3')); ?>" class="d-inline-block body-primary-color">03 Jeans / Jeggings collection</a></span>
+                                                                    <span class="d-block ptb-5"><a href="<?php echo e(route('womenkurtiscollection')); ?>" class="d-inline-block body-primary-color">01 Kurti's collection</a></span>
+                                                                    <span class="d-block ptb-5"><a href="<?php echo e(route('womentops/t-shirtscollection')); ?>" class="d-inline-block body-primary-color">02 Tops & T-Shirts collection</a></span>
+                                                                    <span class="d-block ptb-5"><a href="<?php echo e(route('womenjeanscollection')); ?>" class="d-inline-block body-primary-color">03 Jeans / Jeggings collection</a></span>
 
                                                                 </div>
                                                             </div>
                                                             <div class="col-4">
-                                                               <a href="<?php echo e(route('kidsmaincategorycollection')); ?>"> <div class="d-block heading-color ptb-5 heading-weight">KIDS CATEGORY</div></a>
+                                                               <a href="<?php echo e(route('Kidsmaincategorycollection')); ?>"> <div class="d-block heading-color ptb-5 heading-weight">KIDS CATEGORY</div></a>
                                                                 <div class="mst-11">
-                                                                    <span class="d-block ptb-5"><a href="<?php echo e(route('kidscollection1')); ?>" class="d-inline-block body-primary-color">01 Toys & Games</a></span>
-                                                                    <span class="d-block ptb-5"><a href="<?php echo e(route('kidscollection2')); ?>" class="d-inline-block body-primary-color">02 Kids Clothing</a></span>
-                                                                    <span class="d-block ptb-5"><a href="<?php echo e(route('kidscollection3')); ?>" class="d-inline-block body-primary-color">03 kids Accessories	</a></span>
+                                                                    <span class="d-block ptb-5"><a href="<?php echo e(route('kidstoyscollection1')); ?>" class="d-inline-block body-primary-color">01 Toys & Games</a></span>
+                                                                    <span class="d-block ptb-5"><a href="<?php echo e(route('kidsclothescollection2')); ?>" class="d-inline-block body-primary-color">02 Kids Clothing</a></span>
+                                                                    <span class="d-block ptb-5"><a href="<?php echo e(route('kidsAccessoriescollection3')); ?>" class="d-inline-block body-primary-color">03 kids Accessories	</a></span>
 
                                                                 </div>
                                                             </div>
@@ -473,7 +474,7 @@
                                         </li>
                                         <li class="header-icon-wrap wishlist-wrap d-md-block d-none">
                                             <div class="header-icon-wrapper">
-                                                <a href="<?php echo e(url('wishlist')); ?>" class="d-block header-icon-wishlist">
+                                                <a href="<?php echo e(url('/whistlist')); ?>" class="d-block header-icon-wishlist">
                                                     <span class="primary-link ul-mt5 flex-nowrap align-items-center">
                                                         <span class="d-block">
                                                             <span class="d-block header-block-icon-wrap position-relative per-8">

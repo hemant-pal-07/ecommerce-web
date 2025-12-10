@@ -118,7 +118,7 @@
                     <div class="cat-category">
                         <div class="section-capture text-center">
                             <div class="section-title" data-animate="animate__fadeIn">
-                                <h2 class="section-heading">Every best category</h2>
+                                <h2 class="section-heading">Our best category</h2>
                             </div>
                         </div>
                         <div class="cat-wrap">
@@ -126,7 +126,7 @@
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide h-auto d-flex" data-animate="animate__fadeIn">
                                         <div class="cat-block banner-hover w-100 ptb-15 plr-15 body-bg border-radius">
-                                            <a href="<?php echo e(route('collection')); ?>" class="d-none d-xl-block position-relative banner-img br-hidden">
+                                            <a href="<?php echo e(route('womenkurtiscollection')); ?>" class="d-none d-xl-block position-relative banner-img br-hidden">
                                                 <span class="btn-style tertiary-btn banner-btn position-absolute top-50 start-50 translate-middle z-1 text-nowrap">Shop now</span>
                                                 <img src="assets/image/collection/collection-1.jpg" class="w-100 img-fluid" alt="collection-1">
                                             </a>
@@ -146,11 +146,11 @@
                                     </div>
                                     <div class="swiper-slide h-auto d-flex" data-animate="animate__fadeIn">
                                         <div class="cat-block banner-hover w-100 ptb-15 plr-15 body-bg border-radius">
-                                            <a href="<?php echo e(route('collection')); ?>" class="d-none d-xl-block position-relative banner-img br-hidden">
+                                            <a href="<?php echo e(route('menshirtcollection')); ?>" class="d-none d-xl-block position-relative banner-img br-hidden">
                                                 <span class="btn-style tertiary-btn banner-btn position-absolute top-50 start-50 translate-middle z-1 text-nowrap">Shop now</span>
                                                 <img src="assets/image/collection/collection-2.jpg" class="w-100 img-fluid" alt="collection-2">
                                             </a>
-                                            <a href="<?php echo e(route('collection')); ?>" class="d-block d-xl-none banner-img br-hidden">
+                                            <a href="<?php echo e(route('womenkurtiscollection')); ?>" class="d-block d-xl-none banner-img br-hidden">
                                                 <img src="assets/image/collection/collection-2.jpg" class="w-100 img-fluid" alt="collection-2">
                                             </a>
                                             <div class="cat-content pst-15">
@@ -159,14 +159,14 @@
                                                     <span class="primary-color text-uppercase">9+ item</span>
                                                 </div>
                                                 <div class="d-xl-none mst-7">
-                                                    <a href="<?php echo e(route('collection')); ?>" class="link-btn">Shop now</a>
+                                                    <a href="<?php echo e(route('menshirtcollection')); ?>" class="link-btn">Shop now</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="swiper-slide h-auto d-flex" data-animate="animate__fadeIn">
                                         <div class="cat-block banner-hover w-100 ptb-15 plr-15 body-bg border-radius">
-                                            <a href="collection.html" class="d-none d-xl-block position-relative banner-img br-hidden">
+                                            <a href="<?php echo e(route('kidstoyscollection1')); ?>" class="d-none d-xl-block position-relative banner-img br-hidden">
                                                 <span class="btn-style tertiary-btn banner-btn position-absolute top-50 start-50 translate-middle z-1 text-nowrap">Shop now</span>
                                                 <img src="assets/image/collection/collection-3.jpg" class="w-100 img-fluid" alt="collection-3">
                                             </a>
@@ -186,7 +186,7 @@
                                     </div>
                                     <div class="swiper-slide h-auto d-flex" data-animate="animate__fadeIn">
                                         <div class="cat-block banner-hover w-100 ptb-15 plr-15 body-bg border-radius">
-                                            <a href="collection.html" class="d-none d-xl-block position-relative banner-img br-hidden">
+                                            <a href="<?php echo e(route('womentops/t-shirtscollection')); ?>" class="d-none d-xl-block position-relative banner-img br-hidden">
                                                 <span class="btn-style tertiary-btn banner-btn position-absolute top-50 start-50 translate-middle z-1 text-nowrap">Shop now</span>
                                                 <img src="assets/image/collection/collection-4.jpg" class="w-100 img-fluid" alt="collection-4">
                                             </a>
@@ -206,7 +206,7 @@
                                     </div>
                                     <div class="swiper-slide h-auto d-flex" data-animate="animate__fadeIn">
                                         <div class="cat-block banner-hover w-100 ptb-15 plr-15 body-bg border-radius">
-                                            <a href="collection.html" class="d-none d-xl-block position-relative banner-img br-hidden">
+                                            <a href="<?php echo e(route('menshirtcollection')); ?>" class="d-none d-xl-block position-relative banner-img br-hidden">
                                                 <span class="btn-style tertiary-btn banner-btn position-absolute top-50 start-50 translate-middle z-1 text-nowrap">Shop now</span>
                                                 <img src="assets/image/collection/collection-5.jpg" class="w-100 img-fluid" alt="collection-5">
                                             </a>

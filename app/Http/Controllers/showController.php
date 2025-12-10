@@ -11,16 +11,15 @@ class showController extends Controller
 {
 
 
-    public function  getMenShirtcollection(){
+    public function  getMenShirtCollection(){
 
         $category = Category::where('c_name', 'men Shirts')->first();
 
         if (!$category) {
-            // Agar category nahi mili to error na aaye
-            abort(404, 'Category not found');
-        }
 
-        // Products fetch code
+            abort(404, 'Category not found');
+
+        }
 
         $products = DB::table('products')
             ->leftJoin('color', 'products.p_id', '=', 'color.color_product_id')
@@ -61,140 +60,122 @@ class showController extends Controller
             )
             ->get();
 
-        // Blade me send karo
-        return view('collection1', compact('products', 'category'));
+
+        return view('menshirtcollection', compact('products', 'category'));
     }
 
-    public function collection2()    {
-        $category = Category::where('c_name', 'Formal pants & Jeans')->first();
-// dd($category);
-
-
-if (!$category) {
-    // Agar category nahi mili to error na aaye
-    abort(404, 'Category not found');
-}
-
-// Products fetch karo
-
-
-$products = DB::table('products')
-    ->leftJoin('color', 'products.p_id', '=', 'color.color_product_id')
-    ->leftJoin('images', 'color.color_id', '=', 'images.img_color_id')
-    ->select(
-        'products.p_id',
-        'products.p_name',
-        'products.main_category_id',
-        'products.p_category_id',
-        'products.p_short_description',
-        'products.p_long_description',
-        'products.p_price',
-        'products.p_old_price',
-        'products.p_visibility_status',
-        'products.p_stock',
-        'products.p_type',
-        'products.created_at',
-        'products.updated_at',
-        DB::raw('MIN(images.img_path) as img_path'),
-        DB::raw('MIN(images.img_alt_text) as img_alt_text')
-    )
-    ->where('products.main_category_id', 1)
-    ->where('products.p_category_id', $category->c_id)
-    ->groupBy(
-        'products.p_id',
-        'products.p_name',
-        'products.main_category_id',
-        'products.p_category_id',
-        'products.p_short_description',
-        'products.p_long_description',
-        'products.p_price',
-        'products.p_old_price',
-        'products.p_visibility_status',
-        'products.p_stock',
-        'products.p_type',
-        'products.created_at',
-        'products.updated_at'
-    )
-    ->get();
-
-
-
-
-// Blade me send karo
-return view('collection2', compact('products', 'category'));
-
-    }
-
-
-
-
-
-
-     public function collection3()
+    public function getMenFormalPantcollection()
     {
-        // Sab products database se fetch kare
-       $category = Category::where('c_name', 'Shoes')->first();
+        $category = Category::where('c_name', 'Formal pants & Jeans')->first();
 
+        if (!$category) {
 
+            abort(404, 'Category not found');
+        }
 
-if (!$category) {
-    // Agar category nahi mili to error na aaye
-    abort(404, 'Category not found');
-}
+        $products = DB::table('products')
+            ->leftJoin('color', 'products.p_id', '=', 'color.color_product_id')
+            ->leftJoin('images', 'color.color_id', '=', 'images.img_color_id')
+            ->select(
+                'products.p_id',
+                'products.p_name',
+                'products.main_category_id',
+                'products.p_category_id',
+                'products.p_short_description',
+                'products.p_long_description',
+                'products.p_price',
+                'products.p_old_price',
+                'products.p_visibility_status',
+                'products.p_stock',
+                'products.p_type',
+                'products.created_at',
+                'products.updated_at',
+                DB::raw('MIN(images.img_path) as img_path'),
+                DB::raw('MIN(images.img_alt_text) as img_alt_text')
+            )
+            ->where('products.main_category_id', 1)
+            ->where('products.p_category_id', $category->c_id)
+            ->groupBy(
+                'products.p_id',
+                'products.p_name',
+                'products.main_category_id',
+                'products.p_category_id',
+                'products.p_short_description',
+                'products.p_long_description',
+                'products.p_price',
+                'products.p_old_price',
+                'products.p_visibility_status',
+                'products.p_stock',
+                'products.p_type',
+                'products.created_at',
+                'products.updated_at'
+            )
+            ->get();
 
-// Products fetch karo
-
-
-$products = DB::table('products')
-    ->leftJoin('color', 'products.p_id', '=', 'color.color_product_id')
-    ->leftJoin('images', 'color.color_id', '=', 'images.img_color_id')
-    ->select(
-        'products.p_id',
-        'products.p_name',
-        'products.main_category_id',
-        'products.p_category_id',
-        'products.p_short_description',
-        'products.p_long_description',
-        'products.p_price',
-        'products.p_old_price',
-        'products.p_visibility_status',
-        'products.p_stock',
-        'products.p_type',
-        'products.created_at',
-        'products.updated_at',
-        DB::raw('MIN(images.img_path) as img_path'),
-        DB::raw('MIN(images.img_alt_text) as img_alt_text')
-    )
-    ->where('products.main_category_id', 1)
-    ->where('products.p_category_id', $category->c_id)
-    ->groupBy(
-        'products.p_id',
-        'products.p_name',
-        'products.main_category_id',
-        'products.p_category_id',
-        'products.p_short_description',
-        'products.p_long_description',
-        'products.p_price',
-        'products.p_old_price',
-        'products.p_visibility_status',
-        'products.p_stock',
-        'products.p_type',
-        'products.created_at',
-        'products.updated_at'
-    )
-    ->get();
-
-
-       return view('mencollection3', compact('products', 'category'));
+  return view('menformalpantcollection', compact('products', 'category'));
 
     }
 
 
-        public function womencollection1()
+     public function getMenshoesCollection()
+    {
+
+        $category = Category::where('c_name', 'Shoes')->first();
+
+        if (!$category) {
+
+            abort(404, 'Category not found');
+        }
+
+        $products = DB::table('products')
+            ->leftJoin('color', 'products.p_id', '=', 'color.color_product_id')
+            ->leftJoin('images', 'color.color_id', '=', 'images.img_color_id')
+            ->select(
+                'products.p_id',
+                'products.p_name',
+                'products.main_category_id',
+                'products.p_category_id',
+                'products.p_short_description',
+                'products.p_long_description',
+                'products.p_price',
+                'products.p_old_price',
+                'products.p_visibility_status',
+                'products.p_stock',
+                'products.p_type',
+                'products.created_at',
+                'products.updated_at',
+                DB::raw('MIN(images.img_path) as img_path'),
+                DB::raw('MIN(images.img_alt_text) as img_alt_text')
+            )
+            ->where('products.main_category_id', 1)
+            ->where('products.p_category_id', $category->c_id)
+            ->groupBy(
+                'products.p_id',
+                'products.p_name',
+                'products.main_category_id',
+                'products.p_category_id',
+                'products.p_short_description',
+                'products.p_long_description',
+                'products.p_price',
+                'products.p_old_price',
+                'products.p_visibility_status',
+                'products.p_stock',
+                'products.p_type',
+                'products.created_at',
+                'products.updated_at'
+            )
+            ->get();
+
+
+       return view('menshoescollection', compact('products', 'category'));
+
+    }
+
+
+        public function getWomenKurticollection()
         {
             $category = Category::where('c_name', "kurti's")->firstOrFail();
 
-            // Eager load colors and their images
             $products = DB::table('products')
             ->leftJoin('color', 'products.p_id', '=', 'color.color_product_id')
             ->leftJoin('images', 'color.color_id', '=', 'images.img_color_id')
@@ -234,18 +215,18 @@ $products = DB::table('products')
             )
             ->get();
 
-            return view('womencollection1',compact('products', 'category'));
+            return view('womenkurticollection',compact('products', 'category'));
         }
 
 
 
 
 
-      public function womencollection2()
+      public function getWomenTopscollection()
     {
        $category = Category::where('c_name', 'Tops & T-Shirts')->firstOrFail();
 
-            // Eager load colors and their images
+
             $products = DB::table('products')
             ->leftJoin('color', 'products.p_id', '=', 'color.color_product_id')
             ->leftJoin('images', 'color.color_id', '=', 'images.img_color_id')
@@ -285,8 +266,7 @@ $products = DB::table('products')
             )
             ->get();
 
-        // Home page view ke saath products bheje
-        return view('womencollection2', compact('products','category'));
+        return view('womentopscollection', compact('products','category'));
     }
 
 
@@ -294,74 +274,233 @@ $products = DB::table('products')
 
 
 
-     public function womencollection3()
+     public function getWomenJeanscollection()
+    {
+
+        $category = Category::where('c_name', 'Jeans / Jeggings')->firstOrFail();
+
+            $products = DB::table('products')
+            ->leftJoin('color', 'products.p_id', '=', 'color.color_product_id')
+            ->leftJoin('images', 'color.color_id', '=', 'images.img_color_id')
+            ->select(
+                'products.p_id',
+                'products.p_name',
+                'products.main_category_id',
+                'products.p_category_id',
+                'products.p_short_description',
+                'products.p_long_description',
+                'products.p_price',
+                'products.p_old_price',
+                'products.p_visibility_status',
+                'products.p_stock',
+                'products.p_type',
+                'products.created_at',
+                'products.updated_at',
+                DB::raw('MIN(images.img_path) as img_path'),
+                DB::raw('MIN(images.img_alt_text) as img_alt_text')
+            )
+            ->where('products.main_category_id', 2)
+            ->where('products.p_category_id', $category->c_id)
+            ->groupBy(
+                'products.p_id',
+                'products.p_name',
+                'products.main_category_id',
+                'products.p_category_id',
+                'products.p_short_description',
+                'products.p_long_description',
+                'products.p_price',
+                'products.p_old_price',
+                'products.p_visibility_status',
+                'products.p_stock',
+                'products.p_type',
+                'products.created_at',
+                'products.updated_at'
+            )
+            ->get();
+
+        return view('womenjeanscollection', compact('products','category'));
+
+    }
+
+     public function getKidsToyscollection()
+    {
+
+       $category = Category::where('c_name', 'Toys & Games')->firstOrFail();
+
+
+            $products = DB::table('products')
+            ->leftJoin('color', 'products.p_id', '=', 'color.color_product_id')
+            ->leftJoin('images', 'color.color_id', '=', 'images.img_color_id')
+            ->select(
+                'products.p_id',
+                'products.p_name',
+                'products.main_category_id',
+                'products.p_category_id',
+                'products.p_short_description',
+                'products.p_long_description',
+                'products.p_price',
+                'products.p_old_price',
+                'products.p_visibility_status',
+                'products.p_stock',
+                'products.p_type',
+                'products.created_at',
+                'products.updated_at',
+                DB::raw('MIN(images.img_path) as img_path'),
+                DB::raw('MIN(images.img_alt_text) as img_alt_text')
+            )
+            ->where('products.main_category_id', 3)
+            ->where('products.p_category_id', $category->c_id)
+            ->groupBy(
+                'products.p_id',
+                'products.p_name',
+                'products.main_category_id',
+                'products.p_category_id',
+                'products.p_short_description',
+                'products.p_long_description',
+                'products.p_price',
+                'products.p_old_price',
+                'products.p_visibility_status',
+                'products.p_stock',
+                'products.p_type',
+                'products.created_at',
+                'products.updated_at'
+            )
+            ->get();
+
+
+        return view('kidstoyscollection1', compact('products','category'));
+    }
+
+
+      public function getKidsColthescollection()
+    {
+           $category = Category::where('c_name', 'kids clothing')->firstOrFail();
+
+
+            $products = DB::table('products')
+            ->leftJoin('color', 'products.p_id', '=', 'color.color_product_id')
+            ->leftJoin('images', 'color.color_id', '=', 'images.img_color_id')
+            ->select(
+                'products.p_id',
+                'products.p_name',
+                'products.main_category_id',
+                'products.p_category_id',
+                'products.p_short_description',
+                'products.p_long_description',
+                'products.p_price',
+                'products.p_old_price',
+                'products.p_visibility_status',
+                'products.p_stock',
+                'products.p_type',
+                'products.created_at',
+                'products.updated_at',
+                DB::raw('MIN(images.img_path) as img_path'),
+                DB::raw('MIN(images.img_alt_text) as img_alt_text')
+            )
+            ->where('products.main_category_id', 3)
+            ->where('products.p_category_id', $category->c_id)
+            ->groupBy(
+                'products.p_id',
+                'products.p_name',
+                'products.main_category_id',
+                'products.p_category_id',
+                'products.p_short_description',
+                'products.p_long_description',
+                'products.p_price',
+                'products.p_old_price',
+                'products.p_visibility_status',
+                'products.p_stock',
+                'products.p_type',
+                'products.created_at',
+                'products.updated_at'
+            )
+            ->get();
+
+
+        return view('kidsClothingcollection2', compact('products','category'));
+    }
+     public function getKidsAccessoriescollection()
+    {
+           $category = Category::where('c_name', 'kids Accessories')->firstOrFail();
+
+
+            $products = DB::table('products')
+            ->leftJoin('color', 'products.p_id', '=', 'color.color_product_id')
+            ->leftJoin('images', 'color.color_id', '=', 'images.img_color_id')
+            ->select(
+                'products.p_id',
+                'products.p_name',
+                'products.main_category_id',
+                'products.p_category_id',
+                'products.p_short_description',
+                'products.p_long_description',
+                'products.p_price',
+                'products.p_old_price',
+                'products.p_visibility_status',
+                'products.p_stock',
+                'products.p_type',
+                'products.created_at',
+                'products.updated_at',
+                DB::raw('MIN(images.img_path) as img_path'),
+                DB::raw('MIN(images.img_alt_text) as img_alt_text')
+            )
+            ->where('products.main_category_id', 3)
+            ->where('products.p_category_id', $category->c_id)
+            ->groupBy(
+                'products.p_id',
+                'products.p_name',
+                'products.main_category_id',
+                'products.p_category_id',
+                'products.p_short_description',
+                'products.p_long_description',
+                'products.p_price',
+                'products.p_old_price',
+                'products.p_visibility_status',
+                'products.p_stock',
+                'products.p_type',
+                'products.created_at',
+                'products.updated_at'
+            )
+            ->get();
+
+
+        return view('kidsAccessoriescollection3', compact('products','category'));
+
+    }
+      public function MenMaincollection()
+    {
+
+        $products = Product::all();
+
+        return view('Mencategorycollection', compact('products'));
+
+    }
+
+     public function WomenMaincollection()
     {
         // Sab products database se fetch kare
         $products = Product::all();
 
-        // Home page view ke saath products bheje
-        return view('womencollection3', compact('products'));
+        return view('Womencategorycollection', compact('products'));
     }
 
-     public function kidscollection1()
+
+     public function KidsMaincollection()
     {
         // Sab products database se fetch kare
         $products = Product::all();
 
-        // Home page view ke saath products bheje
-        return view('kidscollection1', compact('products'));
-    }
-      public function kidscollection2()
-    {
-        // Sab products database se fetch kare
-        $products = Product::all();
-
-        // Home page view ke saath products bheje
-        return view('kidscollection2', compact('products'));
-    }
-     public function kidscollection3()
-    {
-        // Sab products database se fetch kare
-        $products = Product::all();
-
-        // Home page view ke saath products bheje
-        return view('kidscollection3', compact('products'));
-    }
-      public function maincollection()
-    {
-        // Sab products database se fetch kare
-        $products = Product::all();
-
-        // Home page view ke saath products bheje
-        return view('maincategorycollection', compact('products'));
-    }
-     public function womenmaincollection()
-    {
-        // Sab products database se fetch kare
-        $products = Product::all();
-
-        // Home page view ke saath products bheje
-        return view('womenmaincategory', compact('products'));
-    }
-     public function kidsmaincollection()
-    {
-        // Sab products database se fetch kare
-        $products = Product::all();
-
-        // Home page view ke saath products bheje
-        return view('kidsmaincategory', compact('products'));
+        return view('Kidscategorycollection', compact('products'));
     }
 
 
-    // product show---->
     public function showByCategory($category)
-{
-    // Category ke hisaab se products filter karo--->
-    $products = Product::where('category', $category)->get();
+    {
+     // Category ke hisaab se products filter karo--->
+         $products = Product::where('category', $category)->get();
 
-    // Same view use karo ya alag-alag, tumhari marzi
-    return view('collection', compact('products', 'category'));
-}
+        return view('collection', compact('products', 'category'));
+    }
 
 
 

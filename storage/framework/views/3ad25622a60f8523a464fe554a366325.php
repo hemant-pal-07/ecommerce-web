@@ -20,7 +20,7 @@
         <span class="d-block extra-color">
             <a href="/" class="extra-color">Home</a> / Men-Collection
         </span>
-        <h2 class="extra-color font-24 font-xl-32 mst-5 mst-xl-9">Men-Collection</h2>
+        <h2 class="extra-color font-24 font-xl-32 mst-5 mst-xl-9">Shoes Collection</h2>
     </div>
 </div>
 
