@@ -101,84 +101,90 @@
                                 </div>
 
                                  <!-- shop-grid start -->
- <div class="col-12">
-   <div class="shop-product-wrap data-grid">
-    <div class="row row-mtm">
-            <div class="row">
+     <div class="col-12">
+    <div class="shop-product-wrap data-grid">
+        <div class="row row-mtm">
+            <?php $__empty_1 = true; $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                <div class="col-6 col-md-4 gap-3" data-animate="animate__fadeIn">
+                    <div class="single-product">
+                        <div class="row single-product-wrap">
 
-                <?php $__empty_1 = true; $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                    <div class="col-6 col-md-4 gap-3" data-animate="animate__fadeIn">
-                        <div class="single-product">
-                            <div class="row single-product-wrap">
+                            <!-- Product Image Column -->
+                            <div class="product-image-col">
+                                <div class="product-image position-relative">
+                                 <a href="<?php echo e(url('products/'.$product->p_id)); ?>" class="pro-img d-block position-relative">
+    <img src="<?php echo e(asset('storage/colors/' . $product->img_path)); ?>"
+         alt="<?php echo e($product->img_alt_text ?? $product->p_name); ?>"
+         class="img-fluid img1"
+         style="height:400px; width:100%; object-fit:contain;">
 
-                                <!-- Product Image -->
-                                <div class="product-image mb-2">
-                                    <a href="<?php echo e(url('products/'.$product->p_id)); ?>">
-                                <img src="<?php echo e(asset('storage/colors/' . $product->img_path)); ?>"
-                                    alt="<?php echo e($product->img_alt_text ?? $product->p_name); ?>"
-                                    class="img-fluid border "
-                style="height:400px; width:100%; object-fit:contain;">
-                                    </a>
-                                </div>
+    
+    <img src="<?php echo e(asset('storage/colors/' . ($product->img_path2 ?? $product->img_path))); ?>"
+         alt="<?php echo e($product->img_alt_text ?? $product->p_name); ?>"
+         class="img-fluid img2 position-absolute top-0 start-0 w-100 h-100"
+         style="object-fit:contain; opacity:0; transition:0.5s;">
+</a>
 
-                                <!-- Product Content -->
-                                <div class="product-content">
-                                    <div class="pro-content">
-                                        <div class="product-title">
-                                            <span class="d-block heading-weight">
-                                                <a href="<?php echo e(url('product/'.$product->p_id)); ?>" class="primary-link"><?php echo e($product->p_name); ?></a>
-                                            </span>
-                                        </div>
-                                        <div class="product-price">
-                                            <div class="price-box heading-weight">
-                                                <span class="new-price primary-color">$<?php echo e(number_format($product->p_price, 2)); ?></span>
-                                                <?php if($product->p_old_price): ?>
-                                                    <span class="old-price">
-                                                        <span class="mer-3">~</span>
-                                                        <span class="text-decoration-line-through">$<?php echo e(number_format($product->p_old_price, 2)); ?></span>
-                                                    </span>
-                                                <?php endif; ?>
-                                            </div>
-                                        </div>
 
-                                        <div class="product-description">
-                                            <p><?php echo e($product->p_short_description); ?></p>
-                                        </div>
-                                        <div class="product-action-wrap">
-                                            <div class="product-action">
-                                                <a href="javascript:void(0)" class="add-to-wishlist">
-                                                    <span class="product-icon"><i class="ri-heart-line d-block icon-16 lh-1"></i></span>
-                                                    <span class="tooltip-text">wishlist</span>
-                                                </a>
-                                                <a href="javascript:void(0)" class="add-to-cart">
-                                                    <span class="product-icon">
-                                                        <span class="product-bag-icon icon-16"><i class="ri-shopping-bag-3-line d-block lh-1"></i></span>
-                                                        <span class="product-loader-icon icon-16"><i class="ri-loader-4-line d-block lh-1"></i></span>
-                                                        <span class="product-check-icon icon-16"><i class="ri-check-line d-block lh-1"></i></span>
-                                                    </span>
-                                                    <span class="tooltip-text">add to cart</span>
-                                                </a>
-                                                <a href="#quickview-modal" data-bs-toggle="modal" class="quick-view">
-                                                    <span class="product-icon"><i class="ri-eye-line d-block icon-16 lh-1"></i></span>
-                                                    <span class="tooltip-text">quickview</span>
-                                                </a>
-                                            </div>
+                                    <div class="product-action-wrap position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center opacity-0 transition-opacity">
+                                        <div class="product-action d-flex gap-2">
+                                            <a href="javascript:void(0)" class="add-to-wishlist btn btn-light">
+                                                <i class="ri-heart-line"></i>
+                                            </a>
+                                            <a href="javascript:void(0)" class="add-to-cart btn btn-light">
+                                                <i class="ri-shopping-bag-3-line"></i>
+                                            </a>
+                                            <a href="#quickview-modal" data-bs-toggle="modal" class="quick-view btn btn-light">
+                                                <i class="ri-eye-line"></i>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
+
+                            <!-- Product Content Column -->
+                            <div class="product-content mt-2">
+                                <div class="pro-content">
+                                    <div class="product-title mb-1">
+                                        <a href="<?php echo e(url('products/'.$product->p_id)); ?>" class="primary-link"><?php echo e($product->p_name); ?></a>
+                                    </div>
+                                    <div class="product-price mb-1">
+                                        <span class="new-price primary-color">$<?php echo e(number_format($product->p_price, 2)); ?></span>
+                                        <?php if($product->p_old_price): ?>
+                                            <span class="old-price text-decoration-line-through">$<?php echo e(number_format($product->p_old_price, 2)); ?></span>
+                                        <?php endif; ?>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                    <p>No products found!</p>
-                <?php endif; ?>
-            </div>
-
-           </div>
-
-         </div>
+                </div>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                <p>No products found!</p>
+            <?php endif; ?>
+        </div>
     </div>
+</div>
+
+<style>
+/* Hover effect */
+
+.single-product:hover .img2 {
+    opacity: 1;
+}
+
+.single-product:hover .img1 {
+    opacity: 0;
+}
+
+.img1, .img2 {
+    transition: opacity 0.5s ease;
+}
+
+</style>
+
 
     </section>
 

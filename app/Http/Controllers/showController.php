@@ -11,58 +11,72 @@ class showController extends Controller
 {
 
 
-    public function  getMenShirtCollection(){
+  public function getMenShirtCollection() {
+    $category = Category::where('c_name', 'men Shirts')->first();
 
-        $category = Category::where('c_name', 'men Shirts')->first();
-
-        if (!$category) {
-
-            abort(404, 'Category not found');
-
-        }
-
-        $products = DB::table('products')
-            ->leftJoin('color', 'products.p_id', '=', 'color.color_product_id')
-            ->leftJoin('images', 'color.color_id', '=', 'images.img_color_id')
-            ->select(
-                'products.p_id',
-                'products.p_name',
-                'products.main_category_id',
-                'products.p_category_id',
-                'products.p_short_description',
-                'products.p_long_description',
-                'products.p_price',
-                'products.p_old_price',
-                'products.p_visibility_status',
-                'products.p_stock',
-                'products.p_type',
-                'products.created_at',
-                'products.updated_at',
-                DB::raw('MIN(images.img_path) as img_path'),
-                DB::raw('MIN(images.img_alt_text) as img_alt_text')
-            )
-            ->where('products.main_category_id', 1)
-            ->where('products.p_category_id', $category->c_id)
-            ->groupBy(
-                'products.p_id',
-                'products.p_name',
-                'products.main_category_id',
-                'products.p_category_id',
-                'products.p_short_description',
-                'products.p_long_description',
-                'products.p_price',
-                'products.p_old_price',
-                'products.p_visibility_status',
-                'products.p_stock',
-                'products.p_type',
-                'products.created_at',
-                'products.updated_at'
-            )
-            ->get();
-
-
-        return view('menshirtcollection', compact('products', 'category'));
+    if (!$category) {
+        abort(404, 'Category not found');
     }
+
+    $products = DB::table('products')
+        ->leftJoin('color', 'products.p_id', '=', 'color.color_product_id')
+        ->leftJoin('images', 'color.color_id', '=', 'images.img_color_id')
+        ->select(
+            'products.p_id',
+            'products.p_name',
+            'products.main_category_id',
+            'products.p_category_id',
+            'products.p_short_description',
+            'products.p_long_description',
+            'products.p_price',
+            'products.p_old_price',
+            'products.p_visibility_status',
+            'products.p_stock',
+            'products.p_type',
+            'products.created_at',
+            'products.updated_at',
+            DB::raw('MIN(images.img_path) as img_path'),
+            DB::raw('MIN(images.img_alt_text) as img_alt_text')
+        )
+        ->where('products.main_category_id', 1)
+        ->where('products.p_category_id', $category->c_id)
+        ->groupBy(
+            'products.p_id',
+            'products.p_name',
+            'products.main_category_id',
+            'products.p_category_id',
+            'products.p_short_description',
+            'products.p_long_description',
+            'products.p_price',
+            'products.p_old_price',
+            'products.p_visibility_status',
+            'products.p_stock',
+            'products.p_type',
+            'products.created_at',
+            'products.updated_at'
+        )
+        ->get();
+
+    // ✅ Add second image for hover
+    $products = $products->map(function($product) {
+        $images = DB::table('images')
+            ->where('img_color_id', function($query) use ($product) {
+                $query->select('color_id')
+                      ->from('color')
+                      ->where('color_product_id', $product->p_id)
+                      ->limit(1);
+            })
+            ->limit(2) // first 2 images
+            ->pluck('img_path')
+            ->toArray();
+
+        $product->img_path2 = $images[1] ?? $images[0] ?? null; // second image or fallback
+        return $product;
+    });
+
+    return view('menshirtcollection', compact('products', 'category'));
+}
+
 
     public function getMenFormalPantcollection()
     {

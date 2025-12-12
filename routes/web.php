@@ -64,7 +64,8 @@ route ::get('/register',function (){
 
 Route::get('/whistlist', function () {
     return view('whistlist');
-})->name('whistlist');
+})->name('whistlist')->middleware('auth');
+
 
 
 

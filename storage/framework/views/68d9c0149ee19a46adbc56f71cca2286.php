@@ -1,3 +1,5 @@
+
+
 <!-- header start -->
         <header id="header" class="main-header">
             <!-- header-top start -->
@@ -78,7 +80,7 @@
                                     <div class="main-wrap">
                                         <ul class="menu-ul d-flex flex-wrap">
                                             <li class="menu-li">
-                                                <a href="index.html" class="menu-link d-flex align-items-center ptb-5 plr-15">
+                                                <a href="<?php echo e(url('/')); ?>" class="menu-link d-flex align-items-center ptb-5 plr-15">
                                                     <span class="menu-title text-uppercase heading-weight">Home</span>
                                                     <span class="icon-16 fw-normal"><i class="ri-arrow-down-s-line d-block lh-1"></i></span>
                                                 </a>
@@ -145,7 +147,7 @@
                                                 <div class="menu-dropdown collapse position-absolute top-auto start-0 end-0 body-bg z-2 DropDownSlide box-shadow">
                                                     <div class="container ptb-25">
                                                         <div class="row">
-                                                            
+
                                                             <div class="col-4">
                                                            <a href="<?php echo e(route('Menmaincategorycollection')); ?>">
                                                            <div class="d-block heading-color ptb-5 heading-weight">MEN CATEGORY</div></a>
@@ -467,7 +469,7 @@
                                         </li>
                                         <li class="header-icon-wrap user-wrap d-md-block d-none">
                                             <div class="header-icon-wrapper">
-                                                <a href="<?php echo e(route('signup')); ?>" class="d-block header-icon-user" aria-label="Login user">
+                                                <a href="<?php echo e(route('signin')); ?>" class="d-block header-icon-user" aria-label="Login user" data-bs-toggle="modal" data-bs-target="#loginModal">
                                                     <span class="d-block header-block-icon primary-link font-16 font-xl-20"><i class="ri-user-line"></i></span>
                                                 </a>
                                             </div>
@@ -514,4 +516,87 @@
             <!-- header-top end -->
         </header>
         <!-- header end -->
+
+
+        
+
+
+            <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                 <form method="POST" action="<?php echo e(url('signin')); ?>">
+              <?php echo csrf_field(); ?>
+            <div class="modal-content p-3">
+            <div class="modal-header text-center justify-content-center">
+            <h5 class="modal-title text-warnings fs-3 fw-bold text-center">Login</h5>
+            <button type="button" class="btn-close text-warning" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <label for="" class="mt-2">Enter your name</label>
+            <input type="text"  class="form-control mb-3 mt-2" name="email" placeholder="Username"/>
+                <label for="" class="mt-2">Enter your password</label>
+            <input type="password" name="password" class="form-control mb-3 mt-2" placeholder="Password" />
+            </div>
+            <div class="text-center justify-content-center flex-column">
+            <button class="btn btn-dark w-75 text-center" type="submit">Login</button>
+            </div>
+              </form>
+               <hr>
+            <div class="text-center justify-content-center flex-column">
+               <h6 class="font-18" data-animate="animate__fadeIn">Don't have an account?</h6>
+              <a href="<?php echo e(route('signup')); ?>" class="w-75 btn-style secondary-btn mst-25 rounded-2 " data-animate="animate__fadeIn">Create an account</a>
+               </div>
+            </div>
+            </div>
+            </div>
+
+
+
+
+  <style>
+                .modal-content {
+                border: 3px solid orangered;
+                }
+                input{
+                    border: 1px solid orangered;
+                }
+
+        </style>
+
+
+
+
+
+<?php if(session('success')): ?>
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: "<?php echo e(session('success')); ?>",
+        timer: 2000,
+        showConfirmButton: false
+    });
+</script>
+<?php endif; ?>
+
+<?php if(session('error')): ?>
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "<?php echo e(session('error')); ?>",
+        timer: 2000,
+        showConfirmButton: false
+    });
+</script>
+<?php endif; ?>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                
+
+
+
+
+
+
+
 <?php /**PATH C:\laravel_git\ecommerce-web\resources\views/partials/frontheader.blade.php ENDPATH**/ ?>

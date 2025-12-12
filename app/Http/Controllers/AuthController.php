@@ -61,6 +61,12 @@ class AuthController extends Controller
         return back()->with('error', 'Invalid email or password')->withInput();
     }
 
+        protected function authenticated(Request $request, $user)
+    {
+        return redirect()->intended(route('whistlist'));
+    }
+
+
     // LOGOUT SYSTEM
     public function logout(Request $request)
     {

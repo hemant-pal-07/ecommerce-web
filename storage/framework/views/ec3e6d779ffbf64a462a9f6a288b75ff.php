@@ -59,7 +59,7 @@
                                 <div class="col-12 col-lg-4 d-flex flex-column align-items-center justify-content-center section-ptb plr-15 plr-md-30 slider-content-info">
                                     <div class="slider-subtitle primary-color font-18 font-xl-20 meb-15 meb-sm-17 meb-xl-29 meb-xxl-33">Perfect design every cloth</div>
                                     <h2 class="font-32 font-sm-48 font-xl-72 font-xxl-80 text-uppercase"><span class="fw-bolder">Unique</span> fashion</h2>
-                                    <a href="collection.html" class="btn-style primary-btn mst-20 mst-sm-23 mst-xl-34 mst-xxl-38">Shop collection</a>
+                                    <a href="<?php echo e(route('Womenmaincategorycollection')); ?>" class="btn-style primary-btn mst-20 mst-sm-23 mst-xl-34 mst-xxl-38">Shop collection</a>
                                 </div>
                                 <div class="col-6 col-lg-4 order-lg-first">
                                     <span class="d-inline-block slider-content-img1"><img src="assets/image/index/slider-1.1.png" class="w-100 img-fluid" alt="slider-1.1"></span>
@@ -74,7 +74,7 @@
                                 <div class="col-12 col-lg-4 d-flex flex-column align-items-center justify-content-center section-ptb plr-15 plr-md-30 slider-content-info">
                                     <div class="slider-subtitle primary-color font-18 font-xl-20 meb-15 meb-sm-17 meb-xl-29 meb-xxl-33">New season sale get 50% off</div>
                                     <h2 class="font-32 font-sm-48 font-xl-72 font-xxl-80 text-uppercase"><span class="fw-bolder">Stylish</span> fashion</h2>
-                                    <a href="collection.html" class="btn-style primary-btn mst-20 mst-sm-23 mst-xl-34 mst-xxl-38">Shop collection</a>
+                                    <a href="<?php echo e(route('Womenmaincategorycollection')); ?>" class="btn-style primary-btn mst-20 mst-sm-23 mst-xl-34 mst-xxl-38">Shop collection</a>
                                 </div>
                                 <div class="col-6 col-lg-4 order-lg-first">
                                     <span class="d-inline-block slider-content-img1"><img src="assets/image/index/slider-2.1.png" class="w-100 img-fluid" alt="slider-2.1"></span>
@@ -89,7 +89,7 @@
                                 <div class="col-12 col-lg-4 d-flex flex-column align-items-center justify-content-center section-ptb plr-15 plr-md-30 slider-content-info">
                                     <div class="slider-subtitle primary-color font-18 font-xl-20 meb-15 meb-sm-17 meb-xl-29 meb-xxl-33">Flat 10% off on order of $49.99</div>
                                     <h2 class="font-32 font-sm-48 font-xl-72 font-xxl-80 text-uppercase"><span class="fw-bolder">Elegant</span> fashion</h2>
-                                    <a href="collection.html" class="btn-style primary-btn mst-20 mst-sm-23 mst-xl-34 mst-xxl-38">Shop collection</a>
+                                    <a href="<?php echo e(route('Menmaincategorycollection')); ?>" class="btn-style primary-btn mst-20 mst-sm-23 mst-xl-34 mst-xxl-38">Shop collection</a>
                                 </div>
                                 <div class="col-6 col-lg-4 order-lg-first">
                                     <span class="d-inline-block slider-content-img1"><img src="assets/image/index/slider-3.1.png" class="w-100 img-fluid" alt="slider-3.1"></span>
@@ -856,11 +856,11 @@
                             <div class="col-12 col-lg-6 col-xl-5">
                                 <!-- category-product-banner start -->
                                 <div class="category-product-banner height-lg-100 position-relative banner-hover br-hidden">
-                                    <a href="collection.html" class="d-block height-lg-100 banner-img"><img src="assets/image/index/product-banner1.jpg" class="w-100 height-lg-100 img-fluid" alt="product-banner1"></a>
+                                    <a href="<?php echo e(route('Menmaincategorycollection')); ?>" class="d-block height-lg-100 banner-img"><img src="assets/image/index/product-banner1.jpg" class="w-100 height-lg-100 img-fluid" alt="product-banner1"></a>
                                     <div class="position-absolute bottom-0 start-0 end-0 meb-30 meb-xl-50 mlr-15 mlr-md-30 mlr-xxl-50">
                                         <div class="category-product-banner-content d-flex flex-wrap align-items-center justify-content-between">
                                             <h2 class="font-24 font-xl-40 section-heading-family section-heading-text section-heading-weight section-heading-lh">Men fashion</h2>
-                                            <a href="collection.html" class="btn-style tertiary-btn">Shop now</a>
+                                            <a href="<?php echo e(route('Menmaincategorycollection')); ?>" class="btn-style tertiary-btn">Shop now</a>
                                         </div>
                                     </div>
                                 </div>
@@ -915,7 +915,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href="collection.html" class="btn-style quinary-btn mst-30 mst-xl-40" data-animate="animate__fadeIn">Shop collection</a>
+                                <a href="<?php echo e(route('Menmaincategorycollection')); ?>" class="btn-style quinary-btn mst-30 mst-xl-40" data-animate="animate__fadeIn">Shop collection</a>
                             </div>
                         </div>
                     </div>
