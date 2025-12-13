@@ -3,9 +3,6 @@
 
   <?php $__env->startSection('content'); ?>
 
-
-
-
         <!-- preloader end -->
 
         <!-- main start -->
@@ -3609,13 +3606,24 @@
         </div>
         <!-- bg-screen end -->
         <!-- plugin js -->
+  <?php $__env->startPush('scripts'); ?>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <?php if(session('swal_success')): ?>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            icon: 'success',
+            title: '<?php echo e(session('swal_success')); ?>',
+            showConfirmButton: false,
+            timer: 2000
+        });
+    });
+</script>
+<?php endif; ?>
 
 
-
-
-
-
-
+        <?php $__env->stopPush(); ?>
 
 
     <?php $__env->stopSection(); ?>

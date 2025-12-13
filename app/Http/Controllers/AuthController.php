@@ -61,10 +61,7 @@ class AuthController extends Controller
         return back()->with('error', 'Invalid email or password')->withInput();
     }
 
-        protected function authenticated(Request $request, $user)
-    {
-        return redirect()->intended(route('whistlist'));
-    }
+
 
 
     // LOGOUT SYSTEM
@@ -73,7 +70,8 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('signin');
+          return redirect('/')->with('swal_success', 'Logout successful!');
+
     }
 
 }

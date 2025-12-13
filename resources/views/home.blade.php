@@ -6,9 +6,6 @@
 
   @section('content')
 
-
-
-
         <!-- preloader end -->
 
         <!-- main start -->
@@ -3612,13 +3609,24 @@
         </div>
         <!-- bg-screen end -->
         <!-- plugin js -->
+  @push('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        @if(session('swal_success'))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            icon: 'success',
+            title: '{{ session('swal_success') }}',
+            showConfirmButton: false,
+            timer: 2000
+        });
+    });
+</script>
+@endif
 
 
-
-
-
-
-
+        @endpush
 
 
     @endsection

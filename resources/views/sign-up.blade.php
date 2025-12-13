@@ -1,4 +1,4 @@
-
+{{--
 @extends('layouts.frontend-layout')
 
 @section('title', 'Sign-up')
@@ -106,4 +106,4 @@
 @endif
   @endpush
 
-   @endsection
+   @endsection --}}

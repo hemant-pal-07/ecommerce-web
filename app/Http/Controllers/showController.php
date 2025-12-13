@@ -57,22 +57,6 @@ class showController extends Controller
         )
         ->get();
 
-    // ✅ Add second image for hover
-    $products = $products->map(function($product) {
-        $images = DB::table('images')
-            ->where('img_color_id', function($query) use ($product) {
-                $query->select('color_id')
-                      ->from('color')
-                      ->where('color_product_id', $product->p_id)
-                      ->limit(1);
-            })
-            ->limit(2) // first 2 images
-            ->pluck('img_path')
-            ->toArray();
-
-        $product->img_path2 = $images[1] ?? $images[0] ?? null; // second image or fallback
-        return $product;
-    });
 
     return view('menshirtcollection', compact('products', 'category'));
 }

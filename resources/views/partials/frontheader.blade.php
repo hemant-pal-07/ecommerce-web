@@ -1,4 +1,16 @@
 
+<body>
+
+       <style>
+                .modal-content {
+                border: 3px solid orangered;
+                }
+                input{
+                    border: 1px solid orangered;
+                }
+
+        </style>
+
 
 <!-- header start -->
         <header id="header" class="main-header">
@@ -521,46 +533,92 @@
         {{-- start login form/popup --}}
 
 
-            <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-                 <form method="POST" action="{{ url('signin') }}">
-              @csrf
-            <div class="modal-content p-3">
-            <div class="modal-header text-center justify-content-center">
-            <h5 class="modal-title text-warnings fs-3 fw-bold text-center">Login</h5>
-            <button type="button" class="btn-close text-warning" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <label for="" class="mt-2">Enter your name</label>
-            <input type="text"  class="form-control mb-3 mt-2" name="email" placeholder="Username"/>
-                <label for="" class="mt-2">Enter your password</label>
-            <input type="password" name="password" class="form-control mb-3 mt-2" placeholder="Password" />
-            </div>
-            <div class="text-center justify-content-center flex-column">
-            <button class="btn btn-dark w-75 text-center" type="submit">Login</button>
-            </div>
-              </form>
-               <hr>
-            <div class="text-center justify-content-center flex-column">
-               <h6 class="font-18" data-animate="animate__fadeIn">Don't have an account?</h6>
-              <a href="{{route('signup')}}" class="w-75 btn-style secondary-btn mst-25 rounded-2 " data-animate="animate__fadeIn">Create an account</a>
-               </div>
-            </div>
-            </div>
-            </div>
+           <!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="POST" action="{{ url('signin') }}">
+      @csrf
+      <input type="hidden" name="redirect" value="{{ url()->current() }}">
+      <div class="modal-content p-3">
+        <div class="modal-header text-center justify-content-center">
+          <h5 class="modal-title text-warnings fs-3 fw-bold text-center">Login</h5>
+          <button type="button" class="btn-close text-warning" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <label for="" class="mt-2">Enter your name</label>
+          <input type="text" class="form-control mb-3 mt-2" name="email" placeholder="Username"/>
+          <label for="" class="mt-2">Enter your password</label>
+          <input type="password" name="password" class="form-control mb-3 mt-2" placeholder="Password" />
+        </div>
+        <div class="text-center justify-content-center flex-column">
+          <button class="btn btn-dark w-75 text-center" type="submit">Login</button>
+        </div>
+        <hr>
+        <div class="text-center justify-content-center flex-column">
+          <h6 class="font-18">Don't have an account?</h6>
+          <a href="javascript:void(0);" class="btn btn-dark text-white mt-3" id="openSignup">
+            Create Account
+          </a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Signup Modal -->
+<div class="modal fade" id="signupModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form action="{{ route('signup') }}" method="POST">
+      @csrf
+      <div class="modal-content p-3">
+        <div class="modal-header justify-content-center">
+          <h5 class="modal-title">Sign Up</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <label>Name</label>
+          <input type="text" name="name" class="form-control mb-3" placeholder="Name" required>
+          <label>Email</label>
+          <input type="email" name="email" class="form-control mb-3" placeholder="Email" required>
+          <label>Password</label>
+          <input type="password" name="password" class="form-control mb-3" placeholder="Password" required>
+          <div class="form-check mb-2 d-flex align-items-center">
+            <input class="fs-3" type="checkbox" required>
+            <label class="form-check-label ms-3">I agree to the <a href="terms-condition.html">terms & guidelines</a></label>
+          </div>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-dark w-100">Signup</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
 
 
 
 
-  <style>
-                .modal-content {
-                border: 3px solid orangered;
-                }
-                input{
-                    border: 1px solid orangered;
-                }
+<script>
+document.getElementById('openSignup').addEventListener('click', function() {
+    var loginModalEl = document.getElementById('loginModal');
+    var signupModalEl = document.getElementById('signupModal');
 
-        </style>
+
+
+    // Hide login modal
+    var loginModal = bootstrap.Modal.getInstance(loginModalEl);
+    if(!loginModal) loginModal = new bootstrap.Modal(loginModalEl);
+    loginModal.hide();
+
+    // Show signup modal after short delay
+    setTimeout(() => {
+        var signupModal = bootstrap.Modal.getOrCreateInstance(signupModalEl);
+        signupModal.show();
+    }, 300); // 300ms delay to allow login modal to hide
+});
+</script>
+
+
 
 {{-- sweetalert --}}
 
@@ -590,7 +648,10 @@
 </script>
 @endif
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+</body>
+
                 {{-- end login form/popup --}}
 
 

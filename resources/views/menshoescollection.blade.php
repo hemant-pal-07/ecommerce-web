@@ -116,89 +116,72 @@
                                     <div class="shop-product-wrap data-grid">
                                         <!-- shop-grid start -->
 
- <div class="row row-mtm">
-<div class="row">
-    {{-- @php
-        dd($products);
-    @endphp --}}
-    @forelse($products as $product)
-        <div class="col-6 col-md-4 shop-col" data-animate="animate__fadeIn">
-            <div class="single-product">
-                <div class="row single-product-wrap">
+<div class="col-12">
+    <div class="shop-product-wrap data-grid">
+        <div class="row row-mtm">
+            @forelse($products as $product)
+                <div class="col-6 col-md-4 gap-3" data-animate="animate__fadeIn">
+                    <div class="single-product">
+                        <div class="row single-product-wrap">
 
-                    <!-- Product Image -->
-                     <div class="product-image mb-2">
-                    <a href="{{ url('products/'.$product->p_id) }}">
-                      <img src="{{ asset('storage/colors/' . $product->img_path) }}"
-                        alt="{{ $product->img_alt_text ?? $product->p_name }}"
-                         class="img-fluid border "
-     style="height:400px; width:100%; object-fit:contain;">
-                        </a>
+                            <!-- Product Image Column -->
+                            <div class="product-image-col">
+                                <div class="product-image position-relative">
+                                 <a href="{{ url('products/'.$product->p_id) }}" class="pro-img d-block position-relative">
+    <img src="{{ asset('storage/colors/' . $product->img_path) }}"
+         alt="{{ $product->img_alt_text ?? $product->p_name }}"
+         class="img-fluid img1"
+         style="height:400px; width:100%; object-fit:contain;">
+</a>
 
-                    </div>
 
-                    <!-- Product Content -->
-                    <div class="product-content">
-                        <div class="pro-content">
-                            <div class="product-title">
-                                <span class="d-block heading-weight">
-                                    <a href="{{ url('product/'.$product->p_id) }}" class="primary-link">{{ $product->p_name }}</a>
-                                </span>
-                            </div>
-                            <div class="product-price">
-                                <div class="price-box heading-weight">
-                                    <span class="new-price primary-color">${{ number_format($product->p_price, 2) }}</span>
-                                    @if($product->p_old_price)
-                                        <span class="old-price">
-                                            <span class="mer-3">~</span>
-                                            <span class="text-decoration-line-through">${{ number_format($product->p_old_price, 2) }}</span>
-                                        </span>
-                                    @endif
+                                    <div class="product-action-wrap position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center opacity-0 transition-opacity">
+                                        <div class="product-action d-flex gap-2">
+                                            <a href="javascript:void(0)" class="add-to-wishlist btn btn-light">
+                                                <i class="ri-heart-line"></i>
+                                            </a>
+                                            <a href="javascript:void(0)" class="add-to-cart btn btn-light">
+                                                <i class="ri-shopping-bag-3-line"></i>
+                                            </a>
+                                            <a href="#quickview-modal" data-bs-toggle="modal" class="quick-view btn btn-light">
+                                                <i class="ri-eye-line"></i>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            {{-- <div class="product-ratting">
-                                <span class="review-ratting">
-                                    <span class="review-star">
-                                        @for($i = 1; $i <= 5; $i++)
-                                            <i class="ri-star{{ $i <= $product->rating ? '-fill' : '-line' }}"></i>
-                                        @endfor
-                                    </span>
-                                    <span class="review-average">{{ $product->rating ?? 0 }}<span class="review-caption">{{ $product->reviews_count ?? 0 }} reviews</span></span>
-                                </span>
-                            </div> --}}
-                            <div class="product-description">
-                                <p>{{ $product->p_short_description }}</p>
-                            </div>
-                            <div class="product-action-wrap">
-                                <div class="product-action">
-                                    <a href="javascript:void(0)" class="add-to-wishlist">
-                                        <span class="product-icon"><i class="ri-heart-line d-block icon-16 lh-1"></i></span>
-                                        <span class="tooltip-text">wishlist</span>
-                                    </a>
-                                    <a href="javascript:void(0)" class="add-to-cart">
-                                        <span class="product-icon">
-                                            <span class="product-bag-icon icon-16"><i class="ri-shopping-bag-3-line d-block lh-1"></i></span>
-                                            <span class="product-loader-icon icon-16"><i class="ri-loader-4-line d-block lh-1"></i></span>
-                                            <span class="product-check-icon icon-16"><i class="ri-check-line d-block lh-1"></i></span>
-                                        </span>
-                                        <span class="tooltip-text">add to cart</span>
-                                    </a>
-                                    <a href="#quickview-modal" data-bs-toggle="modal" class="quick-view">
-                                        <span class="product-icon"><i class="ri-eye-line d-block icon-16 lh-1"></i></span>
-                                        <span class="tooltip-text">quickview</span>
-                                    </a>
+
+                            <!-- Product Content Column -->
+                            <div class="product-content mt-2">
+                                <div class="pro-content">
+                                    <div class="product-title mb-1">
+                                        <a href="{{ url('products/'.$product->p_id) }}" class="primary-link">{{ $product->p_name }}</a>
+                                    </div>
+                                    <div class="product-price mb-1">
+                                        <span class="new-price primary-color">${{ number_format($product->p_price, 2) }}</span>
+                                        @if($product->p_old_price)
+                                            <span class="old-price text-decoration-line-through ms-3">${{ number_format($product->p_old_price, 2) }}</span>
+                                        @endif
+                                    </div>
+                                    {{-- <div class="product-description d-none d-md-block">
+                                        <p>{{ $product->p_short_description }}</p>
+                                    </div> --}}
                                 </div>
                             </div>
+
                         </div>
                     </div>
-
                 </div>
-            </div>
+            @empty
+                <p>No products found!</p>
+            @endforelse
         </div>
-    @empty
-        <p>No products found!</p>
-    @endforelse
+    </div>
 </div>
+
+
+                                        <!-- shop-grid end -->
+                                    </div>
 
                                 </div>
          </section>

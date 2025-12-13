@@ -21,15 +21,18 @@
                 </div>
             </div>
 
+
+
+            <div class="section-capture text-center mt-5">
+                            <div class="section-title" data-animate="animate__fadeIn">
+                                <h2 class="section-heading mt-5">All Styles Shirts Are Here!</h2>
+                            </div>
+                        </div>
+
             <!-- shop-content start -->
              <section class="shop-content section-ptb">
-
-
-
                 <div class="container">
                     <div class="row align-items-xl-start">
-
-
                         <!-- shop-sidebar end -->
                         <div class="col-12 p-xl-sticky top-0">
                             <!-- collection-info start -->
@@ -111,34 +114,16 @@
 
                             <!-- Product Image Column -->
                             <div class="product-image-col">
-                                <div class="product-image position-relative">
-                                 <a href="<?php echo e(url('products/'.$product->p_id)); ?>" class="pro-img d-block position-relative">
+                                <div class="product-image">
+                                 <a href="<?php echo e(url('products/'.$product->p_id)); ?>" class="d-block ">
     <img src="<?php echo e(asset('storage/colors/' . $product->img_path)); ?>"
          alt="<?php echo e($product->img_alt_text ?? $product->p_name); ?>"
          class="img-fluid img1"
          style="height:400px; width:100%; object-fit:contain;">
-
-    
-    <img src="<?php echo e(asset('storage/colors/' . ($product->img_path2 ?? $product->img_path))); ?>"
-         alt="<?php echo e($product->img_alt_text ?? $product->p_name); ?>"
-         class="img-fluid img2 position-absolute top-0 start-0 w-100 h-100"
-         style="object-fit:contain; opacity:0; transition:0.5s;">
 </a>
 
 
-                                    <div class="product-action-wrap position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center opacity-0 transition-opacity">
-                                        <div class="product-action d-flex gap-2">
-                                            <a href="javascript:void(0)" class="add-to-wishlist btn btn-light">
-                                                <i class="ri-heart-line"></i>
-                                            </a>
-                                            <a href="javascript:void(0)" class="add-to-cart btn btn-light">
-                                                <i class="ri-shopping-bag-3-line"></i>
-                                            </a>
-                                            <a href="#quickview-modal" data-bs-toggle="modal" class="quick-view btn btn-light">
-                                                <i class="ri-eye-line"></i>
-                                            </a>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
 
@@ -151,8 +136,27 @@
                                     <div class="product-price mb-1">
                                         <span class="new-price primary-color">$<?php echo e(number_format($product->p_price, 2)); ?></span>
                                         <?php if($product->p_old_price): ?>
-                                            <span class="old-price text-decoration-line-through">$<?php echo e(number_format($product->p_old_price, 2)); ?></span>
+                                            <span class="old-price text-decoration-line-through ms-3">$<?php echo e(number_format($product->p_old_price, 2)); ?></span>
                                         <?php endif; ?>
+                                    </div>
+
+                                     <div class=" align-items-center justify-content-center w-100 h-100 mt-3  transition-3 text-center d-flex">
+                                        <div class="d-flex gap-2">
+                                       <a href="javascript:void(0)"
+                                            class="add-to-wishlist btn btn-light"
+                                            
+                                            data-product-id="<?php echo e($product->p_id); ?>"data-redirect="<?php echo e(route('whistlist')); ?>">
+                                            <i class="ri-heart-line"></i>
+                                        </a>
+
+
+                                            <a href="javascript:void(0)" class="add-to-cart btn btn-light">
+                                                <i class="ri-shopping-bag-3-line"></i>
+                                            </a>
+                                            <a href="<?php echo e(url('products/'.$product->p_id)); ?>" class="d-block quick-view btn btn-light">
+                                                <i class="ri-eye-line"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                     
                                 </div>
@@ -167,23 +171,7 @@
         </div>
     </div>
 </div>
-
-<style>
-/* Hover effect */
-
-.single-product:hover .img2 {
-    opacity: 1;
-}
-
-.single-product:hover .img1 {
-    opacity: 0;
-}
-
-.img1, .img2 {
-    transition: opacity 0.5s ease;
-}
-
-</style>
+                                    <!-- shop-grid end -->
 
 
     </section>
@@ -191,6 +179,57 @@
 
 
         </main>
+
+        <?php $__env->startPush('scripts'); ?>
+        <script>
+       document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.add-to-wishlist').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+
+            let isLoggedIn = <?php echo e(auth()->check() ? 'true' : 'false'); ?>;
+
+            if (!isLoggedIn) {
+                // Open login modal directly
+                let loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+                loginModal.show();
+                return;
+            }
+
+            // ✅ User logged in → AJAX POST
+            let productId = this.getAttribute('data-product-id');
+
+            fetch("<?php echo e(route('whistlist')); ?>", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": "<?php echo e(csrf_token()); ?>"
+                },
+                body: JSON.stringify({ product_id: productId })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    this.classList.add('active');
+                    this.innerHTML = '<i class="ri-heart-fill"></i>';
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Added to wishlist ❤️',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                } else {
+                    Swal.fire('Error', data.message || 'Something went wrong', 'error');
+                }
+            })
+            .catch(err => console.error(err));
+        });
+    });
+});
+</script>
+
+
+        <?php $__env->stopPush(); ?>
 
 
      <?php $__env->stopSection(); ?>

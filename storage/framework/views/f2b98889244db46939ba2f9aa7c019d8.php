@@ -1,10 +1,12 @@
-   <div class="header">
+        <!-- SweetAlert2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
+<div class="header">
                 <nav class="navbar py-4">
                     <div class="container-xxl">
 
                         <!-- header rightbar icon -->
                         <div class="h-right d-flex align-items-center mr-5 mr-lg-0 order-1 ms-auto">
-
                             <div class="dropdown user-profile ml-2 ml-sm-3 d-flex align-items-center zindex-popover ">
                                 <div class="u-info me-2">
                                     <p class="mb-0 text-end line-height-sm "><span class="font-weight-bold">John Quinn</span></p>
@@ -31,7 +33,7 @@
                                             <a href="order-invoices.html" class="list-group-item list-group-item-action border-0 "><i class="icofont-file-text fs-5 me-3"></i>Order Invoices</a>
                                             <form action="<?php echo e(route('logout')); ?>" method="POST">
                                                 <?php echo csrf_field(); ?>
-                                              <button type="submit" class="list-group-item list-group-item-action border-0 bg-primary text-center text-white w-100">Signout</button>
+                                              <button id="logoutBtn" type="submit" class="list-group-item list-group-item-action border-0 bg-primary text-center text-white w-100" >Signout</button>
                                     
 
                                                </form>
@@ -45,15 +47,11 @@
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#Settingmodal"><i class="icofont-gear-alt fs-5"></i></a>
                             </div>
                         </div>
-
-
                         <!-- menu toggler -->
                         <button class="navbar-toggler p-0 border-0 menu-toggle order-3" type="button" data-bs-toggle="collapse" data-bs-target="#mainHeader">
                             <span class="fa fa-bars"></span>
                         </button>
                     </div>
-
-
                 </nav>
                 <hr>
 
@@ -66,36 +64,28 @@
 
 
 
-
-        <?php $__env->startPush('scripts'); ?>
-
-        <!-- SweetAlert2 CSS -->
-<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
-
 <!-- SweetAlert2 JS -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
-
 <script>
-document.getElementById('logoutBtn').addEventListener('click', function() {
-  Swal.fire({
-    title: 'Are you sure?',
-    text: "You will be logged out!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, logout!'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      // Yahan logout ka code chalega, example:
-      window.location.href = '/logout'; // replace with your logout URL
-    }
-  });
+document.getElementById('logoutBtn').addEventListener('click', function(e) {
+    e.preventDefault(); // Form submit stop
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You will be logged out!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, logout!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Submit the parent form
+            this.closest('form').submit();
+        }
+    });
 });
 </script>
 
-        <?php $__env->stopPush(); ?>
+
 
 <?php /**PATH C:\laravel_git\ecommerce-web\resources\views/partials/header.blade.php ENDPATH**/ ?>

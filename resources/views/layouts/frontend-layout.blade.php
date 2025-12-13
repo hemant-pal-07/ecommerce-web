@@ -20,6 +20,9 @@
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('assetsofdash/images/Red and Black Modern Creative Agency Logo-old.png') }}" type="image/x-icon">
 
@@ -45,19 +48,15 @@
     {{-- Header --}}
     @include('partials.frontheader')
 
-
-       {{-- preloader start --}}
-      <div class="preloader position-fixed top-0 start-0 w-100 h-100 body-bg z-index-5">
-            <div class="loader-img position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
-                <img src="{{ asset('assetsofdash/images/Red and Black Modern Creative Agency Logo-old.png') }}" class="width-88 width-xl-112 img-fluid preloader-img" alt="logo">
-            </div>
+    {{-- Preloader --}}
+    <div class="preloader position-fixed top-0 start-0 w-100 h-100 body-bg z-index-5">
+        <div class="loader-img position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
+            <img src="{{ asset('assetsofdash/images/Red and Black Modern Creative Agency Logo-old.png') }}" class="width-88 width-xl-112 img-fluid preloader-img" alt="logo">
         </div>
-        {{-- preloader end --}}
+    </div>
 
-
-          {{-- Page Content --}}
+    {{-- Page Content --}}
     @yield('content')
-
 
     {{-- Extra Section --}}
     @include('partials.extra')
@@ -66,6 +65,8 @@
     @include('partials.frontfooter')
 
     <!-- JS Files -->
+
+    <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Core JS -->
@@ -81,23 +82,14 @@
     <script src="{{ asset('js/template.js') }}"></script>
     <script src="{{ asset('js/page/index.js') }}"></script>
 
-    <!-- Google Maps (external URL must not use asset()) -->
+    <!-- Google Maps -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1Jr7axGGkwvHRnNfoOzoVRFV3yOPHJEU&callback=myMap"></script>
 
-    <!-- DataTable Init -->
-    <script>
-        $(document).ready(function () {
-            if ($('#myDataTable').length) {
-                $('#myDataTable').addClass('nowrap').dataTable({
-                    responsive: true,
-                    columnDefs: [
-                        { targets: [-1, -3], className: 'dt-body-right' }
-                    ]
-                });
-            }
-        });
-    </script>
+   
+    <!-- SweetAlert2 JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    {{-- SweetAlert Flash Message --}}
     @stack('scripts')
 
 </body>
