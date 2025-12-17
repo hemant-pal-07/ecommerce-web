@@ -16,23 +16,28 @@ class AuthController extends Controller
 
 
       public function signup(Request $request)
-    {
-        // Validation
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:6',
-        ]);
+{
+    // Validation
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|string|min:6',
+    ]);
 
-        // User create
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+    // User create
+    User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+    ]);
 
-        return redirect('/sign-up')->with('success', 'User Registered Successfully!');
-    }
+    // Return JSON instead of redirect
+    return response()->json([
+        'status' => true,
+        'message' => 'User Registered Successfully!'
+    ]);
+}
+
 
 
     public function signin(){
@@ -41,25 +46,34 @@ class AuthController extends Controller
 
 
       // Handle Login
-    public function authenticate(Request $request)
-    {
-        // Validate input
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string',
-        ]);
+   public function authenticate(Request $request)
+{
+    // Validate input
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required|string',
+    ]);
 
-        $credentials = $request->only('email', 'password');
+    $credentials = $request->only('email', 'password');
 
-        // Attempt login
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate(); // secure session---->
-             return redirect()->route('admin.dashboard')->with('success', 'signin successful!');
+    // Attempt login
+    if (Auth::attempt($credentials)) {
+        $request->session()->regenerate(); // secure session
 
+        $user = Auth::user();
+
+        if($user->role === 'admin'){
+            // Admin → dashboard redirect
+            return redirect()->route('admin.dashboard')->with('success', 'Signin successful!');
+        } else {
+            // Normal user → current page stay
+            return back()->with('success', 'Signin successful!');
         }
-
-        return back()->with('error', 'Invalid email or password')->withInput();
     }
+
+    return back()->with('error', 'Invalid email or password')->withInput();
+}
+
 
 
 

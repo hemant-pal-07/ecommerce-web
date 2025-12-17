@@ -41,40 +41,38 @@ class Product extends Model
     }
 
 
+        public function sizes()
+    {
+        return $this->hasMany(Size::class, 'size_product_id', 'p_id');
+    }
+    public function images()
+    {
+        return $this->hasMany(Image::class, 'img_color_id', 'p_id');
+    }
 
 
-    public function sizes()
-{
-    return $this->hasMany(Size::class, 'size_product_id', 'p_id');
-}
-public function images()
-{
-    return $this->hasMany(Image::class, 'img_color_id', 'p_id');
-}
+    protected static function boot()
+    {
+        parent::boot();
 
+        static::deleting(function ($product) {
+            foreach ($product->colors as $color) {
+                $color->images()->delete();
+                $color->sizes()->delete();
+            }
+            $product->colors()->delete();
+        });
+    }
 
-protected static function boot()
-{
-    parent::boot();
-
-    static::deleting(function ($product) {
-        foreach ($product->colors as $color) {
-            $color->images()->delete();
-            $color->sizes()->delete();
+        public function mainCategory()
+        {
+            return $this->belongsTo(MainCategory::class, 'main_category_id', 'cat_id');
         }
-        $product->colors()->delete();
-    });
-}
 
-public function mainCategory()
-{
-    return $this->belongsTo(MainCategory::class, 'main_category_id', 'cat_id');
-}
-
-
-
-
-
+        public function usersWhoWishlisted()
+        {
+            return $this->belongsToMany(User::class, 'wishlists', 'product_id', 'user_id')->withTimestamps();
+        }
 
 
 }

@@ -69,15 +69,18 @@ class HomeController extends Controller{
 
 
 
-     public function whistlist()
-    {
-        return view('whistlist');
-    }
+  
 
      public function addproduct()
     {
         return view('addproduct');
     }
+
+
+
+
+
+
 
 }
 

@@ -1,4 +1,4 @@
-
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <body>
 
        <style>
@@ -488,7 +488,7 @@
                                         </li>
                                         <li class="header-icon-wrap wishlist-wrap d-md-block d-none">
                                             <div class="header-icon-wrapper">
-                                                <a href="{{ url('/whistlist') }}" class="d-block header-icon-wishlist">
+                                                <a href="{{ url('/whistlist') }}" class="d-block header-icon-wishlist" id="wishlistBtn">
                                                     <span class="primary-link ul-mt5 flex-nowrap align-items-center">
                                                         <span class="d-block">
                                                             <span class="d-block header-block-icon-wrap position-relative per-8">
@@ -536,27 +536,33 @@
            <!-- Login Modal -->
 <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
+
+
+
     <form method="POST" action="{{ url('signin') }}">
       @csrf
       <input type="hidden" name="redirect" value="{{ url()->current() }}">
       <div class="modal-content p-3">
+            <div class="d-flex text-center justify-content-center">
+           <img src="{{ asset('assetsofdash/images/Red and Black Modern Creative Agency Logo-old.png') }}" class="rounded-1 text-center" width="200px" height="80px">
+              </div>
         <div class="modal-header text-center justify-content-center">
           <h5 class="modal-title text-warnings fs-3 fw-bold text-center">Login</h5>
           <button type="button" class="btn-close text-warning" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
-          <label for="" class="mt-2">Enter your name</label>
-          <input type="text" class="form-control mb-3 mt-2" name="email" placeholder="Username"/>
+          <label for="" class="mt-2">Enter your Email</label>
+          <input type="text" class="form-control mb-3 mt-3" name="email" placeholder="Username"/>
           <label for="" class="mt-2">Enter your password</label>
-          <input type="password" name="password" class="form-control mb-3 mt-2" placeholder="Password" />
+          <input type="password" name="password" class="form-control mb-3 mt-3" placeholder="Password" />
         </div>
         <div class="text-center justify-content-center flex-column">
           <button class="btn btn-dark w-75 text-center" type="submit">Login</button>
         </div>
         <hr>
         <div class="text-center justify-content-center flex-column">
-          <h6 class="font-18">Don't have an account?</h6>
-          <a href="javascript:void(0);" class="btn btn-dark text-white mt-3" id="openSignup">
+          <h6 class="font-18">Don't have an account? 👇</h6>
+          <a href="javascript:void(0);" class="btn btn-dark text-white mt-3 w-75" id="openSignup">
             Create Account
           </a>
         </div>
@@ -568,27 +574,37 @@
 <!-- Signup Modal -->
 <div class="modal fade" id="signupModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
-    <form action="{{ route('signup') }}" method="POST">
+    <form id="signupForm" action="{{ route('signup') }}" method="POST" >
       @csrf
       <div class="modal-content p-3">
+        <div class="d-flex text-center justify-content-center">
+           <img src="{{ asset('assetsofdash/images/Red and Black Modern Creative Agency Logo-old.png') }}" class="rounded-1 text-center" width="200px" height="80px">
+              </div>
         <div class="modal-header justify-content-center">
           <h5 class="modal-title">Sign Up</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
           <label>Name</label>
-          <input type="text" name="name" class="form-control mb-3" placeholder="Name" required>
+          <input type="text" name="name" class="form-control mb-3 mt-3" placeholder="Enter your name" required>
           <label>Email</label>
-          <input type="email" name="email" class="form-control mb-3" placeholder="Email" required>
+          <input type="email" name="email" class="form-control mb-3 mt-3" placeholder="Enter your email" required>
           <label>Password</label>
-          <input type="password" name="password" class="form-control mb-3" placeholder="Password" required>
+          <input type="password" name="password" class="form-control mb-3 mt-3" placeholder="Enter your password" required>
           <div class="form-check mb-2 d-flex align-items-center">
             <input class="fs-3" type="checkbox" required>
             <label class="form-check-label ms-3">I agree to the <a href="terms-condition.html">terms & guidelines</a></label>
           </div>
         </div>
         <div class="text-center">
-          <button type="submit" class="btn btn-dark w-100">Signup</button>
+          <button type="submit" class="btn btn-dark w-75">Signup</button>
+        </div>
+        <hr>
+         <div class="text-center justify-content-center flex-column">
+          <h6 class="font-18">You have an account signin 👇</h6>
+          <a href="javascript:void(0);" class="btn btn-dark text-white mt-3 w-75 " id="openLogin">
+            Sign In
+          </a>
         </div>
       </div>
     </form>
@@ -598,31 +614,100 @@
 
 
 
+{{--  Login → Signup --}}
 <script>
-document.getElementById('openSignup').addEventListener('click', function() {
-    var loginModalEl = document.getElementById('loginModal');
-    var signupModalEl = document.getElementById('signupModal');
+const loginModalEl  = document.getElementById('loginModal');
+const signupModalEl = document.getElementById('signupModal');
 
 
+document.getElementById('openSignup').addEventListener('click', function () {
+    const loginModal = bootstrap.Modal.getOrCreateInstance(loginModalEl);
 
-    // Hide login modal
-    var loginModal = bootstrap.Modal.getInstance(loginModalEl);
-    if(!loginModal) loginModal = new bootstrap.Modal(loginModalEl);
+    loginModalEl.addEventListener('hidden.bs.modal', function () {
+        bootstrap.Modal.getOrCreateInstance(signupModalEl).show();
+    }, { once: true });
+
     loginModal.hide();
-
-    // Show signup modal after short delay
-    setTimeout(() => {
-        var signupModal = bootstrap.Modal.getOrCreateInstance(signupModalEl);
-        signupModal.show();
-    }, 300); // 300ms delay to allow login modal to hide
 });
+
+
+document.getElementById('openLogin')?.addEventListener('click', function () {
+    const signupModal = bootstrap.Modal.getOrCreateInstance(signupModalEl);
+
+    signupModalEl.addEventListener('hidden.bs.modal', function () {
+        bootstrap.Modal.getOrCreateInstance(loginModalEl).show();
+    }, { once: true });
+
+    signupModal.hide();
+});
+
+[loginModalEl, signupModalEl].forEach(modal => {
+    modal.addEventListener('hidden.bs.modal', () => {
+        document.body.classList.remove('modal-open');
+        document.body.style.overflow = '';   // ⭐ ADD THIS LINE
+        document.querySelectorAll('.modal-backdrop').forEach(b => b.remove());
+    });
+});
+
 </script>
 
 
 
-{{-- sweetalert --}}
+
+{{-- Signup form submission --}}
+<script>document.getElementById('signupForm').addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const formData = new FormData(this);
+
+    fetch("{{ route('signup') }}", {
+        method: "POST",
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
+            "Accept": "application/json"
+        },
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.status){
+            // Close signup modal
+            const signupModal = bootstrap.Modal.getInstance(document.getElementById('signupModal'))
+                                 || bootstrap.Modal.getOrCreateInstance(document.getElementById('signupModal'),500);
+            // signupModal.hide();
+
+            // SweetAlert success
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: data.message,
+                timer: 2500,
+                showConfirmButton: false
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: data.message || 'Signup failed!',
+            });
+        }
+    })
+    .catch(err=>{
+        console.error(err);
+        Swal.fire({
+            icon: 'error',
+            title: 'Server Error',
+            text: 'Please try again later.',
+        });
+    });
+});
+
+</script>
 
 
+
+
+{{-- login sweet alert --}}
 
 @if(session('success'))
 <script>
@@ -647,6 +732,52 @@ document.getElementById('openSignup').addEventListener('click', function() {
     });
 </script>
 @endif
+
+        @if(session('success'))
+<script>
+    Swal.fire({
+        title: 'Success!',
+        text: "{{ session('success') }}",
+        icon: 'success',
+        confirmButtonText: 'OK'
+    });
+</script>
+
+
+@endif
+
+
+{{-- whistlist login alert --}}
+<script>document.getElementById('wishlistBtn').addEventListener('click', function(e){
+    @if(!Auth::check())
+        e.preventDefault(); // prevent redirect
+
+        Swal.fire({
+            icon: 'warning',
+            title: 'Login Required',
+            text: 'Please login first to access your wishlist!',
+            showCancelButton: true,
+            confirmButtonText: 'Login',
+            cancelButtonText: 'Cancel',
+        }).then((result) => {
+            if(result.isConfirmed){
+                // Open Login Modal
+                const loginModalEl = document.getElementById('loginModal');
+                const loginModal = bootstrap.Modal.getOrCreateInstance(loginModalEl);
+                loginModal.show();
+            }
+        });
+    @endif
+});
+loginModalEl.addEventListener('hidden.bs.modal', () => {
+    document.body.classList.remove('modal-open');
+    document.body.style.overflow = '';
+    document.body.style.paddingRight = '';
+    document.querySelectorAll('.modal-backdrop').forEach(b => b.remove());
+});
+
+</script>
+{{-- end script --}}
 
 
 

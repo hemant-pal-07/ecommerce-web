@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\WhistlistController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ImageController;
@@ -62,9 +63,9 @@ route ::get('/register',function (){
     return view('register');
 });
 
-Route::get('/whistlist', function () {
-    return view('whistlist');
-})->name('whistlist')->middleware('auth');
+
+
+
 
 
 
@@ -179,9 +180,10 @@ Route::get('/Kidscategroy', [showController::class, 'KidsMaincollection'])->name
 
 
 
+// whistlist route---->
 
+Route::post('/wishlist', [WhistlistController::class, 'addToWishlist'])->name('wishlist');
 
-
-
+Route::get('/whistlist', [WhistlistController::class, 'whistlist'])->name('whistlist')->middleware('auth');
 
 

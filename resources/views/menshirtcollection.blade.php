@@ -185,52 +185,82 @@
 
         </main>
 
+
+        {{-- script start --}}
+
         @push('scripts')
-        <script>
-       document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.add-to-wishlist').forEach(function(btn) {
-        btn.addEventListener('click', function() {
+<script>
+           document.querySelectorAll('.add-to-wishlist').forEach(btn => {
+    btn.addEventListener('click', function(e){
+        e.preventDefault(); // stop default link
 
-            let isLoggedIn = {{ auth()->check() ? 'true' : 'false' }};
+        const productId = this.dataset.productId;
 
-            if (!isLoggedIn) {
-                // Open login modal directly
-                let loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
-                loginModal.show();
-                return;
-            }
-
-            // ✅ User logged in → AJAX POST
-            let productId = this.getAttribute('data-product-id');
-
-            fetch("{{ route('whistlist') }}", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                },
-                body: JSON.stringify({ product_id: productId })
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    this.classList.add('active');
-                    this.innerHTML = '<i class="ri-heart-fill"></i>';
-
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Added to wishlist ❤️',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                } else {
-                    Swal.fire('Error', data.message || 'Something went wrong', 'error');
+        @if(!Auth::check())
+            Swal.fire({
+                icon: 'warning',
+                title: 'Login Required',
+                text: 'Please login first to add items to wishlist!',
+                showCancelButton: true,
+                confirmButtonText: 'Login',
+                cancelButtonText: 'Cancel',
+            }).then((result) => {
+                if(result.isConfirmed){
+                    const loginModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('loginModal'));
+                    loginModal.show();
                 }
-            })
-            .catch(err => console.error(err));
+            });
+        @else
+           fetch("{{ route('wishlist') }}", {
+    method: "POST",
+    headers: {
+        "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ product_id: productId })
+})
+.then(res => res.json())
+.then(data => {
+    if(data.status){
+        Swal.fire({
+            icon: 'success',
+            title: 'Added!',
+            text: data.message,
+            timer: 1500,
+            showConfirmButton: false
         });
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: data.message
+        });
+    }
+});
+        @endif
     });
 });
+
+</script>
+
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+<script>
+    Swal.fire({
+    icon: 'success',
+    title: 'Success!',
+    text: data.message,
+    timer: 1500,
+    showConfirmButton: false
+});
+
 </script>
 
 
