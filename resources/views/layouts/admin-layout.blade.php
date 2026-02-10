@@ -53,29 +53,29 @@
         </div>
 
     </div>
+<!-- Jquery Core Js -->
+<script src="{{ asset('assetsofdash/bundles/libscripts.bundle.js') }}"></script>
 
-    <!-- Jquery Core Js -->
-    <script src="{{ asset('assetsofdash/bundles/libscripts.bundle.js') }}"></script>
+<!-- Plugin Js -->
+<script src="{{ asset('assetsofdash/bundles/apexcharts.bundle.js') }}"></script>
+<script src="{{ asset('assetsofdash/bundles/dataTables.bundle.js') }}"></script>
 
-    <!-- Plugin Js -->
-    <script src="{{ asset('assetsofdash/bundles/apexcharts.bundle.js') }}"></script>
-    <script src="{{ asset('assetsofdash/bundles/dataTables.bundle.js') }}"></script>
+<!-- Page JS -->
+<script src="{{ asset('js/template.js') }}"></script>
 
-    <!-- Jquery Page Js -->
-    <script src="{{ asset('../js/template.js') }}"></script>
-    <script src="{{ asset('../js/page/index.js') }}"></script>
-    <script src="{{ asset('https://maps.googleapis.com/maps/api/js?key=AIzaSyB1Jr7axGGkwvHRnNfoOzoVRFV3yOPHJEU&amp;callback=myMap') }}"></script>
-    <script>
-        $('#myDataTable')
-        .addClass( 'nowrap')
-        .dataTable( {
+<!-- Google Maps -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1Jr7axGGkwvHRnNfoOzoVRFV3yOPHJEU"></script>
+
+<script>
+    $('#myDataTable')
+        .addClass('nowrap')
+        .dataTable({
             responsive: true,
             columnDefs: [
                 { targets: [-1, -3], className: 'dt-body-right' }
             ]
         });
-    </script>
-    @stack('scripts')
+</script>
 
 
 </body>

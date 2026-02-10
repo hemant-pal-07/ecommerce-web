@@ -75,17 +75,18 @@
 
     <!-- Dashboard libs -->
     <script src="{{ asset('assetsofdash/bundles/libscripts.bundle.js') }}"></script>
-    <script src="{{ asset('assets/bundles/apexcharts.bundle.js') }}"></script>
-    <script src="{{ asset('assets/bundles/dataTables.bundle.js') }}"></script>
+  <script src="{{ asset('assetsofdash/bundles/apexcharts.bundle.js') }}"></script>
+<script src="{{ asset('assetsofdash/bundles/dataTables.bundle.js') }}"></script>
+
 
     <!-- Template JS -->
     <script src="{{ asset('js/template.js') }}"></script>
-    <script src="{{ asset('js/page/index.js') }}"></script>
+    {{-- <script src="{{ asset('js/page/index.js') }}"></script> --}}
 
     <!-- Google Maps -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1Jr7axGGkwvHRnNfoOzoVRFV3yOPHJEU&callback=myMap"></script>
 
-   
+
     <!-- SweetAlert2 JS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
